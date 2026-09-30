@@ -56,6 +56,13 @@ const rule = (icon, html) => `
 const snap = (src, alt, pos, deg) => `
     <img src="images/${src}" alt="${alt}" class="absolute ${pos} h-auto bg-slate-50 p-[0.5cqw] rounded-sm shadow-2xl shadow-slate-950/80" style="transform: rotate(${deg}deg);">`;
 
+// 国名の札を付けて傾けた写真 1 枚（「世界中でプレーされている」用。TODO-025）
+const world = (src, alt, country, pos, deg) => `
+    <div class="absolute ${pos} bg-slate-50 p-[0.45cqw] rounded-sm shadow-2xl shadow-slate-950/80" style="transform: rotate(${deg}deg);">
+        <img src="images/${src}" alt="${alt}" class="w-full aspect-[4/3] object-cover">
+        <span class="absolute left-[0.9cqw] top-[0.9cqw] rounded-md bg-lime-400 px-[0.6cqw] py-[0.1cqw] font-bold text-slate-950 shadow" style="font-size: clamp(0.6rem, 1.4cqw, 1.05rem);">${country}</span>
+    </div>`;
+
 // 流れの 1 箱（template.js の「図解」と同じ書式）
 const step = (color, icon, text) => `
     <div class="flex-1 rounded-2xl bg-gradient-to-b from-${color}-950/85 to-slate-900/80 backdrop-blur-sm border border-${color}-500/40 px-[1cqw] py-[1.2cqw] shadow-lg shadow-${color}-900/20">
@@ -236,10 +243,14 @@ const slideData = [
         render: function() { return bgSlide(this, 'bg-nightearth.jpg', '夜の地球の世界地図（NASA）', `
             <!-- 数字は出典のあるものだけ（archives/agents/TODO-025/research-report.md） -->
             <div class="grid grid-cols-5 gap-[1.8cqw] items-center">
-                <figure class="col-span-3 m-0">
-                    <img src="images/bg-crowd2.jpg" alt="大会の会場で、何組もがバックギャモンを打っている写真" class="w-full h-[28cqw] object-cover object-[center_75%] rounded-xl border border-slate-600 shadow-xl shadow-slate-950/60">
-                    <figcaption class="text-slate-300 mt-[0.5cqw]" style="font-size: clamp(0.65rem, 1.3cqw, 1rem);">チェコの大会の会場（2008 年）</figcaption>
-                </figure>
+                <!-- いろいろな国で遊ぶ様子を傾けて重ねる（TODO-025。出典は archives/agents/TODO-025/world-photos-report.md） -->
+                <div class="col-span-3 relative h-[31cqw]">
+                    ${world('bg-world-iran.jpg', 'イランの路上で、2 人が台の上の盤で打つ写真', 'イラン', 'left-0 top-[0.5cqw] w-[19cqw]', -5)}
+                    ${world('bg-world-georgia.jpg', '公園のベンチで、年配の男性たちが打つ写真', 'ジョージア', 'left-[17.5cqw] top-0 w-[18cqw]', 4)}
+                    ${world('bg-world-tunisia.jpg', 'カフェで、緑の盤を囲む男性たちの写真', 'チュニジア', 'left-[34cqw] top-[1cqw] w-[18cqw]', -3)}
+                    ${world('bg-world-peru.jpg', '屋外のテーブルで、緑の盤を囲む男性たちの写真', 'ペルー', 'left-[5cqw] top-[15.5cqw] w-[19cqw]', 3)}
+                    ${world('bg-crowd2.jpg', '大会の会場で、何組もが打つ写真', 'チェコ', 'left-[26cqw] top-[16cqw] w-[20cqw]', -4)}
+                </div>
                 <div class="col-span-2 space-y-[1.4cqw] text-center">
                     <div class="rounded-2xl bg-slate-900/80 border border-lime-500/40 p-[1.4cqw] shadow-lg shadow-lime-900/20 ring-1 ring-lime-400/20">
                         <div class="text-slate-200 font-medium" style="font-size: clamp(0.9rem, 1.95cqw, 1.4rem);">世界で遊ぶ人</div>
@@ -253,7 +264,7 @@ const slideData = [
                     </div>
                 </div>
             </div>
-        `, { opacity: 70, credit: '写真: Matěj Baťha (CC BY-SA 3.0)／Wikimedia Commons' }); },
+        `, { opacity: 70, credit: '写真: Adam Jones、Marcin Konsek、Monaam Ben Fredj、Alex Proimos、Matěj Baťha（CC BY / BY-SA）／Wikimedia Commons' }); },
     },
 
     // ── 日本人の活躍（優勝歴は世界選手権だけ。出典は archives/agents/TODO-013/search-report.md） ──
