@@ -125,6 +125,8 @@ const slideData = [
                     <img src="images/bg-cover.jpg" alt="黒と木目のボードに載ったダイスとダブリングキューブ" class="absolute inset-0 w-full h-full object-cover opacity-[0.45]">
                     <div class="absolute inset-0 bg-slate-950/40"></div>
                     <div class="absolute right-[1.2cqw] bottom-[0.8cqw] text-slate-500" style="font-size: clamp(0.6rem, 1.1cqw, 0.8rem);">背景: Clint Budd (CC BY 2.0)／Wikimedia Commons</div>
+                    <!-- 版はタグに合わせて手で書き換える（TODO-040） -->
+                    <div class="absolute left-[1.2cqw] bottom-[0.8cqw] text-slate-500" style="font-size: clamp(0.6rem, 1.1cqw, 0.8rem);">v0.2.1</div>
                     <div class="absolute -top-[18cqw] -left-[10cqw] w-[45cqw] h-[45cqw] rounded-full bg-sky-500/20 blur-[6cqw]"></div>
                     <div class="absolute -bottom-[20cqw] -right-[8cqw] w-[40cqw] h-[40cqw] rounded-full bg-lime-500/20 blur-[6cqw]"></div>
                     <div class="relative">
@@ -139,7 +141,8 @@ const slideData = [
                             <span class="text-lime-300">5000 年</span>遊ばれてきた、世界のボードゲーム
                         </p>
                         <p class="text-slate-200 font-medium mt-[2.4cqw]" style="font-size: clamp(0.9rem, 2cqw, 1.5rem);">
-                            関内バックギャモンの会
+                            <!-- 公式サイトへのリンク。クリックを再生・一時停止に伝えない（TODO-041） -->
+                            <a href="https://kannaibg.wixsite.com/kannai-backgammon" target="_blank" rel="noopener" onclick="event.stopPropagation()" class="no-underline">関内バックギャモンの会</a>
                         </p>
                         <p class="text-slate-400 mt-[0.3cqw]" style="font-size: clamp(0.65rem, 1.3cqw, 1rem);">
                             横浜市中区 なか区民活動センター登録団体
@@ -296,12 +299,12 @@ const slideData = [
     {
         title: '魅力① 簡単で手軽',
         icon: 'fa-feather-pointed',
-        duration: 15,
-        narration: 'バックギャモンの魅力、まずは簡単で手軽なことです。基本のルールは、最初に見た4つだけで、すぐに覚えられます。1ゲームは15分ほど。ボードは畳んで持ち運べるので、どこでも遊べます。',
+        duration: 13,
+        narration: 'バックギャモンの魅力、まずは簡単で手軽なことです。基本のルールはシンプルで、すぐに覚えられます。1ゲームは15分ほど。ボードは畳んで持ち運べるので、どこでも遊べます。',
         render: function() { return bgSlide(this, 'bg-portable.jpg', '木のテーブルに置いた持ち運び用のバックギャモン', `
             <!-- 大きな数字で「どう簡単か」を見せる（TODO-028） -->
             <div class="grid grid-cols-3 gap-[1.8cqw] text-center">
-                ${easy('sky', 'fa-list-check', 'ルール', '4<span style="font-size: 0.45em;"> つ</span>', '基本は最初に見た 4 つだけ')}
+                ${easy('sky', 'fa-list-check', 'ルール', '<span style="font-size: 0.6em;">シンプル</span>', 'すぐに覚えられる')}
                 ${easy('lime', 'fa-stopwatch', '1 ゲーム', '15<span style="font-size: 0.45em;"> 分</span>', 'すき間の時間で遊べる')}
                 ${easy('amber', 'fa-suitcase', 'ボード', '<span style="font-size: 0.6em;">持ち運べる</span>', '畳んでどこでも')}
             </div>
@@ -345,21 +348,24 @@ const slideData = [
     {
         title: '関内バックギャモンの会で始めよう',
         icon: 'fa-handshake',
-        duration: 23,
-        narration: '日本では、まだ知る人の少ないバックギャモンですが、関内バックギャモンの会に来れば、一緒に遊ぶ仲間がいます。初めての方には、遊び方を丁寧に教えます。月に2回ほど、主になか区民活動センターや、Kアリーナのバーで、お喋りしながら気軽に遊んでいます。日程と申し込みは、公式サイトをご覧ください。',
+        duration: 27,
+        narration: '日本では、まだ知る人の少ないバックギャモンですが、関内バックギャモンの会に来れば、一緒に遊ぶ仲間がいます。初めての方には、遊び方を丁寧に教えます。月に2回ほど、主になか区民活動センターや、Kアリーナのバーで、お喋りしながら気軽に遊んでいます。同じ横浜では、「バックギャモン・ナイト」も開かれています。日程と申し込みは、公式サイトをご覧ください。',
         render: function() { return bgSlide(this, 'bg-kannai.jpg', '窓の光が差すテーブルに置いた木のバックギャモンのボード', `
             <div class="flex items-center gap-[2.4cqw]">
-                <ul class="flex-1 flex flex-col gap-[1.2cqw]">
+                <ul class="flex-1 flex flex-col gap-[0.6cqw]">
                     ${li('fa-seedling', '<span class="text-lime-300">初心者歓迎</span>。遊び方を丁寧に教えます')}
                     ${li('fa-calendar-days', '<span class="text-lime-300">月 2 回</span>ほど、主に なか区民活動センターや <span class="whitespace-nowrap">Kアリーナ Bar 7 で</span>')}
                     ${li('fa-comments', 'お喋りしながら<span class="text-lime-300">気軽に</span>交流')}
                     ${li('fa-coins', '参加費は <span class="text-lime-300">100 円〜</span>の投げ銭<span class="text-slate-400 font-medium" style="font-size: 0.7em;">（ボード持参なら無料）</span>')}
+                    <!-- 日本バックギャモン協会が 2026 年 7 月から馬車道の BankPark YOKOHAMA 1 階 CRAFT. で開く「大人の木曜日－バックギャモンナイト」（TODO-038） -->
+                    ${li('fa-moon', '馬車道では<span class="text-lime-300">「バックギャモン・ナイト」</span>も')}
                 </ul>
-                <div class="shrink-0 w-[23cqw] rounded-2xl bg-slate-50 p-[1.4cqw] text-center shadow-2xl shadow-slate-950/80">
+                <!-- 札ごと公式サイトへのリンク。クリックを再生・一時停止に伝えない（TODO-041） -->
+                <a href="https://kannaibg.wixsite.com/kannai-backgammon" target="_blank" rel="noopener" onclick="event.stopPropagation()" class="block no-underline shrink-0 w-[23cqw] rounded-2xl bg-slate-50 p-[1.4cqw] text-center shadow-2xl shadow-slate-950/80">
                     <img src="images/kannai-qr.png" alt="公式サイトの QR コード" class="w-full h-auto" style="image-rendering: pixelated;">
                     <div class="text-slate-900 font-bold mt-[0.6cqw]" style="font-size: clamp(0.8rem, 1.8cqw, 1.35rem);">日程・申し込みは<br>公式サイトで</div>
                     <div class="text-slate-600 font-medium mt-[0.4cqw] break-all leading-tight" style="font-size: clamp(0.55rem, 1.05cqw, 0.8rem);">kannaibg.wixsite.com/<br>kannai-backgammon</div>
-                </div>
+                </a>
             </div>
         `, { credit: '背景: 関内バックギャモンの会 公式サイト' }); },
     },
