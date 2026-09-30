@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="60 15 280 160" width="1120" height="640">
+  <defs>
+    <marker id="h" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="2.6" markerHeight="2.6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#65a30d"/></marker>
+  </defs>
+  <rect x="0" y="0" width="360" height="180" fill="#9cc3d5"/>
+  <image href="land.png" x="0" y="0" width="360" height="180"/>
+  <g fill="none" stroke="#65a30d" stroke-width="4" stroke-linecap="round" marker-end="url(#h)">
+    <!-- 中東(233,58) から各地へ -->
+    <path d="M233,58 Q212,40 192,47"/>
+    <path d="M192,47 Q186,36 178,38"/>
+    <path d="M178,38 Q140,28 108,49"/>
+    <path d="M108,49 Q112,80 132,102"/>
+    <path d="M233,58 Q248,56 256,67"/>
+    <path d="M233,58 Q270,34 289,52"/>
+    <path d="M289,52 Q304,44 316,53"/>
+    <path d="M233,58 Q222,68 213,66"/>
+    <path d="M256,67 Q292,84 312,112"/>
+  </g>
+  <circle cx="233" cy="58" r="6" fill="#f59e0b" stroke="#7c2d12" stroke-width="1"/>
+</svg>

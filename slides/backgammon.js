@@ -178,7 +178,7 @@ const slideData = [
             return bgSlide(this, 'bg-worldmap.jpg', '古い世界地図（Hondius, 1630）', `
                         <div class="grid grid-cols-3 gap-[1.8cqw] items-end">
                             ${fig('bg-nard.jpg', 'ペルシャの写本の、盤を挟んでナルドを打つ人々', 'ペルシャの「ナルド」（15 世紀の絵）')}
-                            ${fig('bg-rome.jpg', '石に刻んだ、左右 6 マスずつ 3 列の盤', '古代ローマ時代の盤（エフェソス）', 'object-center')}
+                            ${fig('bg-spread.jpg', '中東から世界各地へ矢印が伸びる世界地図', '中東から世界へ（イメージ）', 'object-center')}
                             ${fig('bg-nara.png', '盤を挟んで向かい合う二人の絵', '盤双六らしい盤を挟む二人（江戸時代ごろの絵）')}
                         </div>
                         <!-- 時間軸: 各図の真下に点、右端に矢じり -->
@@ -194,7 +194,7 @@ const slideData = [
                             ${cap('その後<br><b class="text-lime-300">世界中</b>に広がる')}
                             ${cap('日本にも<b class="text-lime-300">飛鳥時代</b>には<br>伝わっていた')}
                         </div>
-            `, { credit: '絵: バイスングルの『シャー・ナーメ』（PD）、盤: nsop (CC BY 2.0)／Wikimedia Commons' });
+            `, { credit: '絵: バイスングルの『シャー・ナーメ』（PD）、地図: Natural Earth（CC0）／Wikimedia Commons' });
         },
     },
 
