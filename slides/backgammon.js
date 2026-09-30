@@ -359,7 +359,7 @@ const slideData = [
         title: '関内バックギャモンの会で始めよう',
         icon: 'fa-handshake',
         duration: 27,
-        narration: '日本では、まだ知る人の少ないバックギャモンですが、関内バックギャモンの会に来れば、一緒に遊ぶ仲間がいます。初めての方には、遊び方を丁寧に教えます。月に2回ほど、主になか区民活動センターや、Kアリーナのバーで、お喋りしながら気軽に遊んでいます。同じ横浜では、「バックギャモン・ナイト」も開かれています。日程と申し込みは、公式サイトをご覧ください。',
+        narration: '日本では、まだ知る人の少ないバックギャモンですが、関内バックギャモンの会に来れば、一緒に遊ぶ仲間がいます。初めての方には、遊び方を丁寧に教えます。月に2回ほど、主になか区民活動センターや、Kアリーナのバーで、お喋りしながら気軽に遊んでいます。同じ横浜では、「バックギャモン・ナイト」も開かれています。お問い合わせは、公式サイトをご覧ください。',
         render: function() { return bgSlide(this, 'bg-kannai.jpg', '窓の光が差すテーブルに置いた木のバックギャモンのボード', `
             <div class="flex items-center gap-[2.4cqw]">
                 <ul class="flex-1 flex flex-col gap-[0.6cqw]">
@@ -372,7 +372,7 @@ const slideData = [
                 </ul>
                 <!-- 札ごとリンク。上が公式サイト、下が X。クリックを再生・一時停止に伝えない（TODO-041、TODO-043） -->
                 <div class="shrink-0 w-[27cqw] flex flex-col gap-[1cqw]">
-                    ${qrCard('https://kannaibg.wixsite.com/kannai-backgammon', 'kannai-qr.png', '公式サイトの QR コード', '日程・<span class="whitespace-nowrap">申し込みは</span><br>公式サイトで', 'kannaibg.wixsite.com/<br>kannai-backgammon')}
+                    ${qrCard('https://kannaibg.wixsite.com/kannai-backgammon', 'kannai-qr.png', '公式サイトの QR コード', 'お問い合わせは<br>公式サイトで', 'kannaibg.wixsite.com/<br>kannai-backgammon')}
                     ${qrCard('https://x.com/lppcn5b6mw94np2', 'x-qr.png', 'X の QR コード', '最新情報は<br>X で', 'x.com/<br>lppcn5b6mw94np2')}
                 </div>
             </div>
