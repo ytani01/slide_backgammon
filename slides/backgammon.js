@@ -203,7 +203,7 @@ const slideData = [
             <div class="flex items-stretch justify-center gap-[1cqw] text-center">
                 ${step('sky', 'fa-face-smile', '簡単で面白い')}
                 ${arrow}
-                ${step('lime', 'fa-fire', '大流行')}
+                ${step('lime', 'fa-people-group', '大流行')}
                 ${arrow}
                 ${step('amber', 'fa-coins', '賭博の横行')}
                 ${arrow}
