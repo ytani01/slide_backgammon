@@ -84,9 +84,40 @@ const step = (color, src, alt, text) => `
         <img src="images/${src}" alt="${alt}" class="w-full aspect-[3/2] object-cover rounded-xl border border-${color}-400/40">
         <div class="font-bold text-slate-100 leading-snug mt-auto pt-[1cqw]" style="font-size: clamp(0.75rem, 3.2cqw, 2.4rem);">${text}</div>
     </div>`;
-// 魅力①の 1 枚分: 見出し・大きな数字・一言（TODO-028）
-const easy = (color, icon, label, big, note) => `
+// 魅力①の図。②の絵・③の写真と違う形にするため、線画で描く（TODO-067）。色は currentColor
+const easyFig = {
+    // 3 行だけのメモと電球。覚えることが少なく、すぐ分かることを表す
+    rules: `
+        <rect x="10" y="8" width="58" height="62" rx="5" fill="currentColor" fill-opacity="0.12"/>
+        <path d="M 19 24 L 23 28 L 30 20 M 36 24 H 58 M 19 40 L 23 44 L 30 36 M 36 40 H 58 M 19 56 L 23 60 L 30 52 M 36 56 H 58"/>
+        <path d="M 84 46 C 84 40 76 36 76 27 A 14 14 0 0 1 104 27 C 104 36 96 40 96 46 Z" fill="currentColor" fill-opacity="0.35"/>
+        <path d="M 85 51 H 95 M 87 56 H 93 M 90 4 V 0 M 74 11 L 71 8 M 106 11 L 109 8 M 67 27 H 63 M 113 27 H 117"/>`,
+    // 12〜3 時の 15 分だけを塗った時計
+    time: `
+        <path d="M 60 40 V 8 A 32 32 0 0 1 92 40 Z" fill="currentColor" fill-opacity="0.35" stroke="none"/>
+        <circle cx="60" cy="40" r="32"/>
+        <path d="M 60 40 V 14 M 60 40 H 84"/>
+        <circle cx="60" cy="40" r="2.5" fill="currentColor"/>`,
+    // 100 度ほど開いたケース。立てた蓋と手前の盤の両方に三角が見え、蓋の上の縁に取っ手
+    board: `
+        <path d="M 22 46 L 108 46 L 112 10 L 26 10 Z" fill="currentColor" fill-opacity="0.12"/>
+        <path d="M 26 10 L 29 7 H 115 L 112 10 M 115 7 L 111 43 L 108 46" fill="currentColor" fill-opacity="0.2"/>
+        <path d="M 63 7 V 3 Q 63 1 65 1 H 75 Q 77 1 77 3 V 7"/>
+        <path d="M 10 60 H 96 L 108 46 H 22 Z" fill="currentColor" fill-opacity="0.12"/>
+        <path d="M 10 60 V 67 H 96 V 60 M 96 67 L 108 53 V 46" fill="currentColor" fill-opacity="0.2"/>
+        <path d="M 65 46 L 69 10 M 53 60 L 65 46"/>
+        <g fill="currentColor" fill-opacity="0.45" stroke="none">
+            <path d="M 31 10 L 39 10 L 35 22 Z M 43 10 L 51 10 L 47 22 Z M 55 10 L 63 10 L 59 22 Z M 74 10 L 82 10 L 78 22 Z M 86 10 L 94 10 L 90 22 Z M 98 10 L 106 10 L 102 22 Z"/>
+            <path d="M 26 46 L 34 46 L 31 34 Z M 38 46 L 46 46 L 43 34 Z M 50 46 L 58 46 L 55 34 Z M 70 46 L 78 46 L 75 34 Z M 82 46 L 90 46 L 87 34 Z M 94 46 L 102 46 L 99 34 Z"/>
+            <path d="M 13 60 L 23 60 L 22 53 Z M 27 60 L 37 60 L 36 53 Z M 41 60 L 51 60 L 50 53 Z M 60 60 L 70 60 L 70 53 Z M 72 60 L 82 60 L 82 53 Z M 84 60 L 94 60 L 94 53 Z"/>
+            <path d="M 25 46 L 33 46 L 30 51 Z M 37 46 L 45 46 L 42 51 Z M 49 46 L 57 46 L 54 51 Z M 70 46 L 78 46 L 75 51 Z M 82 46 L 90 46 L 87 51 Z M 94 46 L 102 46 L 99 51 Z"/></g>
+        <g fill="currentColor" stroke="none"><ellipse cx="30" cy="56" rx="3.5" ry="2.3"/><ellipse cx="78" cy="56" rx="3.5" ry="2.3"/></g>
+        <ellipse cx="44" cy="50" rx="3.2" ry="2.1"/><ellipse cx="90" cy="50" rx="3.2" ry="2.1"/>`,
+};
+// 魅力①の 1 枚分: 図・見出し・大きな数字・一言（TODO-028、TODO-067）
+const easy = (color, fig, icon, label, big, note) => `
     <div class="rounded-2xl bg-gradient-to-b from-${color}-950/85 to-slate-900/80 backdrop-blur-sm border border-${color}-500/40 px-[1cqw] py-[1.8cqw] shadow-lg shadow-${color}-900/20">
+        <svg viewBox="0 0 120 76" class="mx-auto mb-[1cqw] h-[9cqw] text-${color}-300" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${easyFig[fig]}</svg>
         <div class="flex items-center justify-center gap-[0.8cqw] text-slate-200 font-bold" style="font-size: clamp(0.9rem, 2.1cqw, 1.6rem);"><i class="fa-solid ${icon} text-${color}-300"></i>${label}</div>
         <div class="font-extrabold text-${color}-300 leading-none mt-[1.2cqw] h-[7cqw] flex items-center justify-center" style="font-size: clamp(2.4rem, 7cqw, 5.2rem);">${big}</div>
         <div class="text-slate-200 font-medium mt-[1.2cqw]" style="font-size: clamp(0.8rem, 1.8cqw, 1.35rem);">${note}</div>
@@ -292,9 +323,9 @@ const slideData = [
         render: function() { return bgSlide(this, 'bg-friends.jpg', '部屋のテーブルで、3 人が笑いながらバックギャモンを遊ぶ絵', `
             <!-- 大きな数字で「どう簡単か」を見せる（TODO-028） -->
             <div class="grid grid-cols-3 gap-[1.8cqw] text-center">
-                ${easy('sky', 'fa-list-check', 'ルール', '<span style="font-size: 0.6em;">シンプル</span>', 'すぐに覚えられる')}
-                ${easy('lime', 'fa-stopwatch', '1 ゲーム', '15<span style="font-size: 0.45em;"> 分</span>', 'すき間の時間で遊べる')}
-                ${easy('amber', 'fa-suitcase', 'ボード', '<span style="font-size: 0.6em;">持ち運べる</span>', '畳んでどこでも')}
+                ${easy('sky', 'rules', 'fa-list-check', 'ルール', '<span style="font-size: 0.6em;">シンプル</span>', 'すぐに覚えられる')}
+                ${easy('lime', 'time', 'fa-stopwatch', '1 ゲーム', '<span style="font-size: 0.45em;">約 </span>15<span style="font-size: 0.45em;"> 分</span>', 'すき間の時間で遊べる')}
+                ${easy('amber', 'board', 'fa-suitcase', 'ボード', '<span style="font-size: 0.6em;">持ち運べる</span>', '畳んでどこでも')}
             </div>
         `, { credit: '背景: AI 生成（Gemini）' }); },
     },
