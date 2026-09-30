@@ -42,6 +42,19 @@ const arrow = `
         <i class="fa-solid fa-arrow-right text-lime-400" style="font-size: clamp(1.1rem, 2.4cqw, 1.8rem);"></i>
     </div>`;
 
+// 背景に画像を薄く敷いた 1 枚。見出しは player.html と同じ書式。
+// 暗い画像は opacity を上げる。CC BY の画像は credit にクレジットを渡す
+const bgSlide = (slide, src, alt, body, { opacity = 30, credit = '' } = {}) => `
+    <div class="relative h-full overflow-hidden">
+        <img src="images/${src}" alt="${alt}" class="absolute inset-0 w-full h-full object-cover" style="opacity: ${opacity / 100};">
+        <div class="absolute inset-0 bg-slate-950/40"></div>
+        <div class="relative flex flex-col h-full justify-center px-[3cqw]">
+            <h2 class="font-bold text-sky-400 mb-[1.5cqw] flex items-center gap-[1cqw]" style="font-size: clamp(1.4rem, 3.2cqw, 2.5rem);"><i class="fa-solid ${slide.icon} text-lime-400"></i> ${slide.title}</h2>
+            ${body}
+        </div>
+        ${credit ? `<div class="absolute right-[1.2cqw] bottom-[0.8cqw] text-slate-500" style="font-size: clamp(0.6rem, 1.1cqw, 0.8rem);">${credit}</div>` : ''}
+    </div>`;
+
 const slideData = [
     // ── 表紙 ──
     {
@@ -51,6 +64,9 @@ const slideData = [
         render: function() {
             return `
                 <div class="relative h-full flex flex-col justify-center items-center text-center px-[5cqw] overflow-hidden">
+                    <img src="images/bg-cover.jpg" alt="黒と木目のボードに載ったダイスとダブリングキューブ" class="absolute inset-0 w-full h-full object-cover opacity-30">
+                    <div class="absolute inset-0 bg-slate-950/40"></div>
+                    <div class="absolute right-[1.2cqw] bottom-[0.8cqw] text-slate-500" style="font-size: clamp(0.6rem, 1.1cqw, 0.8rem);">背景: Clint Budd (CC BY 2.0)／Wikimedia Commons</div>
                     <div class="absolute -top-[18cqw] -left-[10cqw] w-[45cqw] h-[45cqw] rounded-full bg-sky-500/20 blur-[6cqw]"></div>
                     <div class="absolute -bottom-[20cqw] -right-[8cqw] w-[40cqw] h-[40cqw] rounded-full bg-lime-500/20 blur-[6cqw]"></div>
                     <div class="relative">
@@ -74,19 +90,13 @@ const slideData = [
     },
 
     // ── 1. 歴史 ──
-    // 背景に古い世界地図を薄く敷くので render() で書く。見出しは player.html と同じ書式
     {
         title: 'バックギャモンの歴史は古い',
         icon: 'fa-landmark',
         duration: 13,
         narration: 'バックギャモンの歴史は古く、起源は約5000年前の中東です。その後、世界中に拡散して定着しました。日本には、奈良時代より前の飛鳥時代に伝わりました。',
         render: function() {
-            return `
-                <div class="relative h-full overflow-hidden">
-                    <img src="images/bg-worldmap.jpg" alt="古い世界地図（Hondius, 1630）" class="absolute inset-0 w-full h-full object-cover opacity-30">
-                    <div class="absolute inset-0 bg-slate-950/40"></div>
-                    <div class="relative flex flex-col h-full justify-center px-[3cqw]">
-                        <h2 class="font-bold text-sky-400 mb-[1.5cqw] flex items-center gap-[1cqw]" style="font-size: clamp(1.4rem, 3.2cqw, 2.5rem);"><i class="fa-solid ${this.icon} text-lime-400"></i> ${this.title}</h2>
+            return bgSlide(this, 'bg-worldmap.jpg', '古い世界地図（Hondius, 1630）', `
                         <div class="grid grid-cols-3 gap-[1.8cqw] items-end">
                             ${fig('bg-egypt.png', 'エジプトの壁画')}
                             ${fig('bg-medieval.png', '中世ヨーロッパの写本')}
@@ -105,9 +115,7 @@ const slideData = [
                             ${cap('<b class="text-lime-300">世界中</b>に拡散・定着')}
                             ${cap('日本には<b class="text-lime-300">飛鳥時代</b>')}
                         </div>
-                    </div>
-                </div>
-            `;
+            `);
         },
     },
 
@@ -117,7 +125,7 @@ const slideData = [
         icon: 'fa-earth-asia',
         duration: 10,
         narration: 'バックギャモンは、世界中でプレーされています。競技人口は世界で3億人とも言われます。趣味レベルでは、10億人を超えるとも言われます。',
-        body: `
+        render: function() { return bgSlide(this, 'bg-nightearth.jpg', '夜の地球の世界地図（NASA）', `
             <div class="grid grid-cols-5 gap-[1.8cqw] items-center">
                 <figure class="col-span-3 m-0">
                     <img src="images/bg-crowd.png" alt="屋外で大勢が対局する写真" class="w-full h-auto max-h-[32cqw] object-contain rounded-xl border border-slate-700 shadow-xl shadow-slate-950/60">
@@ -135,8 +143,9 @@ const slideData = [
                     </div>
                 </div>
             </div>
-        `,
+        `, { opacity: 70 }); },
     },
+
 
     // ── 3. 不遇の歴史（日本では、までを 1 枚に） ──
     {
@@ -144,7 +153,7 @@ const slideData = [
         icon: 'fa-ban',
         duration: 14,
         narration: '不遇の歴史もあります。簡単で面白いので大流行しましたが、賭博が横行し、禁止令が出されました。日本では、ルールを覚えるより、対戦相手を見つけるのがむずかしいボードゲームになってしまいました。',
-        body: `
+        render: function() { return bgSlide(this, 'bg-gambling.jpg', 'モンテカルロの賭博室の古い写真（Jean Gilletta）', `
             <div class="flex items-stretch justify-center gap-[1cqw] text-center">
                 ${step('sky', 'fa-face-smile', '簡単で面白い')}
                 ${arrow}
@@ -163,7 +172,7 @@ const slideData = [
                     <i class="fa-solid fa-torii-gate text-lime-400"></i> 日本では、ルールを覚えるより、<span class="text-lime-300 font-bold">対戦相手を見つける</span>のがむずかしいボードゲームに
                 </p>
             </blockquote>
-        `,
+        `); },
     },
 
     // ── 4. 魅力 ──
