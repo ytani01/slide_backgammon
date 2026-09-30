@@ -26,12 +26,16 @@ const fig = (src, alt) => `
 const cap = (html) => `
     <div class="flex justify-center text-slate-200 font-medium leading-snug whitespace-nowrap" style="font-size: clamp(1.1rem, 2.3cqw, 1.7rem);"><span>${html}</span></div>`;
 
-// 箇条書きの 1 行（template.js の「箇条書き」と同じ書式）
+// 箇条書きの 1 行。template.js の「箇条書き」より大きく、写真と重なっても読めるよう地を濃くした（TODO-018）
 const li = (icon, html) => `
-    <li class="flex items-start gap-[1.4cqw] rounded-xl bg-slate-800/40 border border-slate-700/70 px-[1.4cqw] py-[0.8cqw]">
-        <span class="shrink-0 grid place-items-center w-[3.2cqw] h-[3.2cqw] rounded-lg bg-lime-500/15 text-lime-400 border border-lime-500/40" style="font-size: clamp(0.85rem, 1.8cqw, 1.3rem);"><i class="fa-solid ${icon}"></i></span>
-        <span class="text-slate-100 font-medium leading-snug" style="font-size: clamp(0.9rem, 1.95cqw, 1.45rem);">${html}</span>
+    <li class="flex items-center gap-[1.4cqw] rounded-xl bg-slate-950/75 backdrop-blur-sm border border-lime-500/40 px-[1.6cqw] py-[1.1cqw] shadow-lg shadow-slate-950/60">
+        <span class="shrink-0 grid place-items-center w-[4.4cqw] h-[4.4cqw] rounded-lg bg-lime-500/15 text-lime-400 border border-lime-500/40" style="font-size: clamp(0.85rem, 2.4cqw, 1.8rem);"><i class="fa-solid ${icon}"></i></span>
+        <span class="text-slate-50 font-bold leading-snug" style="font-size: clamp(0.8rem, 2.8cqw, 2.1rem);">${html}</span>
     </li>`;
+
+// 白い縁を付けて傾けた写真 1 枚。pos は位置と幅の class、deg は傾き
+const snap = (src, alt, pos, deg) => `
+    <img src="images/${src}" alt="${alt}" class="absolute ${pos} h-auto bg-slate-50 p-[0.5cqw] rounded-sm shadow-2xl shadow-slate-950/80" style="transform: rotate(${deg}deg);">`;
 
 // 流れの 1 箱（template.js の「図解」と同じ書式）
 const step = (color, icon, text) => `
@@ -235,21 +239,18 @@ const slideData = [
         duration: 11,
         narration: 'そして、おしゃれなことです。カラフルでおしゃれなボードがたくさんあります。バブル期には、おしゃれなカフェバーなどでプチブームになり、東急ハンズなどで販売されていました。',
         render: function() { return bgSlide(this, 'bg-cafe.jpg', 'パリのカフェでバックギャモンを打つ客の絵（Jean Béraud, 1908 年頃）', `
-            <div class="grid grid-cols-5 gap-[1.8cqw] items-center">
-                <ul class="col-span-3 space-y-[0.9cqw]">
-                    ${li('fa-palette', 'カラフルでおしゃれなボード')}
-                    ${li('fa-martini-glass', 'バブル期には、カフェバーなどでプチブーム')}
-                    ${li('fa-store', '東急ハンズなどで販売されていた')}
+            <!-- 写真は右に傾けて重ね、文字はその手前に置く（重なってよい） -->
+            <figure class="relative m-0 h-[34cqw]">
+                ${snap('bg-board1.jpg', '青と白の競技用のボード', 'right-[0.5cqw] top-0 w-[38cqw]', 4)}
+                ${snap('bg-board2.jpg', 'オレンジの台に置いた白木のボード', 'right-[23cqw] bottom-[0.5cqw] w-[24cqw]', -6)}
+                ${snap('bg-board3.jpg', 'ターコイズ色の古い木箱のボード', 'right-0 bottom-[1cqw] w-[25cqw]', 5)}
+                <ul class="relative w-[54cqw] h-full flex flex-col justify-center gap-[1.4cqw]">
+                    ${li('fa-palette', '<span class="text-lime-300">カラフル</span>でおしゃれなボード')}
+                    ${li('fa-martini-glass', '<span class="text-lime-300">バブル期</span>には、<br>カフェバーなどでプチブーム')}
+                    ${li('fa-store', '<span class="text-lime-300">東急ハンズ</span>などで販売されていた')}
                 </ul>
-                <figure class="col-span-2 m-0">
-                    <div class="grid grid-cols-2 gap-[0.8cqw]">
-                        <img src="images/bg-board1.jpg" alt="青と白の競技用のボード" class="col-span-2 w-full h-[16cqw] object-cover rounded-xl border border-slate-700 shadow-xl shadow-slate-950/60">
-                        <img src="images/bg-board2.jpg" alt="オレンジの台に置いた白木のボード" class="w-full h-[13cqw] object-cover rounded-xl border border-slate-700 shadow-xl shadow-slate-950/60">
-                        <img src="images/bg-board3.jpg" alt="ターコイズ色の古い木箱のボード" class="w-full h-[13cqw] object-cover rounded-xl border border-slate-700 shadow-xl shadow-slate-950/60">
-                    </div>
-                    <figcaption class="text-slate-500 mt-[0.6cqw] leading-snug" style="font-size: clamp(0.6rem, 1.1cqw, 0.8rem);">写真（一部切り出し）: RG72 (CC BY 4.0)、Alper Çuğun (CC BY 2.0)、Diligent (PD)／Wikimedia Commons</figcaption>
-                </figure>
-            </div>
+                <figcaption class="absolute left-0 bottom-0 max-w-[44cqw] text-slate-500 leading-snug" style="font-size: clamp(0.6rem, 1.1cqw, 0.8rem);">写真（一部切り出し）: RG72 (CC BY 4.0)、Alper Çuğun (CC BY 2.0)、Diligent (PD)／Wikimedia Commons</figcaption>
+            </figure>
         `, { opacity: 55, credit: '背景: Jean Béraud「Backgammon at the Café」(PD)／Wikimedia Commons' }); },
     },
 ];
