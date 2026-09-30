@@ -91,10 +91,6 @@ const easy = (color, icon, label, big, note) => `
         <div class="font-extrabold text-${color}-300 leading-none mt-[1.2cqw] h-[7cqw] flex items-center justify-center" style="font-size: clamp(2.4rem, 7cqw, 5.2rem);">${big}</div>
         <div class="text-slate-200 font-medium mt-[1.2cqw]" style="font-size: clamp(0.8rem, 1.8cqw, 1.35rem);">${note}</div>
     </div>`;
-const arrow = `
-    <div class="flex items-center justify-center shrink-0">
-        <i class="fa-solid fa-arrow-right text-lime-400" style="font-size: clamp(1.1rem, 2.4cqw, 1.8rem);"></i>
-    </div>`;
 
 // 選手の紹介カード（写真の枠・名前・優勝した年・一言）。写真と年を大きく見せる（TODO-026）
 const pro = (photo, name, years, note) => `
@@ -223,41 +219,12 @@ const slideData = [
         },
     },
 
-    // ── 日本での不遇の歴史（日本の話だけ。TODO-027）。「知る人が少ない」を次の「世界中」と最後の会への誘いで受ける ──
-    {
-        title: '日本での不遇の歴史',
-        icon: 'fa-ban',
-        duration: 22,
-        narration: '日本では、不遇の歴史もあります。簡単で面白いので大流行しましたが、賭博が横行し、689年に持統天皇が禁止令を出し、江戸時代の1605年にも伏見城御制法で禁止されるなど、たびたび禁止されました。いまの日本では、世界に比べて、知る人の少ないゲームになってしまいました。',
-        render: function() { return bgSlide(this, 'bg-hikone.jpg', '彦根屏風の背景に描かれた山水の屏風', `
-            <div class="flex items-stretch justify-center gap-[1cqw] text-center">
-                ${step('sky', 'fa-face-smile', '簡単で面白い')}
-                ${arrow}
-                ${step('lime', 'fa-people-group', '大流行')}
-                ${arrow}
-                ${step('amber', 'fa-coins', '賭博の横行')}
-                ${arrow}
-                ${step('rose', 'fa-ban', '禁止令<br><span class="inline-block mt-[0.4cqw] text-slate-300 font-medium" style="font-size: 0.72em; line-height: 1.35;">689 年 持統天皇<br>1605 年 伏見城御制法 など</span>')}
-            </div>
-            <!-- 日本の絵 2 枚は左に傾けて重ね、日本の話を右に置く（TODO-019） -->
-            <div class="relative mt-[1.6cqw] h-[26cqw]">
-                ${snap('bg-edo.png', '日本の彩色画', 'left-[1cqw] top-0 w-[19cqw]', -4)}
-                ${snap('bg-print.png', '日本の白黒の版画', 'left-[18cqw] top-0 w-[15.5cqw]', 5)}
-                <blockquote class="absolute right-0 top-1/2 -translate-y-1/2 w-[50cqw] rounded-2xl bg-slate-950/60 border border-slate-700/70 border-l-4 border-l-sky-500/70 px-[2.4cqw] py-[1.8cqw]">
-                    <p class="text-slate-100 font-medium leading-normal" style="font-size: clamp(1rem, 2.6cqw, 1.95rem);">
-                        <i class="fa-solid fa-circle-info text-lime-400"></i> いまの日本では、<br>世界に比べて<br><span class="text-lime-300 font-bold">知る人の少ない</span>ゲームに
-                    </p>
-                </blockquote>
-            </div>
-        `, { credit: '背景: 彦根屏風（PD）／Wikimedia Commons' }); },
-    },
-
-    // ── 世界中（「日本では」を受けて「でも世界では」とつなぐ） ──
+    // ── 世界中（「世界中に広がった」歴史を受けて、いまの世界へつなぐ。TODO-047） ──
     {
         title: '世界中でプレーされている',
         icon: 'fa-earth-asia',
-        duration: 17,
-        narration: 'でも、海外に目を向けると、バックギャモンは世界中でプレーされています。日本バックギャモン協会によると、世界で約3億人が遊んでいると言われます。1979年からは毎年、モナコのモンテカルロで世界選手権が開かれています。',
+        duration: 16,
+        narration: 'そしていま、バックギャモンは世界中でプレーされています。日本バックギャモン協会によると、世界で約3億人が遊んでいると言われます。1979年からは毎年、モナコのモンテカルロで世界選手権が開かれています。',
         render: function() { return bgSlide(this, 'bg-nightearth.jpg', '夜の地球の世界地図（NASA）', `
             <!-- 数字は出典のあるものだけ（archives/agents/TODO-025/research-report.md） -->
             <div class="grid grid-cols-5 gap-[1.8cqw] items-center">
