@@ -30,9 +30,9 @@ const slidesConfig = {
 };
 
 // 時間軸の画像 1 枚と、何の絵かの小さな説明。時代の説明は時間軸の点の下に並べる（TODO-024）
-const fig = (src, alt, label) => `
+const fig = (src, alt, label, pos = 'object-top') => `
     <figure class="m-0 flex flex-col items-center">
-        <img src="images/${src}" alt="${alt}" class="w-full h-[17cqw] object-cover object-top rounded-xl border border-slate-700 shadow-xl shadow-slate-950/60">
+        <img src="images/${src}" alt="${alt}" class="w-full h-[17cqw] object-cover ${pos} rounded-xl border border-slate-700 shadow-xl shadow-slate-950/60">
         <figcaption class="text-slate-300 mt-[0.4cqw] text-center leading-tight" style="font-size: clamp(0.6rem, 1.2cqw, 0.9rem);">${label}</figcaption>
     </figure>`;
 const cap = (html) => `
@@ -172,14 +172,14 @@ const slideData = [
     {
         title: 'バックギャモンの歴史は古い',
         icon: 'fa-landmark',
-        duration: 15,
-        narration: 'バックギャモンの歴史は古く、約5000年前から、中東には似た遊びがありました。日本でも、飛鳥時代には遊ばれていて、日本書紀に記録があります。中世には、ヨーロッパでも遊ばれていました。',
+        duration: 17,
+        narration: 'バックギャモンの歴史は古く、約5000年前から、中東には似た遊びがありました。紀元前後の古代ローマには、祖先とされる遊びがあり、ヨーロッパに広まりました。日本でも、飛鳥時代には遊ばれていて、日本書紀に記録があります。',
         render: function() {
             return bgSlide(this, 'bg-worldmap.jpg', '古い世界地図（Hondius, 1630）', `
                         <div class="grid grid-cols-3 gap-[1.8cqw] items-end">
                             ${fig('bg-nard.jpg', 'ペルシャの写本の、盤を挟んでナルドを打つ人々', 'ペルシャの「ナルド」（絵は 1430 年ごろ）')}
+                            ${fig('bg-rome.jpg', '石に刻んだ、左右 6 マスずつ 3 列の盤', '古代ローマの盤（紀元前 100 年ごろ）', 'object-center')}
                             ${fig('bg-nara.png', '盤を挟んで向かい合う二人の絵', '盤双六らしい盤を挟む二人（江戸時代ごろの絵）')}
-                            ${fig('bg-medieval.png', '盤を挟んで座る二人と、杯を掲げる人の写本の挿絵', '『カルミナ・ブラーナ』の挿絵（1230 年ごろ）')}
                         </div>
                         <!-- 時間軸: 各図の真下に点、右端に矢じり -->
                         <div class="relative mt-[1.2cqw]">
@@ -191,10 +191,10 @@ const slideData = [
                         </div>
                         <div class="grid grid-cols-3 gap-[1.8cqw] mt-[1cqw]">
                             ${cap('<b class="text-lime-300">約 5,000 年前</b>から<br>中東に似た遊び')}
+                            ${cap('古代<b class="text-lime-300">ローマ</b>に<br>祖先とされる遊び')}
                             ${cap('日本でも<b class="text-lime-300">飛鳥時代</b>には<br>遊ばれていた')}
-                            ${cap('中世には<br><b class="text-lime-300">ヨーロッパ</b>でも')}
                         </div>
-            `, { credit: '絵: バイスングルの『シャー・ナーメ』（PD）、Codex Buranus（PD）／Wikimedia Commons' });
+            `, { credit: '絵: バイスングルの『シャー・ナーメ』（PD）、盤: nsop (CC BY 2.0)／Wikimedia Commons' });
         },
     },
 
