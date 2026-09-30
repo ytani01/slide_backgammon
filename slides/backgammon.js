@@ -175,21 +175,43 @@ const slideData = [
         `); },
     },
 
-    // ── 4. 魅力 ──
+    // ── 4. 魅力（簡単で手軽・ゲームとしての面白さ・おしゃれの 3 枚） ──
     {
-        title: 'バックギャモンの魅力',
+        title: '魅力① 簡単で手軽',
         icon: 'fa-list-check',
-        duration: 24,
-        narration: 'バックギャモンの魅力です。ルールが簡単で、15分程度の短時間でプレーできます。奥が深く、ボードはカラフルでおしゃれです。バブル期には、おしゃれなカフェバーなどでプチブームになり、東急ハンズなどで販売されていました。運が良ければ、初心者でも上級者に勝つ可能性があります。ポーカーのように、かけ点を吊り上げる駆け引きもあります。',
-        body: `
+        duration: 10,
+        narration: 'バックギャモンの魅力、まずは簡単で手軽なことです。ルールが簡単で、すぐに覚えられます。15分程度の短い時間でプレーできます。',
+        render: function() { return bgSlide(this, 'bg-portable.jpg', '木のテーブルに置いた持ち運び用のバックギャモン', `
+            <div class="grid grid-cols-2 gap-[2cqw] text-center">
+                ${step('sky', 'fa-check', 'ルールが簡単')}
+                ${step('lime', 'fa-stopwatch', '短時間でプレーできる<br>（15 分程度）')}
+            </div>
+        `, { credit: '背景: Takuro Iwabuchi (CC BY 2.0)／Wikimedia Commons' }); },
+    },
+    {
+        title: '魅力② ゲームとしての面白さ',
+        icon: 'fa-list-check',
+        duration: 17,
+        narration: 'ゲームとしての面白さもあります。ダイスを使うので、運が良ければ、初心者でも上級者に勝つ可能性があります。ポーカーのように、かけ点を吊り上げる駆け引きもあります。そして、戦略的な思考が必要で、奥が深いゲームです。',
+        render: function() { return bgSlide(this, 'bg-dice.jpg', '黒い面に置いた白いダイス 2 個', `
+            <div class="grid grid-cols-3 gap-[1.6cqw] text-center">
+                ${step('amber', 'fa-dice', 'ダイスの運で<br>初心者でも上級者に勝てる')}
+                ${step('rose', 'fa-arrow-trend-up', 'ポーカーのように<br>掛け点を吊り上げる駆け引き')}
+                ${step('sky', 'fa-chess', '戦略的な思考が必要で<br>奥が深い')}
+            </div>
+        `, { opacity: 50, credit: '背景: Jack Elliott (CC BY 2.0)／Wikimedia Commons' }); },
+    },
+    {
+        title: '魅力③ おしゃれ',
+        icon: 'fa-list-check',
+        duration: 11,
+        narration: 'そして、おしゃれなことです。カラフルでおしゃれなボードがたくさんあります。バブル期には、おしゃれなカフェバーなどでプチブームになり、東急ハンズなどで販売されていました。',
+        render: function() { return bgSlide(this, 'bg-umbrellas.jpg', '黒い空間に浮かぶ色とりどりの傘', `
             <div class="grid grid-cols-5 gap-[1.8cqw] items-center">
                 <ul class="col-span-3 space-y-[0.9cqw]">
-                    ${li('fa-check', 'ルールが簡単')}
-                    ${li('fa-stopwatch', '短時間でプレーできる（15 分程度）')}
-                    ${li('fa-layer-group', '奥が深い')}
-                    ${li('fa-palette', 'カラフルでおしゃれなボード<span class="text-slate-400">（バブル期には、おしゃれなカフェバーなどでプチブーム、東急ハンズなどで販売されてた）</span>')}
-                    ${li('fa-dice', '運が良ければ、初心者でも上級者に勝つ可能性がある')}
-                    ${li('fa-chess', 'ポーカーのようにかけ点を吊り上げる駆け引きもある')}
+                    ${li('fa-palette', 'カラフルでおしゃれなボード')}
+                    ${li('fa-martini-glass', 'バブル期には、カフェバーなどでプチブーム')}
+                    ${li('fa-store', '東急ハンズなどで販売されていた')}
                 </ul>
                 <figure class="col-span-2 m-0">
                     <div class="grid grid-cols-2 gap-[0.8cqw]">
@@ -200,6 +222,6 @@ const slideData = [
                     <figcaption class="text-slate-500 mt-[0.6cqw] leading-snug" style="font-size: clamp(0.6rem, 1.1cqw, 0.8rem);">写真（一部切り出し）: RG72 (CC BY 4.0)、Alper Çuğun (CC BY 2.0)、Diligent (PD)／Wikimedia Commons</figcaption>
                 </figure>
             </div>
-        `,
+        `, { credit: '背景: Ladhra (CC BY-SA 4.0)／Wikimedia Commons' }); },
     },
 ];
