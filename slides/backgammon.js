@@ -12,7 +12,6 @@ const slidesConfig = {
         [/飛鳥時代/g, 'あすかじだい'],
         [/賭博/g, 'とばく'],
         [/禁止令/g, 'きんしれい'],
-        [/東急ハンズ/g, 'とうきゅうハンズ'],
         [/駆け引き/g, 'かけひき'],
         [/3億人/g, 'さんおくにん'],
         [/望月正行/g, 'もちづきまさゆき'],
@@ -266,7 +265,7 @@ const slideData = [
         `, { opacity: 60, credit: '写真（矢澤プロ）: 本人の X（@akikoyazawa）' }); },
     },
 
-    // ── 魅力（簡単で手軽・ゲームとしての面白さ・おしゃれの 3 枚） ──
+    // ── 魅力（簡単で手軽・ゲームとしての面白さ・おしゃれで身近の 3 枚） ──
     {
         title: '魅力① 簡単で手軽',
         icon: 'fa-feather-pointed',
@@ -295,10 +294,10 @@ const slideData = [
         `, { credit: '背景: Donald Olszewski (CC BY 4.0)／Wikimedia Commons' }); },
     },
     {
-        title: '魅力③ おしゃれ',
+        title: '魅力③ おしゃれで身近',
         icon: 'fa-wand-magic-sparkles',
-        duration: 11,
-        narration: 'そして、おしゃれなことです。カラフルでおしゃれなボードがたくさんあります。バブル期には、おしゃれなカフェバーなどでプチブームになり、東急ハンズなどで販売されていました。',
+        duration: 13,
+        narration: '3つ目は、おしゃれで身近なことです。カラフルでおしゃれなボードがたくさんあり、部屋に飾れる、インテリアのようなボードもあります。スマホのアプリを使えば、いつでも世界中の人と対戦できます。',
         render: function() { return bgSlide(this, 'bg-cafe.jpg', 'パリのカフェでバックギャモンを打つ客の絵（Jean Béraud, 1908 年頃）', `
             <!-- 写真は右に傾けて重ね、文字はその手前に置く（重なってよい） -->
             <figure class="relative m-0 h-[34cqw]">
@@ -307,8 +306,8 @@ const slideData = [
                 ${snap('bg-board3.jpg', 'ターコイズ色の古い木箱のボード', 'right-0 bottom-[1cqw] w-[25cqw]', 5)}
                 <ul class="relative w-[54cqw] h-full flex flex-col justify-center gap-[1.4cqw]">
                     ${li('fa-palette', '<span class="text-lime-300">カラフル</span>でおしゃれなボード')}
-                    ${li('fa-martini-glass', '<span class="text-lime-300">バブル期</span>には、<br>カフェバーなどでプチブーム')}
-                    ${li('fa-store', '<span class="text-lime-300">東急ハンズ</span>などで販売されていた')}
+                    ${li('fa-couch', '部屋に飾れる、<br><span class="text-lime-300">インテリア</span>のようなボードも')}
+                    ${li('fa-mobile-screen', '<span class="text-lime-300">スマホのアプリ</span>で、<br>いつでも世界中の人と対戦')}
                 </ul>
                 <figcaption class="absolute left-0 bottom-0 max-w-[44cqw] text-slate-500 leading-snug" style="font-size: clamp(0.6rem, 1.1cqw, 0.8rem);">写真（一部切り出し）: RG72 (CC BY 4.0)、Alper Çuğun (CC BY 2.0)、Diligent (PD)／Wikimedia Commons</figcaption>
             </figure>
