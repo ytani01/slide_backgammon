@@ -89,12 +89,12 @@ const slideData = [
     // ── 表紙 ──
     {
         title: '表紙',
-        duration: 8,
-        narration: 'バックギャモンのススメ。横浜市中区、なか区民活動センター登録団体、関内バックギャモンの会。',
+        duration: 9,
+        narration: 'バックギャモンのススメ。5000年遊ばれてきた、世界のボードゲームを紹介します。お届けするのは、関内バックギャモンの会です。',
         render: function() {
             return `
                 <div class="relative h-full flex flex-col justify-center items-center text-center px-[5cqw] overflow-hidden">
-                    <img src="images/bg-cover.jpg" alt="黒と木目のボードに載ったダイスとダブリングキューブ" class="absolute inset-0 w-full h-full object-cover opacity-30">
+                    <img src="images/bg-cover.jpg" alt="黒と木目のボードに載ったダイスとダブリングキューブ" class="absolute inset-0 w-full h-full object-cover opacity-[0.45]">
                     <div class="absolute inset-0 bg-slate-950/40"></div>
                     <div class="absolute right-[1.2cqw] bottom-[0.8cqw] text-slate-500" style="font-size: clamp(0.6rem, 1.1cqw, 0.8rem);">背景: Clint Budd (CC BY 2.0)／Wikimedia Commons</div>
                     <div class="absolute -top-[18cqw] -left-[10cqw] w-[45cqw] h-[45cqw] rounded-full bg-sky-500/20 blur-[6cqw]"></div>
@@ -107,11 +107,14 @@ const slideData = [
                             <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-slate-50 to-lime-300">バックギャモンのススメ</span>
                         </h1>
                         <div class="mx-auto mt-[2cqw] h-[0.35cqw] w-[18cqw] rounded-full bg-gradient-to-r from-sky-400 to-lime-400"></div>
-                        <p class="text-slate-300 font-medium mt-[2cqw]" style="font-size: clamp(1rem, 2.3cqw, 1.7rem);">
-                            横浜市中区 なか区民活動センター登録団体
+                        <p class="text-slate-50 font-bold mt-[2cqw] drop-shadow-[0_2px_6px_rgba(2,6,23,0.9)]" style="font-size: clamp(1.1rem, 3cqw, 2.3rem);">
+                            <span class="text-lime-300">5000 年</span>遊ばれてきた、世界のボードゲーム
                         </p>
-                        <p class="text-slate-300 font-medium mt-[0.8cqw]" style="font-size: clamp(1rem, 2.3cqw, 1.7rem);">
+                        <p class="text-slate-200 font-medium mt-[2.4cqw]" style="font-size: clamp(0.9rem, 2cqw, 1.5rem);">
                             関内バックギャモンの会
+                        </p>
+                        <p class="text-slate-400 mt-[0.3cqw]" style="font-size: clamp(0.65rem, 1.3cqw, 1rem);">
+                            横浜市中区 なか区民活動センター登録団体
                         </p>
                     </div>
                 </div>
