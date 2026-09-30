@@ -227,7 +227,7 @@ const slideData = [
         title: '世界中でプレーされている',
         icon: 'fa-earth-asia',
         duration: 17,
-        narration: 'でも、世界に目を向けると、バックギャモンは世界中でプレーされています。日本バックギャモン協会によると、世界で約3億人が遊んでいると言われます。1979年からは毎年、モナコのモンテカルロで世界選手権が開かれています。',
+        narration: 'でも、海外に目を向けると、バックギャモンは世界中でプレーされています。日本バックギャモン協会によると、世界で約3億人が遊んでいると言われます。1979年からは毎年、モナコのモンテカルロで世界選手権が開かれています。',
         render: function() { return bgSlide(this, 'bg-nightearth.jpg', '夜の地球の世界地図（NASA）', `
             <!-- 数字は出典のあるものだけ（archives/agents/TODO-025/research-report.md） -->
             <div class="grid grid-cols-5 gap-[1.8cqw] items-center">
