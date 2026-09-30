@@ -193,12 +193,12 @@ const slideData = [
         },
     },
 
-    // ── 不遇の歴史（日本では、までを 1 枚に）。「相手が見つからない」を最後の会への誘いで受ける（TODO-022） ──
+    // ── 日本での不遇の歴史（日本の話だけ。TODO-027）。「知る人が少ない」を次の「世界中」と最後の会への誘いで受ける ──
     {
         title: '日本での不遇の歴史',
         icon: 'fa-ban',
-        duration: 23,
-        narration: '日本では、不遇の歴史もあります。簡単で面白いので大流行しましたが、賭博が横行し、689年に持統天皇が禁止令を出し、江戸時代の1605年にも伏見城御制法で禁止されるなど、たびたび禁止されました。いまの日本では、ルールはすぐに覚えられても、身近に対戦相手がいないことが多いのです。',
+        duration: 22,
+        narration: '日本では、不遇の歴史もあります。簡単で面白いので大流行しましたが、賭博が横行し、689年に持統天皇が禁止令を出し、江戸時代の1605年にも伏見城御制法で禁止されるなど、たびたび禁止されました。いまの日本では、世界に比べて、知る人の少ないゲームになってしまいました。',
         render: function() { return bgSlide(this, 'bg-hikone.jpg', '彦根屏風の背景に描かれた山水の屏風', `
             <div class="flex items-stretch justify-center gap-[1cqw] text-center">
                 ${step('sky', 'fa-face-smile', '簡単で面白い')}
@@ -211,11 +211,11 @@ const slideData = [
             </div>
             <!-- 日本の絵 2 枚は左に傾けて重ね、日本の話を右に置く（TODO-019） -->
             <div class="relative mt-[1.6cqw] h-[26cqw]">
-                ${snap('bg-edo.png', '日本の彩色画', 'left-[1cqw] top-0 w-[22cqw]', -4)}
-                ${snap('bg-print.png', '日本の白黒の版画', 'left-[20cqw] top-0 w-[18cqw]', 5)}
+                ${snap('bg-edo.png', '日本の彩色画', 'left-[1cqw] top-0 w-[19cqw]', -4)}
+                ${snap('bg-print.png', '日本の白黒の版画', 'left-[18cqw] top-0 w-[15.5cqw]', 5)}
                 <blockquote class="absolute right-0 top-1/2 -translate-y-1/2 w-[50cqw] rounded-2xl bg-slate-950/60 border border-slate-700/70 border-l-4 border-l-sky-500/70 px-[2.4cqw] py-[1.8cqw]">
                     <p class="text-slate-100 font-medium leading-normal" style="font-size: clamp(1rem, 2.6cqw, 1.95rem);">
-                        <i class="fa-solid fa-magnifying-glass text-lime-400"></i> いまの日本では、<br>ルールはすぐに覚えられても、<br>身近に<span class="text-lime-300 font-bold">対戦相手がいない</span>
+                        <i class="fa-solid fa-circle-info text-lime-400"></i> いまの日本では、<br>世界に比べて<br><span class="text-lime-300 font-bold">知る人の少ない</span>ゲームに
                     </p>
                 </blockquote>
             </div>
@@ -321,7 +321,7 @@ const slideData = [
         title: '関内バックギャモンの会で始めよう',
         icon: 'fa-handshake',
         duration: 21,
-        narration: '身近に対戦相手がいない、とお話ししました。それなら、関内バックギャモンの会に来てください。初めての方には、遊び方を丁寧に教えます。月に2回ほど、主になか区民活動センターで、お喋りしながら気軽に遊んでいます。日程と申し込みは、公式サイトをご覧ください。',
+        narration: '日本では、まだ知る人の少ないバックギャモンですが、関内バックギャモンの会に来れば、一緒に遊ぶ仲間がいます。初めての方には、遊び方を丁寧に教えます。月に2回ほど、主になか区民活動センターで、お喋りしながら気軽に遊んでいます。日程と申し込みは、公式サイトをご覧ください。',
         render: function() { return bgSlide(this, 'bg-kannai.jpg', '窓の光が差すテーブルに置いた木のバックギャモンのボード', `
             <div class="flex items-center gap-[2.4cqw]">
                 <ul class="flex-1 flex flex-col gap-[1.2cqw]">
