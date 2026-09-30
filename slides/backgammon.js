@@ -134,7 +134,7 @@ const slideData = [
         title: 'バックギャモンとは',
         icon: 'fa-circle-question',
         duration: 22,
-        narration: 'バックギャモンは、2人で遊ぶ、すごろくの仲間です。日本で昔遊ばれた盤双六も、その仲間です。交互にダイスを2個振って、出た目の数だけ自分の駒を進めます。15個の駒を、先に全部ゴールさせた方が勝ちです。相手の駒が1個だけのところに止まると、その駒を振り出しに戻せます。',
+        narration: 'バックギャモンは、2人で遊ぶ、すごろくの仲間です。日本で昔遊ばれた盤双六も、同じ系統の遊びです。交互にダイスを2個振って、出た目の数だけ自分の駒を進めます。15個の駒を、先に全部ゴールさせた方が勝ちです。相手の駒が1個だけのところに止まると、その駒を振り出しに戻せます。',
         render: function() { return bgSlide(this, 'bg-cover.jpg', '黒と木目のボードに載ったダイスとダブリングキューブ', `
             <div class="flex items-center gap-[2.4cqw]">
                 <!-- 盤の写真に、白の駒の進む向きを重ねる（右上 → 左 → 右下のゴール） -->
@@ -158,7 +158,7 @@ const slideData = [
         `, { opacity: 35, credit: '盤: TaurusEmerald (CC BY-SA 4.0)、背景: Clint Budd (CC BY 2.0)／Wikimedia Commons' }); },
     },
 
-    // ── 1. 歴史 ──
+    // ── 歴史 ──
     {
         title: 'バックギャモンの歴史は古い',
         icon: 'fa-landmark',
@@ -188,52 +188,7 @@ const slideData = [
         },
     },
 
-    // ── 2. 世界中 ──
-    {
-        title: '世界中でプレーされている',
-        icon: 'fa-earth-asia',
-        duration: 16,
-        narration: 'バックギャモンは、世界中でプレーされています。日本バックギャモン協会によると、世界で約3億人が遊んでいると言われます。1979年からは毎年、モナコのモンテカルロで世界選手権が開かれています。',
-        render: function() { return bgSlide(this, 'bg-nightearth.jpg', '夜の地球の世界地図（NASA）', `
-            <!-- 数字は出典のあるものだけ（archives/agents/TODO-025/research-report.md） -->
-            <div class="grid grid-cols-5 gap-[1.8cqw] items-center">
-                <figure class="col-span-3 m-0">
-                    <img src="images/bg-crowd2.jpg" alt="大会の会場で、何組もがバックギャモンを打っている写真" class="w-full h-[28cqw] object-cover object-[center_75%] rounded-xl border border-slate-600 shadow-xl shadow-slate-950/60">
-                    <figcaption class="text-slate-300 mt-[0.5cqw]" style="font-size: clamp(0.65rem, 1.3cqw, 1rem);">チェコの大会の会場（2008 年）</figcaption>
-                </figure>
-                <div class="col-span-2 space-y-[1.4cqw] text-center">
-                    <div class="rounded-2xl bg-slate-900/80 border border-lime-500/40 p-[1.4cqw] shadow-lg shadow-lime-900/20 ring-1 ring-lime-400/20">
-                        <div class="text-slate-200 font-medium" style="font-size: clamp(0.9rem, 1.95cqw, 1.4rem);">世界で遊ぶ人</div>
-                        <div class="font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-b from-lime-300 to-lime-500" style="font-size: clamp(2rem, 5cqw, 3.8rem);">約 3<span class="text-slate-400 font-bold" style="font-size: clamp(0.9rem, 1.9cqw, 1.4rem);"> 億人</span></div>
-                        <div class="text-slate-400 font-medium mt-[0.6cqw]" style="font-size: clamp(0.7rem, 1.4cqw, 1.05rem);">日本バックギャモン協会による</div>
-                    </div>
-                    <div class="rounded-2xl bg-slate-900/80 border border-sky-500/40 p-[1.4cqw] shadow-lg shadow-slate-950/40">
-                        <div class="text-slate-200 font-medium" style="font-size: clamp(0.9rem, 1.95cqw, 1.4rem);">世界選手権</div>
-                        <div class="font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-b from-sky-300 to-sky-500" style="font-size: clamp(2rem, 5cqw, 3.8rem);">1979<span class="text-slate-400 font-bold" style="font-size: clamp(0.9rem, 1.9cqw, 1.4rem);"> 年から</span></div>
-                        <div class="text-slate-400 font-medium mt-[0.6cqw]" style="font-size: clamp(0.7rem, 1.4cqw, 1.05rem);">毎年 モナコ・モンテカルロで</div>
-                    </div>
-                </div>
-            </div>
-        `, { opacity: 70, credit: '写真: Matěj Baťha (CC BY-SA 3.0)／Wikimedia Commons' }); },
-    },
-
-    // ── 2b. 日本人の活躍（優勝歴は世界選手権だけ。出典は archives/agents/TODO-013/search-report.md） ──
-    {
-        title: '世界中で日本人が大活躍',
-        icon: 'fa-trophy',
-        duration: 22,
-        narration: 'バックギャモンの世界では、日本人が大活躍しています。望月正行プロは、2009年に日本人で初めて世界チャンピオンになり、2021年にも優勝しました。矢澤亜希子プロは、2014年と2018年に世界選手権で優勝し、女性として世界で初めて、2度の優勝を果たしました。',
-        render: function() { return bgSlide(this, 'bg-japan-night.jpg', '宇宙から見た夜の日本列島（NASA）', `
-            <div class="grid grid-cols-2 gap-[2cqw]">
-                ${pro('<img src="images/pro-mochizuki.jpg" alt="望月正行プロ" class="w-full h-full object-cover">',
-                    '望月 正行', ['2009', '2021'], '日本人初の<br>世界チャンピオン')}
-                ${pro('<img src="images/pro-yazawa.jpg" alt="矢澤亜希子プロ" class="w-full h-full object-cover">',
-                    '矢澤 亜希子', ['2014', '2018'], '女性で世界初の<br>2 回優勝')}
-            </div>
-        `, { opacity: 60, credit: '写真（矢澤プロ）: 本人の X（@akikoyazawa）' }); },
-    },
-
-    // ── 3. 不遇の歴史（日本では、までを 1 枚に） ──
+    // ── 不遇の歴史（日本では、までを 1 枚に）。「相手が見つからない」を最後の会への誘いで受ける（TODO-022） ──
     {
         title: '不遇の歴史',
         icon: 'fa-ban',
@@ -262,7 +217,52 @@ const slideData = [
         `); },
     },
 
-    // ── 4. 魅力（簡単で手軽・ゲームとしての面白さ・おしゃれの 3 枚） ──
+    // ── 世界中（「日本では」を受けて「でも世界では」とつなぐ） ──
+    {
+        title: '世界中でプレーされている',
+        icon: 'fa-earth-asia',
+        duration: 17,
+        narration: 'でも、世界に目を向けると、バックギャモンは世界中でプレーされています。日本バックギャモン協会によると、世界で約3億人が遊んでいると言われます。1979年からは毎年、モナコのモンテカルロで世界選手権が開かれています。',
+        render: function() { return bgSlide(this, 'bg-nightearth.jpg', '夜の地球の世界地図（NASA）', `
+            <!-- 数字は出典のあるものだけ（archives/agents/TODO-025/research-report.md） -->
+            <div class="grid grid-cols-5 gap-[1.8cqw] items-center">
+                <figure class="col-span-3 m-0">
+                    <img src="images/bg-crowd2.jpg" alt="大会の会場で、何組もがバックギャモンを打っている写真" class="w-full h-[28cqw] object-cover object-[center_75%] rounded-xl border border-slate-600 shadow-xl shadow-slate-950/60">
+                    <figcaption class="text-slate-300 mt-[0.5cqw]" style="font-size: clamp(0.65rem, 1.3cqw, 1rem);">チェコの大会の会場（2008 年）</figcaption>
+                </figure>
+                <div class="col-span-2 space-y-[1.4cqw] text-center">
+                    <div class="rounded-2xl bg-slate-900/80 border border-lime-500/40 p-[1.4cqw] shadow-lg shadow-lime-900/20 ring-1 ring-lime-400/20">
+                        <div class="text-slate-200 font-medium" style="font-size: clamp(0.9rem, 1.95cqw, 1.4rem);">世界で遊ぶ人</div>
+                        <div class="font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-b from-lime-300 to-lime-500" style="font-size: clamp(2rem, 5cqw, 3.8rem);">約 3<span class="text-slate-400 font-bold" style="font-size: clamp(0.9rem, 1.9cqw, 1.4rem);"> 億人</span></div>
+                        <div class="text-slate-400 font-medium mt-[0.6cqw]" style="font-size: clamp(0.7rem, 1.4cqw, 1.05rem);">日本バックギャモン協会による</div>
+                    </div>
+                    <div class="rounded-2xl bg-slate-900/80 border border-sky-500/40 p-[1.4cqw] shadow-lg shadow-slate-950/40">
+                        <div class="text-slate-200 font-medium" style="font-size: clamp(0.9rem, 1.95cqw, 1.4rem);">世界選手権</div>
+                        <div class="font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-b from-sky-300 to-sky-500" style="font-size: clamp(2rem, 5cqw, 3.8rem);">1979<span class="text-slate-400 font-bold" style="font-size: clamp(0.9rem, 1.9cqw, 1.4rem);"> 年から</span></div>
+                        <div class="text-slate-400 font-medium mt-[0.6cqw]" style="font-size: clamp(0.7rem, 1.4cqw, 1.05rem);">毎年 モナコ・モンテカルロで</div>
+                    </div>
+                </div>
+            </div>
+        `, { opacity: 70, credit: '写真: Matěj Baťha (CC BY-SA 3.0)／Wikimedia Commons' }); },
+    },
+
+    // ── 日本人の活躍（優勝歴は世界選手権だけ。出典は archives/agents/TODO-013/search-report.md） ──
+    {
+        title: '世界中で日本人が大活躍',
+        icon: 'fa-trophy',
+        duration: 22,
+        narration: 'その世界選手権で、日本人が大活躍しています。望月正行プロは、2009年に日本人で初めて世界チャンピオンになり、2021年にも優勝しました。矢澤亜希子プロは、2014年と2018年に世界選手権で優勝し、女性として世界で初めて、2度の優勝を果たしました。',
+        render: function() { return bgSlide(this, 'bg-japan-night.jpg', '宇宙から見た夜の日本列島（NASA）', `
+            <div class="grid grid-cols-2 gap-[2cqw]">
+                ${pro('<img src="images/pro-mochizuki.jpg" alt="望月正行プロ" class="w-full h-full object-cover">',
+                    '望月 正行', ['2009', '2021'], '日本人初の<br>世界チャンピオン')}
+                ${pro('<img src="images/pro-yazawa.jpg" alt="矢澤亜希子プロ" class="w-full h-full object-cover">',
+                    '矢澤 亜希子', ['2014', '2018'], '女性で世界初の<br>2 回優勝')}
+            </div>
+        `, { opacity: 60, credit: '写真（矢澤プロ）: 本人の X（@akikoyazawa）' }); },
+    },
+
+    // ── 魅力（簡単で手軽・ゲームとしての面白さ・おしゃれの 3 枚） ──
     {
         title: '魅力① 簡単で手軽',
         icon: 'fa-feather-pointed',
