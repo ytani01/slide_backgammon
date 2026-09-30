@@ -195,15 +195,16 @@ const slideData = [
                 ${arrow}
                 ${step('rose', 'fa-ban', '禁止令')}
             </div>
-            <div class="flex justify-center gap-[3cqw] mt-[1.4cqw]">
-                <img src="images/bg-edo.png" alt="日本の彩色画" class="h-[17cqw] w-auto rounded-xl border border-slate-700 shadow-xl shadow-slate-950/60">
-                <img src="images/bg-print.png" alt="日本の白黒の版画" class="h-[17cqw] w-auto rounded-xl border border-slate-700 shadow-xl shadow-slate-950/60">
+            <!-- 日本の絵 2 枚は左に傾けて重ね、日本の話を右に置く（TODO-019） -->
+            <div class="relative mt-[1.6cqw] h-[26cqw]">
+                ${snap('bg-edo.png', '日本の彩色画', 'left-[1cqw] top-0 w-[22cqw]', -4)}
+                ${snap('bg-print.png', '日本の白黒の版画', 'left-[20cqw] top-0 w-[18cqw]', 5)}
+                <blockquote class="absolute right-0 top-1/2 -translate-y-1/2 w-[50cqw] rounded-2xl bg-slate-950/60 border border-slate-700/70 border-l-4 border-l-sky-500/70 px-[2.4cqw] py-[1.8cqw]">
+                    <p class="text-slate-100 font-medium leading-normal" style="font-size: clamp(1rem, 2.6cqw, 1.95rem);">
+                        <i class="fa-solid fa-torii-gate text-lime-400"></i> 日本では、<br>ルールを覚えるより、<br><span class="text-lime-300 font-bold">対戦相手を見つける</span>のが<br>むずかしいボードゲームに
+                    </p>
+                </blockquote>
             </div>
-            <blockquote class="mt-[1.4cqw] rounded-2xl bg-slate-800/30 border border-slate-700/70 border-l-4 border-l-sky-500/70 px-[2cqw] py-[1cqw]">
-                <p class="text-slate-100 font-medium leading-snug" style="font-size: clamp(0.95rem, 2.05cqw, 1.5rem);">
-                    <i class="fa-solid fa-torii-gate text-lime-400"></i> 日本では、ルールを覚えるより、<span class="text-lime-300 font-bold">対戦相手を見つける</span>のがむずかしいボードゲームに
-                </p>
-            </blockquote>
         `); },
     },
 
