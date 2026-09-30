@@ -18,15 +18,19 @@ const slidesConfig = {
         [/望月正行/g, 'もちづきまさゆき'],
         [/矢澤亜希子/g, 'やざわあきこ'],
         [/盤双六/g, 'ばんすごろく'],
+        [/日本書紀/g, 'にほんしょき'],
         [/2人/g, 'ふたり'],
     ],
 };
 
-// 時間軸の画像 1 枚と、その説明（説明は時間軸の点の下に並べる）
-const fig = (src, alt) => `
-    <img src="images/${src}" alt="${alt}" class="w-full h-auto max-h-[22cqw] object-contain rounded-xl border border-slate-700 shadow-xl shadow-slate-950/60">`;
+// 時間軸の画像 1 枚と、何の絵かの小さな説明。時代の説明は時間軸の点の下に並べる（TODO-024）
+const fig = (src, alt, label) => `
+    <figure class="m-0 flex flex-col items-center">
+        <img src="images/${src}" alt="${alt}" class="w-full h-[17cqw] object-cover object-top rounded-xl border border-slate-700 shadow-xl shadow-slate-950/60">
+        <figcaption class="text-slate-300 mt-[0.4cqw] text-center leading-tight" style="font-size: clamp(0.6rem, 1.2cqw, 0.9rem);">${label}</figcaption>
+    </figure>`;
 const cap = (html) => `
-    <div class="flex justify-center text-slate-200 font-medium leading-snug whitespace-nowrap" style="font-size: clamp(1.1rem, 2.3cqw, 1.7rem);"><span>${html}</span></div>`;
+    <div class="text-center text-slate-100 font-medium leading-snug" style="font-size: clamp(0.9rem, 2cqw, 1.5rem);">${html}</div>`;
 
 // 箇条書きの 1 行。template.js の「箇条書き」より大きく、写真と重なっても読めるよう地を濃くした（TODO-018）
 const li = (icon, html) => `
@@ -162,14 +166,14 @@ const slideData = [
     {
         title: 'バックギャモンの歴史は古い',
         icon: 'fa-landmark',
-        duration: 13,
-        narration: 'バックギャモンの歴史は古く、起源は約5000年前の中東です。その後、世界中に拡散して定着しました。日本には、奈良時代より前の飛鳥時代に伝わりました。',
+        duration: 14,
+        narration: 'バックギャモンの歴史は古く、約5000年前の中東には、もう似た遊びがありました。日本でも、飛鳥時代には遊ばれていて、日本書紀に記録があります。中世には、ヨーロッパ中に広まりました。',
         render: function() {
             return bgSlide(this, 'bg-worldmap.jpg', '古い世界地図（Hondius, 1630）', `
                         <div class="grid grid-cols-3 gap-[1.8cqw] items-end">
-                            ${fig('bg-egypt.png', 'エジプトの壁画')}
-                            ${fig('bg-medieval.png', '中世ヨーロッパの写本')}
-                            ${fig('bg-nara.png', '盤を挟んで向かい合う二人の絵')}
+                            ${fig('bg-ur.jpg', '象眼細工の盤と駒（ウルの王のゲーム）', 'ウルの王のゲーム（紀元前 2600 年ごろ）')}
+                            ${fig('bg-nara.png', '盤を挟んで向かい合う二人の絵', '盤双六を打つ二人（絵は江戸時代ごろ）')}
+                            ${fig('bg-medieval.png', '盤を挟んで座る二人と、杯を掲げる人の写本の挿絵', '『カルミナ・ブラーナ』の挿絵（1230 年ごろ）')}
                         </div>
                         <!-- 時間軸: 各図の真下に点、右端に矢じり -->
                         <div class="relative mt-[1.2cqw]">
@@ -180,11 +184,11 @@ const slideData = [
                             </div>
                         </div>
                         <div class="grid grid-cols-3 gap-[1.8cqw] mt-[1cqw]">
-                            ${cap('起源は <b class="text-lime-300">約 5,000 年前</b>（中東）')}
-                            ${cap('<b class="text-lime-300">世界中</b>に拡散・定着')}
-                            ${cap('日本には<b class="text-lime-300">飛鳥時代</b>')}
+                            ${cap('<b class="text-lime-300">約 5,000 年前</b>の中東に<br>似た遊び')}
+                            ${cap('日本でも<b class="text-lime-300">飛鳥時代</b>には<br>遊ばれていた')}
+                            ${cap('中世には<br><b class="text-lime-300">ヨーロッパ中</b>に')}
                         </div>
-            `);
+            `, { credit: '絵: 大英博物館の展示（CC0）、Codex Buranus（PD）／Wikimedia Commons' });
         },
     },
 
