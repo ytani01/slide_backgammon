@@ -123,8 +123,15 @@ TODO-059 も同じスライド 9 を変えるので、まとめて着手する�
 |------|------|------|
 | 見込み | Opus 5.5 / effort medium | main（調査と設定）+ verifier（Sonnet 5.5 / medium。公開した URL で動くかを確かめる） |
 
-- [ ] GitHub Pages で動くかを調べる（「Online Voice」の音声がそのまま使えるか）
-- [ ] 公開できるようにする。`git push` と GitHub 側の設定は利用者がやる
+- [x] GitHub Pages で動くかを調べる（「Online Voice」の音声がそのまま使えるか）
+- [x] 公開できるようにする。`git push` と GitHub 側の設定は利用者がやる
+
+やったこと（2026-10-01）:
+
+- リポジトリが private で、今のプランでは Pages を有効にできなかった（HTTP 422）。利用者が public にすることを選んだ
+- public にして、Pages を master のトップから公開する設定にした（`https://ytani01.github.io/slide_backgammon/`）。`git push` は利用者がやり、GitHub 側の設定は main がやった（利用者の指示）
+- Jekyll が `archives/` の `.md` を処理して構築に失敗したので、`.nojekyll` を置いた
+- 「Online Voice」は `<audio>` で Google の読み上げを直接鳴らすので、置き場所に関係なく動く見込み。公開した URL で verifier に確かめさせる
 
 ---
 
