@@ -172,13 +172,13 @@ const slideData = [
     {
         title: 'バックギャモンの歴史は古い',
         icon: 'fa-landmark',
-        duration: 17,
-        narration: 'バックギャモンの歴史は古く、約5000年前から、中東には似た遊びがありました。紀元前後の古代ローマには、祖先とされる遊びがあり、ヨーロッパに広まりました。日本でも、飛鳥時代には遊ばれていて、日本書紀に記録があります。',
+        duration: 18,
+        narration: 'バックギャモンの歴史は古く、起源は太古の昔です。約5000年前の中東にも、似た遊びがありました。その後、古代ローマなどを経て、世界中に広がりました。日本にも、飛鳥時代には伝わっていて、日本書紀に記録があります。',
         render: function() {
             return bgSlide(this, 'bg-worldmap.jpg', '古い世界地図（Hondius, 1630）', `
                         <div class="grid grid-cols-3 gap-[1.8cqw] items-end">
-                            ${fig('bg-nard.jpg', 'ペルシャの写本の、盤を挟んでナルドを打つ人々', 'ペルシャの「ナルド」（絵は 1430 年ごろ）')}
-                            ${fig('bg-rome.jpg', '石に刻んだ、左右 6 マスずつ 3 列の盤', '古代ローマの盤（紀元前 100 年ごろ）', 'object-center')}
+                            ${fig('bg-nard.jpg', 'ペルシャの写本の、盤を挟んでナルドを打つ人々', 'ペルシャの「ナルド」（15 世紀の絵）')}
+                            ${fig('bg-rome.jpg', '石に刻んだ、左右 6 マスずつ 3 列の盤', '古代ローマ時代の盤（エフェソス）', 'object-center')}
                             ${fig('bg-nara.png', '盤を挟んで向かい合う二人の絵', '盤双六らしい盤を挟む二人（江戸時代ごろの絵）')}
                         </div>
                         <!-- 時間軸: 各図の真下に点、右端に矢じり -->
@@ -190,9 +190,9 @@ const slideData = [
                             </div>
                         </div>
                         <div class="grid grid-cols-3 gap-[1.8cqw] mt-[1cqw]">
-                            ${cap('<b class="text-lime-300">約 5,000 年前</b>から<br>中東に似た遊び')}
-                            ${cap('古代<b class="text-lime-300">ローマ</b>に<br>祖先とされる遊び')}
-                            ${cap('日本でも<b class="text-lime-300">飛鳥時代</b>には<br>遊ばれていた')}
+                            ${cap('<b class="text-lime-300">太古の昔</b>に起源<br>（約 5,000 年前の中東）')}
+                            ${cap('その後<br><b class="text-lime-300">世界中</b>に広がる')}
+                            ${cap('日本にも<b class="text-lime-300">飛鳥時代</b>には<br>伝わっていた')}
                         </div>
             `, { credit: '絵: バイスングルの『シャー・ナーメ』（PD）、盤: nsop (CC BY 2.0)／Wikimedia Commons' });
         },
