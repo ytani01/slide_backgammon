@@ -19,6 +19,7 @@ const slidesConfig = {
         [/盤双六/g, 'ばんすごろく'],
         [/日本書紀/g, 'にほんしょき'],
         [/持統天皇/g, 'じとうてんのう'],
+        [/伏見城御制法/g, 'ふしみじょうごせいほう'],
         [/2人/g, 'ふたり'],
     ],
 };
@@ -196,8 +197,8 @@ const slideData = [
     {
         title: '日本での不遇の歴史',
         icon: 'fa-ban',
-        duration: 22,
-        narration: '日本では、不遇の歴史もあります。簡単で面白いので大流行しましたが、賭博が横行し、689年に持統天皇が禁止令を出しました。その後も、鎌倉時代や江戸時代に、たびたび禁止されています。いまの日本では、ルールはすぐに覚えられても、身近に対戦相手がいないことが多いのです。',
+        duration: 23,
+        narration: '日本では、不遇の歴史もあります。簡単で面白いので大流行しましたが、賭博が横行し、689年に持統天皇が禁止令を出し、江戸時代の1605年にも伏見城御制法で禁止されるなど、たびたび禁止されました。いまの日本では、ルールはすぐに覚えられても、身近に対戦相手がいないことが多いのです。',
         render: function() { return bgSlide(this, 'bg-hikone.jpg', '彦根屏風の背景に描かれた山水の屏風', `
             <div class="flex items-stretch justify-center gap-[1cqw] text-center">
                 ${step('sky', 'fa-face-smile', '簡単で面白い')}
@@ -206,7 +207,7 @@ const slideData = [
                 ${arrow}
                 ${step('amber', 'fa-coins', '賭博の横行')}
                 ${arrow}
-                ${step('rose', 'fa-ban', '禁止令<br><span class="inline-block mt-[0.4cqw] text-slate-300 font-medium" style="font-size: 0.72em; line-height: 1.35;">689 年 持統天皇<br>鎌倉・江戸時代にも</span>')}
+                ${step('rose', 'fa-ban', '禁止令<br><span class="inline-block mt-[0.4cqw] text-slate-300 font-medium" style="font-size: 0.72em; line-height: 1.35;">689 年 持統天皇<br>1605 年 伏見城御制法 など</span>')}
             </div>
             <!-- 日本の絵 2 枚は左に傾けて重ね、日本の話を右に置く（TODO-019） -->
             <div class="relative mt-[1.6cqw] h-[26cqw]">
