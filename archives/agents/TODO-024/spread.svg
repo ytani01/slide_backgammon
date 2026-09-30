@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="98 8 228 130" width="1120" height="639">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="72 6 254 145" width="1120" height="639">
   <defs>
     <marker id="h" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="2.6" markerHeight="2.6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#65a30d"/></marker>
   </defs>
   <rect x="0" y="0" width="360" height="180" fill="#9cc3d5"/>
   <image href="land.png" x="0" y="0" width="360" height="180"/>
-  <g fill="none" stroke="#65a30d" stroke-width="2.8" stroke-linecap="round" marker-end="url(#h)">
+  <g fill="none" stroke="#65a30d" stroke-width="3" stroke-linecap="round" marker-end="url(#h)">
     <!-- 伝わった道。出典は Wikipedia「Tables game」（archives/agents/TODO-024/spread-sources.md） -->
     <!-- 中東(233,58) → 古代ローマ(192,48) -->
     <path d="M233,58 Q212,42 194,48"/>
