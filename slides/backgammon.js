@@ -77,11 +77,12 @@ const world = (src, alt, pos, deg) => `
         <img src="images/${src}" alt="${alt}" class="w-full aspect-[4/3] object-cover">
     </div>`;
 
-// 魅力②の 1 枚分。後ろの席からも読めるよう、文字を大きくして 3 行に分ける（TODO-064）
-const step = (color, icon, text) => `
-    <div class="flex-1 rounded-2xl bg-gradient-to-b from-${color}-950/85 to-slate-900/80 backdrop-blur-sm border border-${color}-500/40 px-[0.8cqw] py-[2cqw] shadow-lg shadow-${color}-900/20">
-        <div class="mx-auto grid place-items-center w-[7cqw] h-[7cqw] rounded-full bg-${color}-500/15 border border-${color}-400/40 text-${color}-300" style="font-size: clamp(1.2rem, 3.6cqw, 2.7rem);"><i class="fa-solid ${icon}"></i></div>
-        <div class="font-bold text-slate-100 leading-snug mt-[1.4cqw]" style="font-size: clamp(0.75rem, 3.2cqw, 2.4rem);">${text}</div>
+// 魅力②の 1 枚分。後ろの席からも読めるよう、文字を大きくして 3 行に分ける（TODO-064）。
+// 上に場面の絵を置く。絵は 3:2 に揃えて、はみ出た所は切る（TODO-065）
+const step = (color, src, alt, text) => `
+    <div class="flex flex-col rounded-2xl bg-gradient-to-b from-${color}-950/85 to-slate-900/80 backdrop-blur-sm border border-${color}-500/40 p-[0.8cqw] pb-[1.4cqw] shadow-lg shadow-${color}-900/20">
+        <img src="images/${src}" alt="${alt}" class="w-full aspect-[3/2] object-cover rounded-xl border border-${color}-400/40">
+        <div class="font-bold text-slate-100 leading-snug mt-auto pt-[1cqw]" style="font-size: clamp(0.75rem, 3.2cqw, 2.4rem);">${text}</div>
     </div>`;
 // 魅力①の 1 枚分: 見出し・大きな数字・一言（TODO-028）
 const easy = (color, icon, label, big, note) => `
@@ -169,7 +170,7 @@ const slideData = [
             <div class="flex items-center gap-[2.4cqw]">
                 <!-- 盤の写真に、白の駒の進む向きを重ねる（右上 → 左 → 右下のゴール） -->
                 <figure class="relative m-0 shrink-0 w-[44cqw]">
-                    <img src="images/bg-rules-board.jpg" alt="真上から見た、初期配置のバックギャモンの盤" class="w-full h-auto rounded-xl border border-slate-600 shadow-2xl shadow-slate-950/70">
+                    <img src="images/bg-rules-board.jpg" alt="真上から見た、初期配置のバックギャモンの盤" class="w-full aspect-[3/2] object-cover rounded-xl border border-slate-600 shadow-2xl shadow-slate-950/70">
                     <svg viewBox="0 0 1130 750" class="absolute inset-0 w-full h-full" aria-hidden="true">
                         <defs><marker id="rules-head" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#a3e635"/></marker></defs>
                         <path d="M 960 335 L 170 335 Q 95 335 95 375 Q 95 415 170 415 L 1040 415" fill="none" stroke="#a3e635" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#rules-head)" opacity="0.95"/>
@@ -299,11 +300,11 @@ const slideData = [
         narration: 'ゲームとしての面白さもあります。ダイスを使うので、運が良ければ、初心者でも上級者に勝つ可能性があります。相手の駒を振り出しに戻して、一気に逆転することもあります。途中で「点数を2倍にしよう」と持ちかける、ダブルという駆け引きもあります。そして、戦略的な思考が必要で、奥が深いゲームです。',
         render: function() { return bgSlide(this, 'bg-feltdice.jpg', '緑のフェルトのボードに載った赤と白のダイスとダブリングキューブ', `
             <div class="grid grid-cols-3 gap-[1.6cqw] text-center">
-                ${step('amber', 'fa-dice', 'ダイスの運で<br>初心者でも<br>上級者に勝てる')}
-                ${step('rose', 'fa-arrow-trend-up', '点数を 2 倍にする<br>「ダブル」の<br>駆け引き')}
-                ${step('sky', 'fa-chess', '戦略的な<br>思考が必要で<br>奥が深い')}
+                ${step('amber', 'card-luck.jpg', 'ゾロ目に両手を上げて喜ぶ若い女性と、頭をかく年配の男性', 'ダイスの運で<br>初心者でも<br>上級者に勝てる')}
+                ${step('rose', 'card-double.jpg', '「2」のキューブを掲げて笑う男性と、腕を組んで考え込む相手', '点数を 2 倍にする<br>「ダブル」の<br>駆け引き')}
+                ${step('sky', 'card-strategy.jpg', 'あごに手を当てて盤を見つめる男性と、次の手を示す光る矢印', '戦略的な<br>思考が必要で<br>奥が深い')}
             </div>
-        `, { credit: '背景: Donald Olszewski (CC BY 4.0)／Wikimedia Commons' }); },
+        `, { credit: '背景: Donald Olszewski (CC BY 4.0)／Wikimedia Commons、絵: AI 生成（Gemini）' }); },
     },
     {
         title: '魅力③ おしゃれで身近',
