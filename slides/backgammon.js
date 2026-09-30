@@ -163,8 +163,8 @@ const slideData = [
     {
         title: 'バックギャモンとは',
         icon: 'fa-circle-question',
-        duration: 22,
-        narration: 'バックギャモンは、2人で遊ぶ、すごろくの仲間です。日本で昔遊ばれた盤双六も、同じ系統の遊びです。交互にダイスを2個振って、出た目の数だけ自分の駒を進めます。15個の駒を、先に全部ゴールさせた方が勝ちです。相手の駒が1個だけのところに止まると、その駒を振り出しに戻せます。',
+        duration: 14,
+        narration: '対戦型のすごろくのようなものです。ダイスを2個振って、15個の駒を進め、全部ゴールさせたら勝ちです。振り出しに戻したり、壁で妨害したりして、駆け引きしながら競います。',
         render: function() { return bgSlide(this, 'bg-cover.jpg', '黒と木目のボードに載ったダイスとダブリングキューブ', `
             <div class="flex items-center gap-[2.4cqw]">
                 <!-- 盤の写真に、白の駒の進む向きを重ねる（右上 → 左 → 右下のゴール） -->
@@ -178,11 +178,15 @@ const slideData = [
                     <figcaption class="text-slate-300 mt-[0.5cqw] text-center" style="font-size: clamp(0.65rem, 1.3cqw, 1rem);">白の駒が進む向き（茶色は逆向き）</figcaption>
                 </figure>
                 <div class="flex-1 flex flex-col gap-[1cqw]">
-                    <div class="self-start rounded-full border border-amber-400/50 bg-amber-400/10 px-[1.4cqw] py-[0.4cqw] text-amber-200 font-bold" style="font-size: clamp(0.8rem, 1.8cqw, 1.35rem);">すごろくの仲間（日本の「盤双六」も同じ系統）</div>
-                    ${rule('fa-user-group', '<span class="text-lime-300">2 人</span>で、ダイス 2 個を交互に振る')}
-                    ${rule('fa-shoe-prints', '出た目の数だけ、<span class="text-lime-300">自分の駒</span>を進める')}
-                    ${rule('fa-flag-checkered', '<span class="text-lime-300">15 個</span>を先に全部ゴールさせたら勝ち')}
-                    ${rule('fa-rotate-left', '1 個だけの相手の駒は、<span class="text-lime-300">振り出しに戻せる</span>')}
+                    <!-- 知らない人にまず「すごろく」と伝える（TODO-053） -->
+                    <p class="m-0 font-black text-amber-300 leading-none drop-shadow-[0_2px_6px_rgba(2,6,23,0.9)]" style="font-size: clamp(1.6rem, 4.4cqw, 3.4rem);">対戦型のすごろく！</p>
+                    ${rule('fa-dice', 'ダイスを <span class="text-lime-300">2 個</span>振る')}
+                    ${rule('fa-flag-checkered', '<span class="text-lime-300">15 個</span>のコマを全部ゴールさせたら勝ち')}
+                    <!-- 特徴的なルールなので、ほかの行と分けて目立たせる（TODO-053） -->
+                    <div class="flex items-center gap-[1cqw] rounded-xl bg-amber-400/15 border-2 border-amber-400 px-[1.2cqw] py-[0.8cqw] shadow-lg shadow-slate-950/60">
+                        <span class="shrink-0 grid place-items-center w-[3.4cqw] h-[3.4cqw] rounded-lg bg-amber-400/15 text-amber-300 border border-amber-400/60" style="font-size: clamp(0.75rem, 1.8cqw, 1.35rem);"><i class="fa-solid fa-rotate-left"></i></span>
+                        <p class="m-0 text-amber-200 font-bold leading-snug" style="font-size: clamp(0.75rem, 2cqw, 1.5rem);">振り出しに戻したり、壁で妨害したりして、<br>駆け引きしながらゴールを目指す</p>
+                    </div>
                 </div>
             </div>
         `, { opacity: 35, credit: '盤: TaurusEmerald (CC BY-SA 4.0)、背景: Clint Budd (CC BY 2.0)／Wikimedia Commons' }); },
