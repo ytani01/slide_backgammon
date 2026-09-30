@@ -77,11 +77,11 @@ const world = (src, alt, pos, deg) => `
         <img src="images/${src}" alt="${alt}" class="w-full aspect-[4/3] object-cover">
     </div>`;
 
-// 流れの 1 箱（template.js の「図解」と同じ書式）
+// 魅力②の 1 枚分。後ろの席からも読めるよう、文字を大きくして 3 行に分ける（TODO-064）
 const step = (color, icon, text) => `
-    <div class="flex-1 rounded-2xl bg-gradient-to-b from-${color}-950/85 to-slate-900/80 backdrop-blur-sm border border-${color}-500/40 px-[1cqw] py-[1.2cqw] shadow-lg shadow-${color}-900/20">
-        <div class="mx-auto grid place-items-center w-[4.6cqw] h-[4.6cqw] rounded-full bg-${color}-500/15 border border-${color}-400/40 text-${color}-300" style="font-size: clamp(1.1rem, 2.4cqw, 1.8rem);"><i class="fa-solid ${icon}"></i></div>
-        <div class="font-bold text-slate-100 mt-[0.8cqw]" style="font-size: clamp(0.9rem, 2.0cqw, 1.5rem);">${text}</div>
+    <div class="flex-1 rounded-2xl bg-gradient-to-b from-${color}-950/85 to-slate-900/80 backdrop-blur-sm border border-${color}-500/40 px-[0.8cqw] py-[2cqw] shadow-lg shadow-${color}-900/20">
+        <div class="mx-auto grid place-items-center w-[7cqw] h-[7cqw] rounded-full bg-${color}-500/15 border border-${color}-400/40 text-${color}-300" style="font-size: clamp(1.2rem, 3.6cqw, 2.7rem);"><i class="fa-solid ${icon}"></i></div>
+        <div class="font-bold text-slate-100 leading-snug mt-[1.4cqw]" style="font-size: clamp(0.75rem, 3.2cqw, 2.4rem);">${text}</div>
     </div>`;
 // 魅力①の 1 枚分: 見出し・大きな数字・一言（TODO-028）
 const easy = (color, icon, label, big, note) => `
@@ -101,17 +101,6 @@ const pro = (photo, name, years, note) => `
             <div class="font-extrabold text-lime-300 leading-tight whitespace-nowrap" style="font-size: clamp(1.4rem, 3.6cqw, 2.7rem);">${years.join('<span class="text-slate-500 font-bold">・</span>')}</div>
             <div class="text-amber-300 font-bold mt-[1cqw] leading-snug" style="font-size: clamp(0.8rem, 1.8cqw, 1.35rem);">${note}</div>
         </div>
-    </div>`;
-
-// 大逆転の絵の 1 コマ: 一言と、自分・相手の進み具合の棒（TODO-055）
-const race = (icon, color, text, me, you) => `
-    <div class="flex-1 min-w-0 flex flex-col items-center gap-[0.5cqw] rounded-lg bg-slate-800/70 border border-slate-600/60 px-[0.6cqw] py-[0.7cqw]">
-        <div class="font-bold text-${color}-300 whitespace-nowrap" style="font-size: clamp(0.6rem, 1.5cqw, 1.1rem);"><i class="fa-solid ${icon}"></i> ${text}</div>
-        ${[['自分', 'bg-lime-400', me], ['相手', 'bg-rose-400', you]].map(([who, bar, w]) => `
-        <div class="w-full flex items-center gap-[0.4cqw] text-slate-300" style="font-size: clamp(0.5rem, 1.1cqw, 0.8rem);">
-            <span class="shrink-0">${who}</span>
-            <div class="flex-1 h-[0.9cqw] rounded-full bg-slate-700"><div class="h-full rounded-full ${bar}" style="width: ${w}%;"></div></div>
-        </div>`).join('')}
     </div>`;
 
 // 背景に画像を敷いた 1 枚。見出しは player.html と同じ書式。
@@ -306,46 +295,13 @@ const slideData = [
     {
         title: '魅力② ゲームとしての面白さ',
         icon: 'fa-dice',
-        duration: 18,
-        narration: 'ゲームとしての面白さもあります。ダイスを使うので、運が良ければ、初心者でも上級者に勝つ可能性があります。途中で「点数を2倍にしよう」と持ちかける、ダブルという駆け引きもあります。そして、戦略的な思考が必要で、奥が深いゲームです。',
+        duration: 22,
+        narration: 'ゲームとしての面白さもあります。ダイスを使うので、運が良ければ、初心者でも上級者に勝つ可能性があります。相手の駒を振り出しに戻して、一気に逆転することもあります。途中で「点数を2倍にしよう」と持ちかける、ダブルという駆け引きもあります。そして、戦略的な思考が必要で、奥が深いゲームです。',
         render: function() { return bgSlide(this, 'bg-feltdice.jpg', '緑のフェルトのボードに載った赤と白のダイスとダブリングキューブ', `
             <div class="grid grid-cols-3 gap-[1.6cqw] text-center">
-                ${step('amber', 'fa-dice', 'ダイスの運で<br>初心者でも上級者に勝てる')}
-                ${step('rose', 'fa-arrow-trend-up', '点数を 2 倍にする<br>「ダブル」の駆け引き')}
-                ${step('sky', 'fa-chess', '戦略的な思考が必要で<br>奥が深い')}
-            </div>
-            <!-- 下段: 左に大逆転の流れ（TODO-055）、右にダブルの場面（TODO-054）。上の 1 枚目・2 枚目の下に来る -->
-            <div class="mt-[2cqw] grid grid-cols-2 gap-[1.6cqw]">
-            <!-- 大逆転: 負けそう → 相手の駒を振り出しに戻す → 逆転勝ち -->
-            <div class="flex flex-col justify-center gap-[0.7cqw] rounded-2xl bg-slate-950/80 backdrop-blur-sm border border-amber-500/40 px-[1.2cqw] py-[1.2cqw] shadow-lg shadow-slate-950/60">
-                <div class="self-start rounded-lg bg-amber-400 px-[0.8cqw] py-[0.2cqw] font-bold text-slate-950" style="font-size: clamp(0.7rem, 1.6cqw, 1.2rem);">大逆転！</div>
-                <div class="flex items-center gap-[0.5cqw]">
-                    ${race('fa-face-frown', 'slate', '負けそう', 25, 80)}
-                    <i class="fa-solid fa-arrow-right text-amber-300" style="font-size: clamp(0.7rem, 1.6cqw, 1.2rem);"></i>
-                    ${race('fa-rotate-left', 'rose', '相手の駒を戻す', 45, 35)}
-                    <i class="fa-solid fa-arrow-right text-amber-300" style="font-size: clamp(0.7rem, 1.6cqw, 1.2rem);"></i>
-                    ${race('fa-trophy', 'amber', '逆転勝ち', 100, 70)}
-                </div>
-                <div class="text-slate-300" style="font-size: clamp(0.6rem, 1.4cqw, 1.05rem);">ダイスの目しだいで、負けていても追い付ける</div>
-            </div>
-            <!-- ダブルの場面: 「2」のキューブを差し出され、受けるか降りるかを迷う（TODO-054） -->
-            <div class="flex items-center gap-[1cqw] rounded-2xl bg-slate-950/80 backdrop-blur-sm border border-rose-500/40 px-[1.2cqw] py-[1.2cqw] shadow-lg shadow-slate-950/60">
-                <div class="shrink-0 flex flex-col items-center gap-[0.5cqw]">
-                    <div class="rounded-lg bg-rose-500 px-[0.8cqw] py-[0.2cqw] font-bold text-slate-950" style="font-size: clamp(0.7rem, 1.6cqw, 1.2rem);">ダブル！</div>
-                    <div class="grid place-items-center w-[4.6cqw] h-[4.6cqw] rounded-lg bg-slate-50 border-2 border-slate-400 font-black text-slate-900 shadow-lg shadow-slate-950/60" style="font-size: clamp(1.2rem, 3.2cqw, 2.4rem);">2</div>
-                </div>
-                <i class="fa-solid fa-arrow-right text-rose-300" style="font-size: clamp(0.7rem, 1.6cqw, 1.2rem);"></i>
-                <div class="shrink-0 flex flex-col items-center text-slate-200" style="font-size: clamp(1rem, 3cqw, 2.2rem);">
-                    <i class="fa-solid fa-circle-question text-amber-300" style="font-size: 0.5em;"></i>
-                    <i class="fa-solid fa-user"></i>
-                    <span class="font-bold" style="font-size: 0.4em;">相手</span>
-                </div>
-                <div class="flex-1 min-w-0 flex flex-col gap-[0.6cqw] text-left whitespace-nowrap">
-                    <div class="rounded-lg bg-lime-500/15 border border-lime-500/50 px-[0.8cqw] py-[0.4cqw] font-bold text-slate-50" style="font-size: clamp(0.65rem, 1.5cqw, 1.15rem);"><span class="text-lime-300">受ける</span> → 点数 2 倍で続ける</div>
-                    <div class="rounded-lg bg-slate-500/15 border border-slate-400/50 px-[0.8cqw] py-[0.4cqw] font-bold text-slate-50" style="font-size: clamp(0.65rem, 1.5cqw, 1.15rem);"><span class="text-slate-300">降りる</span> → 1 点負けで終わり</div>
-                    <div class="text-slate-300 leading-snug" style="font-size: clamp(0.55rem, 1.2cqw, 0.9rem);">ふつうは勝てば 1 点。<br>受けると、勝ち負けが 2 点になる</div>
-                </div>
-            </div>
+                ${step('amber', 'fa-dice', 'ダイスの運で<br>初心者でも<br>上級者に勝てる')}
+                ${step('rose', 'fa-arrow-trend-up', '点数を 2 倍にする<br>「ダブル」の<br>駆け引き')}
+                ${step('sky', 'fa-chess', '戦略的な<br>思考が必要で<br>奥が深い')}
             </div>
         `, { credit: '背景: Donald Olszewski (CC BY 4.0)／Wikimedia Commons' }); },
     },
