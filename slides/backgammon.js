@@ -18,6 +18,7 @@ const slidesConfig = {
         [/矢澤亜希子/g, 'やざわあきこ'],
         [/盤双六/g, 'ばんすごろく'],
         [/日本書紀/g, 'にほんしょき'],
+        [/持統天皇/g, 'じとうてんのう'],
         [/2人/g, 'ふたり'],
     ],
 };
@@ -193,11 +194,11 @@ const slideData = [
 
     // ── 不遇の歴史（日本では、までを 1 枚に）。「相手が見つからない」を最後の会への誘いで受ける（TODO-022） ──
     {
-        title: '不遇の歴史',
+        title: '日本での不遇の歴史',
         icon: 'fa-ban',
-        duration: 14,
-        narration: '不遇の歴史もあります。簡単で面白いので大流行しましたが、賭博が横行し、禁止令が出されました。日本では、ルールを覚えるより、対戦相手を見つけるのがむずかしいボードゲームになってしまいました。',
-        render: function() { return bgSlide(this, 'bg-gambling.jpg', 'モンテカルロの賭博室の古い写真（Jean Gilletta）', `
+        duration: 22,
+        narration: '日本では、不遇の歴史もあります。簡単で面白いので大流行しましたが、賭博が横行し、689年に持統天皇が禁止令を出しました。その後も、鎌倉時代や江戸時代に、たびたび禁止されています。いまの日本では、ルールはすぐに覚えられても、身近に対戦相手がいないことが多いのです。',
+        render: function() { return bgSlide(this, 'bg-hikone.jpg', '彦根屏風の背景に描かれた山水の屏風', `
             <div class="flex items-stretch justify-center gap-[1cqw] text-center">
                 ${step('sky', 'fa-face-smile', '簡単で面白い')}
                 ${arrow}
@@ -205,7 +206,7 @@ const slideData = [
                 ${arrow}
                 ${step('amber', 'fa-coins', '賭博の横行')}
                 ${arrow}
-                ${step('rose', 'fa-ban', '禁止令')}
+                ${step('rose', 'fa-ban', '禁止令<br><span class="inline-block mt-[0.4cqw] text-slate-300 font-medium" style="font-size: 0.72em; line-height: 1.35;">689 年 持統天皇<br>鎌倉・江戸時代にも</span>')}
             </div>
             <!-- 日本の絵 2 枚は左に傾けて重ね、日本の話を右に置く（TODO-019） -->
             <div class="relative mt-[1.6cqw] h-[26cqw]">
@@ -213,11 +214,11 @@ const slideData = [
                 ${snap('bg-print.png', '日本の白黒の版画', 'left-[20cqw] top-0 w-[18cqw]', 5)}
                 <blockquote class="absolute right-0 top-1/2 -translate-y-1/2 w-[50cqw] rounded-2xl bg-slate-950/60 border border-slate-700/70 border-l-4 border-l-sky-500/70 px-[2.4cqw] py-[1.8cqw]">
                     <p class="text-slate-100 font-medium leading-normal" style="font-size: clamp(1rem, 2.6cqw, 1.95rem);">
-                        <i class="fa-solid fa-torii-gate text-lime-400"></i> 日本では、<br>ルールを覚えるより、<br><span class="text-lime-300 font-bold">対戦相手を見つける</span>のが<br>むずかしいボードゲームに
+                        <i class="fa-solid fa-magnifying-glass text-lime-400"></i> いまの日本では、<br>ルールはすぐに覚えられても、<br>身近に<span class="text-lime-300 font-bold">対戦相手がいない</span>
                     </p>
                 </blockquote>
             </div>
-        `); },
+        `, { credit: '背景: 彦根屏風（PD）／Wikimedia Commons' }); },
     },
 
     // ── 世界中（「日本では」を受けて「でも世界では」とつなぐ） ──
@@ -318,8 +319,8 @@ const slideData = [
     {
         title: '関内バックギャモンの会で始めよう',
         icon: 'fa-handshake',
-        duration: 22,
-        narration: '日本では、対戦相手を見つけるのがむずかしい、とお話ししました。それなら、関内バックギャモンの会に来てください。初めての方には、遊び方を丁寧に教えます。月に2回ほど、主になか区民活動センターで、お喋りしながら気軽に遊んでいます。日程と申し込みは、公式サイトをご覧ください。',
+        duration: 21,
+        narration: '身近に対戦相手がいない、とお話ししました。それなら、関内バックギャモンの会に来てください。初めての方には、遊び方を丁寧に教えます。月に2回ほど、主になか区民活動センターで、お喋りしながら気軽に遊んでいます。日程と申し込みは、公式サイトをご覧ください。',
         render: function() { return bgSlide(this, 'bg-kannai.jpg', '窓の光が差すテーブルに置いた木のバックギャモンのボード', `
             <div class="flex items-center gap-[2.4cqw]">
                 <ul class="flex-1 flex flex-col gap-[1.2cqw]">
