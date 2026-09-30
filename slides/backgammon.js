@@ -303,6 +303,25 @@ const slideData = [
                 ${step('rose', 'fa-arrow-trend-up', '点数を 2 倍にする<br>「ダブル」の駆け引き')}
                 ${step('sky', 'fa-chess', '戦略的な思考が必要で<br>奥が深い')}
             </div>
+            <!-- ダブルの場面: 「2」のキューブを差し出され、受けるか降りるかを迷う（TODO-054）。
+                 下段に絵を置く。大逆転の絵（TODO-055）を足すときは左右に並べる -->
+            <div class="mt-[2cqw] mx-auto w-[64cqw] flex items-center gap-[1.4cqw] rounded-2xl bg-slate-950/80 backdrop-blur-sm border border-rose-500/40 px-[1.6cqw] py-[1.2cqw] shadow-lg shadow-slate-950/60">
+                <div class="shrink-0 flex flex-col items-center gap-[0.5cqw]">
+                    <div class="rounded-lg bg-rose-500 px-[0.8cqw] py-[0.2cqw] font-bold text-slate-950" style="font-size: clamp(0.7rem, 1.6cqw, 1.2rem);">ダブル！</div>
+                    <div class="grid place-items-center w-[5.6cqw] h-[5.6cqw] rounded-lg bg-slate-50 border-2 border-slate-400 font-black text-slate-900 shadow-lg shadow-slate-950/60" style="font-size: clamp(1.4rem, 3.8cqw, 2.8rem);">2</div>
+                </div>
+                <i class="fa-solid fa-arrow-right text-rose-300" style="font-size: clamp(1rem, 2.6cqw, 2rem);"></i>
+                <div class="shrink-0 flex flex-col items-center text-slate-200" style="font-size: clamp(1.2rem, 3.6cqw, 2.7rem);">
+                    <i class="fa-solid fa-circle-question text-amber-300" style="font-size: 0.5em;"></i>
+                    <i class="fa-solid fa-user"></i>
+                    <span class="font-bold" style="font-size: 0.4em;">相手</span>
+                </div>
+                <div class="flex-1 flex flex-col gap-[0.7cqw] text-left">
+                    <div class="rounded-lg bg-lime-500/15 border border-lime-500/50 px-[1cqw] py-[0.5cqw] font-bold text-slate-50" style="font-size: clamp(0.75rem, 1.9cqw, 1.45rem);"><span class="text-lime-300">受ける</span> → 点数 2 倍で続ける</div>
+                    <div class="rounded-lg bg-slate-500/15 border border-slate-400/50 px-[1cqw] py-[0.5cqw] font-bold text-slate-50" style="font-size: clamp(0.75rem, 1.9cqw, 1.45rem);"><span class="text-slate-300">降りる</span> → 1 点負けで終わり</div>
+                    <div class="text-slate-300" style="font-size: clamp(0.65rem, 1.4cqw, 1.05rem);">ふつうは勝てば 1 点。受けると、勝ち負けが 2 点になる</div>
+                </div>
+            </div>
         `, { credit: '背景: Donald Olszewski (CC BY 4.0)／Wikimedia Commons' }); },
     },
     {
