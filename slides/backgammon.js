@@ -15,6 +15,7 @@ const slidesConfig = {
         [/禁止令/g, 'きんしれい'],
         [/駆け引き/g, 'かけひき'],
         [/3億人/g, 'さんおくにん'],
+        [/遊戯人口/g, 'ゆうぎじんこう'],
         [/望月正行/g, 'もちづきまさゆき'],
         [/矢澤亜希子/g, 'やざわあきこ'],
         [/盤双六/g, 'ばんすごろく'],
@@ -223,10 +224,10 @@ const slideData = [
     {
         title: '世界中でプレーされている',
         icon: 'fa-earth-asia',
-        duration: 16,
-        narration: 'そしていま、バックギャモンは世界中でプレーされています。日本バックギャモン協会によると、世界で約3億人が遊んでいると言われます。1979年からは毎年、モナコのモンテカルロで世界選手権が開かれています。',
+        duration: 17,
+        narration: 'そしていま、バックギャモンは世界中でプレーされています。日本バックギャモン協会によると、世界の遊戯人口は、約3億人と言われます。1979年からは毎年、モナコのモンテカルロで世界選手権が開かれています。',
         render: function() { return bgSlide(this, 'bg-nightearth.jpg', '夜の地球の世界地図（NASA）', `
-            <!-- 数字は出典のあるものだけ（archives/agents/TODO-025/research-report.md） -->
+            <!-- 数字は出典のあるものだけ。「3 億人」は協会の原文どおり遊戯人口（archives/agents/TODO-048/research-report.md） -->
             <div class="grid grid-cols-5 gap-[1.8cqw] items-center">
                 <!-- いろいろな国で遊ぶ様子を傾けて重ねる（TODO-025。出典は archives/agents/TODO-025/world-photos-report.md） -->
                 <div class="col-span-3 relative h-[31cqw]">
@@ -238,7 +239,7 @@ const slideData = [
                 </div>
                 <div class="col-span-2 space-y-[1.4cqw] text-center">
                     <div class="rounded-2xl bg-slate-900/80 border border-lime-500/40 p-[1.4cqw] shadow-lg shadow-lime-900/20 ring-1 ring-lime-400/20">
-                        <div class="text-slate-200 font-medium" style="font-size: clamp(0.9rem, 1.95cqw, 1.4rem);">世界で遊ぶ人</div>
+                        <div class="text-slate-200 font-medium" style="font-size: clamp(0.9rem, 1.95cqw, 1.4rem);">世界の遊戯人口</div>
                         <div class="font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-b from-lime-300 to-lime-500" style="font-size: clamp(2rem, 5cqw, 3.8rem);">約 3<span class="text-slate-400 font-bold" style="font-size: clamp(0.9rem, 1.9cqw, 1.4rem);"> 億人</span></div>
                         <div class="text-slate-400 font-medium mt-[0.6cqw]" style="font-size: clamp(0.7rem, 1.4cqw, 1.05rem);">日本バックギャモン協会による</div>
                     </div>
