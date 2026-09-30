@@ -53,7 +53,7 @@ const li = (icon, html, py = '1.1cqw') => `
 // QR コードの札。札ごと url へのリンクで、QR を左、文字を右に置く（TODO-043）
 const qrCard = (url, img, alt, label, shown) => `
     <a href="${url}" target="_blank" rel="noopener" onclick="event.stopPropagation()" class="flex items-center gap-[1cqw] no-underline rounded-2xl bg-slate-50 p-[1cqw] shadow-2xl shadow-slate-950/80">
-        <img src="images/${img}" alt="${alt}" class="shrink-0 w-[11cqw] h-auto" style="image-rendering: pixelated;">
+        <img src="images/${img}" alt="${alt}" class="shrink-0 w-[15cqw] h-auto" style="image-rendering: pixelated;">
         <div class="min-w-0">
             <div class="text-slate-900 font-bold leading-snug" style="font-size: clamp(0.7rem, 1.6cqw, 1.2rem);">${label}</div>
             <div class="text-slate-600 font-medium mt-[0.4cqw] break-all leading-tight" style="font-size: clamp(0.5rem, 0.95cqw, 0.72rem);">${shown}</div>
@@ -330,28 +330,20 @@ const slideData = [
     {
         title: '関内バックギャモンの会で始めよう',
         icon: 'fa-handshake',
-        duration: 27,
-        narration: '日本では、知る人の少ないバックギャモンですが、関内バックギャモンの会に来れば、一緒に遊ぶ仲間がいます。初めての方には、遊び方を丁寧に教えます。月に2回ほど、主になか区民活動センターや、Kアリーナのバーで、お喋りしながら気軽に遊んでいます。会とは別の催しですが、「バックギャモン・ナイト」も開かれています。お問い合わせは、公式サイトをご覧ください。',
+        duration: 22,
+        narration: '日本では、知る人の少ないバックギャモンですが、関内バックギャモンの会に来れば、一緒に遊ぶ仲間がいます。初めての方には、遊び方を丁寧に教えます。月に2回ほど、主になか区民活動センターや、Kアリーナのバーで、お喋りしながら気軽に遊んでいます。お問い合わせは、公式サイトをご覧ください。',
         render: function() { return bgSlide(this, 'bg-kannai.jpg', '窓の光が差すテーブルに置いた木のバックギャモンのボード', `
             <div class="flex items-center gap-[2.4cqw]">
                 <div class="flex-1 flex flex-col gap-[1.2cqw]">
                     <ul class="flex flex-col gap-[0.6cqw]">
                         ${li('fa-seedling', '<span class="text-lime-300">初心者歓迎</span>。遊び方を丁寧に教えます')}
-                        ${li('fa-calendar-days', '<span class="text-lime-300">月 2 回</span>ほど、主に なか区民活動センターや <span class="whitespace-nowrap">Kアリーナ Bar 7 で</span>')}
+                        ${li('fa-calendar-days', '<span class="text-lime-300">月 2 回</span>ほど、主に <span class="whitespace-nowrap">なか区民活動センター</span>や <span class="whitespace-nowrap">Kアリーナ Bar 7 で</span>')}
                         ${li('fa-comments', 'お喋りしながら<span class="text-lime-300">気軽に</span>交流')}
                     </ul>
-                    <!-- 日本バックギャモン協会が 2026 年 7 月から馬車道の BankPark YOKOHAMA 1 階 CRAFT. で開く「大人の木曜日－バックギャモンナイト」（TODO-038）。
-                         会の催しと思われないよう、会の箱から外して区切り線の下に置く（TODO-059） -->
-                    <div class="flex items-center gap-[1.2cqw] border-t border-slate-400/60 pt-[1cqw] px-[1.6cqw] rounded-b-xl bg-slate-950/60 pb-[0.8cqw]">
-                        <i class="fa-solid fa-moon text-slate-300" style="font-size: clamp(0.8rem, 2cqw, 1.5rem);"></i>
-                        <div class="leading-snug">
-                            <div class="text-slate-300 font-medium" style="font-size: clamp(0.6rem, 1.5cqw, 1.1rem);">ほかの催し（会とは別）</div>
-                            <div class="text-slate-50 font-bold" style="font-size: clamp(0.7rem, 2.2cqw, 1.6rem);">馬車道の<span class="text-lime-300">「バックギャモン・ナイト」</span></div>
-                        </div>
-                    </div>
                 </div>
-                <!-- 札ごとリンク。上が公式サイト、下が X。クリックを再生・一時停止に伝えない（TODO-041、TODO-043） -->
-                <div class="shrink-0 w-[27cqw] flex flex-col gap-[1cqw]">
+                <!-- 札ごとリンク。上が公式サイト、下が X。クリックを再生・一時停止に伝えない（TODO-041、TODO-043）。
+                     隣の QR を読み込まないよう、QR を大きくして札の間を離す（TODO-063） -->
+                <div class="shrink-0 w-[33cqw] flex flex-col gap-[2.4cqw]">
                     ${qrCard('https://kannaibg.wixsite.com/kannai-backgammon', 'kannai-qr.png', '公式サイトの QR コード', 'お問い合わせは<br>公式サイトで', 'kannaibg.wixsite.com/<br>kannai-backgammon')}
                     ${qrCard('https://x.com/lppcn5b6mw94np2', 'x-qr.png', 'X の QR コード', '最新情報は<br>X で', 'x.com/<br>lppcn5b6mw94np2')}
                 </div>
