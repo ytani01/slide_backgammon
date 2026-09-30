@@ -42,9 +42,10 @@ const fig = (src, alt, label, pos = 'object-top') => `
 const cap = (html) => `
     <div class="text-center text-slate-100 font-medium leading-snug" style="font-size: clamp(0.9rem, 2cqw, 1.5rem);">${html}</div>`;
 
-// 箇条書きの 1 行。template.js の「箇条書き」より大きく、写真と重なっても読めるよう地を濃くした（TODO-018）
-const li = (icon, html) => `
-    <li class="flex items-center gap-[1.4cqw] rounded-xl bg-slate-950/75 backdrop-blur-sm border border-lime-500/40 px-[1.6cqw] py-[1.1cqw] shadow-lg shadow-slate-950/60">
+// 箇条書きの 1 行。template.js の「箇条書き」より大きく、写真と重なっても読めるよう地を濃くした（TODO-018）。
+// py は行が多いスライドで上下の余白を詰めるため（TODO-051）
+const li = (icon, html, py = '1.1cqw') => `
+    <li class="flex items-center gap-[1.4cqw] rounded-xl bg-slate-950/75 backdrop-blur-sm border border-lime-500/40 px-[1.6cqw] py-[${py}] shadow-lg shadow-slate-950/60">
         <span class="shrink-0 grid place-items-center w-[4.4cqw] h-[4.4cqw] rounded-lg bg-lime-500/15 text-lime-400 border border-lime-500/40" style="font-size: clamp(0.85rem, 2.4cqw, 1.8rem);"><i class="fa-solid ${icon}"></i></span>
         <span class="text-slate-50 font-bold leading-snug" style="font-size: clamp(0.8rem, 2.8cqw, 2.1rem);">${html}</span>
     </li>`;
@@ -329,13 +330,14 @@ const slideData = [
         narration: '日本では、まだ知る人の少ないバックギャモンですが、関内バックギャモンの会に来れば、一緒に遊ぶ仲間がいます。初めての方には、遊び方を丁寧に教えます。月に2回ほど、主になか区民活動センターや、Kアリーナのバーで、お喋りしながら気軽に遊んでいます。同じ横浜では、「バックギャモン・ナイト」も開かれています。お問い合わせは、公式サイトをご覧ください。',
         render: function() { return bgSlide(this, 'bg-kannai.jpg', '窓の光が差すテーブルに置いた木のバックギャモンのボード', `
             <div class="flex items-center gap-[2.4cqw]">
-                <ul class="flex-1 flex flex-col gap-[0.6cqw]">
-                    ${li('fa-seedling', '<span class="text-lime-300">初心者歓迎</span>。遊び方を丁寧に教えます')}
-                    ${li('fa-calendar-days', '<span class="text-lime-300">月 2 回</span>ほど、主に なか区民活動センターや <span class="whitespace-nowrap">Kアリーナ Bar 7 で</span>')}
-                    ${li('fa-comments', 'お喋りしながら<span class="text-lime-300">気軽に</span>交流')}
-                    ${li('fa-coins', '参加費は <span class="text-lime-300">100 円〜</span>の投げ銭<span class="text-slate-400 font-medium" style="font-size: 0.7em;">（ボード持参なら無料）</span>')}
+                <!-- 箱 5 つを幅 1280px × 高さ 720px のプレイヤーで枠に収めるため、余白を詰める（TODO-051） -->
+                <ul class="flex-1 flex flex-col gap-[0.4cqw]">
+                    ${li('fa-seedling', '<span class="text-lime-300">初心者歓迎</span>。遊び方を丁寧に教えます', '0.5cqw')}
+                    ${li('fa-calendar-days', '<span class="text-lime-300">月 2 回</span>ほど、主に なか区民活動センターや <span class="whitespace-nowrap">Kアリーナ Bar 7 で</span>', '0.5cqw')}
+                    ${li('fa-comments', 'お喋りしながら<span class="text-lime-300">気軽に</span>交流', '0.5cqw')}
+                    ${li('fa-coins', '参加費は <span class="text-lime-300">100 円〜</span>の投げ銭<span class="text-slate-400 font-medium" style="font-size: 0.7em;">（ボード持参なら無料）</span>', '0.5cqw')}
                     <!-- 日本バックギャモン協会が 2026 年 7 月から馬車道の BankPark YOKOHAMA 1 階 CRAFT. で開く「大人の木曜日－バックギャモンナイト」（TODO-038） -->
-                    ${li('fa-moon', '馬車道では<span class="text-lime-300">「バックギャモン・ナイト」</span>も')}
+                    ${li('fa-moon', '馬車道では<span class="text-lime-300">「バックギャモン・ナイト」</span>も', '0.5cqw')}
                 </ul>
                 <!-- 札ごとリンク。上が公式サイト、下が X。クリックを再生・一時停止に伝えない（TODO-041、TODO-043） -->
                 <div class="shrink-0 w-[27cqw] flex flex-col gap-[1cqw]">
