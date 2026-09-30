@@ -52,6 +52,13 @@ const step = (color, icon, text) => `
         <div class="mx-auto grid place-items-center w-[4.6cqw] h-[4.6cqw] rounded-full bg-${color}-500/15 border border-${color}-400/40 text-${color}-300" style="font-size: clamp(1.1rem, 2.4cqw, 1.8rem);"><i class="fa-solid ${icon}"></i></div>
         <div class="font-bold text-slate-100 mt-[0.8cqw]" style="font-size: clamp(0.9rem, 2.0cqw, 1.5rem);">${text}</div>
     </div>`;
+// 魅力①の 1 枚分: 見出し・大きな数字・一言（TODO-028）
+const easy = (color, icon, label, big, note) => `
+    <div class="rounded-2xl bg-gradient-to-b from-${color}-950/85 to-slate-900/80 backdrop-blur-sm border border-${color}-500/40 px-[1cqw] py-[1.8cqw] shadow-lg shadow-${color}-900/20">
+        <div class="flex items-center justify-center gap-[0.8cqw] text-slate-200 font-bold" style="font-size: clamp(0.9rem, 2.1cqw, 1.6rem);"><i class="fa-solid ${icon} text-${color}-300"></i>${label}</div>
+        <div class="font-extrabold text-${color}-300 leading-none mt-[1.2cqw] h-[7cqw] flex items-center justify-center" style="font-size: clamp(2.4rem, 7cqw, 5.2rem);">${big}</div>
+        <div class="text-slate-200 font-medium mt-[1.2cqw]" style="font-size: clamp(0.8rem, 1.8cqw, 1.35rem);">${note}</div>
+    </div>`;
 const arrow = `
     <div class="flex items-center justify-center shrink-0">
         <i class="fa-solid fa-arrow-right text-lime-400" style="font-size: clamp(1.1rem, 2.4cqw, 1.8rem);"></i>
@@ -259,12 +266,14 @@ const slideData = [
     {
         title: '魅力① 簡単で手軽',
         icon: 'fa-feather-pointed',
-        duration: 10,
-        narration: 'バックギャモンの魅力、まずは簡単で手軽なことです。ルールが簡単で、すぐに覚えられます。15分程度の短い時間でプレーできます。',
+        duration: 15,
+        narration: 'バックギャモンの魅力、まずは簡単で手軽なことです。基本のルールは、最初に見た4つだけで、すぐに覚えられます。1ゲームは15分ほど。ボードは畳んで持ち運べるので、どこでも遊べます。',
         render: function() { return bgSlide(this, 'bg-portable.jpg', '木のテーブルに置いた持ち運び用のバックギャモン', `
-            <div class="grid grid-cols-2 gap-[2cqw] text-center">
-                ${step('sky', 'fa-check', 'ルールが簡単')}
-                ${step('lime', 'fa-stopwatch', '短時間でプレーできる<br>（15 分程度）')}
+            <!-- 大きな数字で「どう簡単か」を見せる（TODO-028） -->
+            <div class="grid grid-cols-3 gap-[1.8cqw] text-center">
+                ${easy('sky', 'fa-list-check', 'ルール', '4<span style="font-size: 0.45em;"> つ</span>', '基本は最初に見た 4 つだけ')}
+                ${easy('lime', 'fa-stopwatch', '1 ゲーム', '15<span style="font-size: 0.45em;"> 分</span>', 'すき間の時間で遊べる')}
+                ${easy('amber', 'fa-suitcase', 'ボード', '<span style="font-size: 0.6em;">持ち運べる</span>', '畳んでどこでも')}
             </div>
         `, { credit: '背景: Takuro Iwabuchi (CC BY 2.0)／Wikimedia Commons' }); },
     },
