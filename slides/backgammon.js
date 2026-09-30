@@ -122,8 +122,8 @@ const slideData = [
     {
         title: 'バックギャモンとは',
         icon: 'fa-circle-question',
-        duration: 21,
-        narration: 'バックギャモンは、2人で遊ぶ、すごろくの仲間です。日本では、盤双六と呼ばれていました。交互にダイスを2個振って、出た目の数だけ自分の駒を進めます。15個の駒を、先に全部ゴールさせた方が勝ちです。相手の駒が1個だけのところに止まると、その駒を振り出しに戻せます。',
+        duration: 22,
+        narration: 'バックギャモンは、2人で遊ぶ、すごろくの仲間です。日本で昔遊ばれた盤双六も、その仲間です。交互にダイスを2個振って、出た目の数だけ自分の駒を進めます。15個の駒を、先に全部ゴールさせた方が勝ちです。相手の駒が1個だけのところに止まると、その駒を振り出しに戻せます。',
         render: function() { return bgSlide(this, 'bg-cover.jpg', '黒と木目のボードに載ったダイスとダブリングキューブ', `
             <div class="flex items-center gap-[2.4cqw]">
                 <!-- 盤の写真に、白の駒の進む向きを重ねる（右上 → 左 → 右下のゴール） -->
@@ -134,10 +134,10 @@ const slideData = [
                         <path d="M 960 335 L 170 335 Q 95 335 95 375 Q 95 415 170 415 L 1040 415" fill="none" stroke="#a3e635" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#rules-head)" opacity="0.95"/>
                     </svg>
                     <div class="absolute right-[0.4cqw] bottom-[0.6cqw] rounded-md bg-lime-400 px-[0.7cqw] py-[0.2cqw] font-bold text-slate-950" style="font-size: clamp(0.7rem, 1.5cqw, 1.1rem);">ゴール</div>
-                    <figcaption class="text-slate-300 mt-[0.5cqw] text-center" style="font-size: clamp(0.65rem, 1.3cqw, 1rem);">白の駒が進む向き（黒は逆向き）</figcaption>
+                    <figcaption class="text-slate-300 mt-[0.5cqw] text-center" style="font-size: clamp(0.65rem, 1.3cqw, 1rem);">白の駒が進む向き（茶色は逆向き）</figcaption>
                 </figure>
                 <div class="flex-1 flex flex-col gap-[1cqw]">
-                    <div class="self-start rounded-full border border-amber-400/50 bg-amber-400/10 px-[1.4cqw] py-[0.4cqw] text-amber-200 font-bold" style="font-size: clamp(0.8rem, 1.8cqw, 1.35rem);">すごろくの仲間（日本では「盤双六」）</div>
+                    <div class="self-start rounded-full border border-amber-400/50 bg-amber-400/10 px-[1.4cqw] py-[0.4cqw] text-amber-200 font-bold" style="font-size: clamp(0.8rem, 1.8cqw, 1.35rem);">すごろくの仲間（日本の「盤双六」も同じ系統）</div>
                     ${rule('fa-user-group', '<span class="text-lime-300">2 人</span>で、ダイス 2 個を交互に振る')}
                     ${rule('fa-shoe-prints', '出た目の数だけ、<span class="text-lime-300">自分の駒</span>を進める')}
                     ${rule('fa-flag-checkered', '<span class="text-lime-300">15 個</span>を先に全部ゴールさせたら勝ち')}
