@@ -57,14 +57,15 @@ const arrow = `
         <i class="fa-solid fa-arrow-right text-lime-400" style="font-size: clamp(1.1rem, 2.4cqw, 1.8rem);"></i>
     </div>`;
 
-// 選手の紹介カード（写真の枠・名前・優勝歴・一言）
-const pro = (photo, name, titles, note) => `
-    <div class="flex items-center gap-[1.6cqw] rounded-2xl bg-slate-900/60 border border-lime-500/40 p-[1.4cqw] shadow-lg shadow-lime-900/20">
-        <div class="shrink-0 w-[13cqw] h-[16cqw] rounded-xl overflow-hidden border border-slate-600">${photo}</div>
-        <div>
-            <div class="font-bold text-slate-50" style="font-size: clamp(1.1rem, 2.8cqw, 2.1rem);">${name}<span class="text-slate-400 font-medium" style="font-size: clamp(0.8rem, 1.7cqw, 1.25rem);"> プロ</span></div>
-            <div class="text-slate-200 font-medium mt-[0.6cqw] leading-snug" style="font-size: clamp(0.95rem, 2.1cqw, 1.55rem);">${titles.join('<br>')}</div>
-            <div class="text-amber-300 font-medium mt-[0.6cqw]" style="font-size: clamp(0.8rem, 1.7cqw, 1.25rem);">${note}</div>
+// 選手の紹介カード（写真の枠・名前・優勝した年・一言）。写真と年を大きく見せる（TODO-026）
+const pro = (photo, name, years, note) => `
+    <div class="flex items-center gap-[1.6cqw] rounded-2xl bg-slate-900/80 border border-lime-500/40 p-[1.4cqw] shadow-lg shadow-lime-900/20">
+        <div class="shrink-0 w-[17cqw] h-[23cqw] rounded-xl overflow-hidden border border-slate-600">${photo}</div>
+        <div class="min-w-0">
+            <div class="font-bold text-slate-50 whitespace-nowrap" style="font-size: clamp(1.1rem, 3.1cqw, 2.3rem);">${name}<span class="text-slate-400 font-medium" style="font-size: clamp(0.8rem, 1.7cqw, 1.25rem);"> プロ</span></div>
+            <div class="text-slate-200 font-medium mt-[1cqw] flex items-center gap-[0.6cqw]" style="font-size: clamp(0.9rem, 2cqw, 1.5rem);"><i class="fa-solid fa-trophy text-amber-300"></i>世界選手権 優勝</div>
+            <div class="font-extrabold text-lime-300 leading-tight whitespace-nowrap" style="font-size: clamp(1.4rem, 3.6cqw, 2.7rem);">${years.join('<span class="text-slate-500 font-bold">・</span>')}</div>
+            <div class="text-amber-300 font-bold mt-[1cqw] leading-snug" style="font-size: clamp(0.8rem, 1.8cqw, 1.35rem);">${note}</div>
         </div>
     </div>`;
 
@@ -215,9 +216,9 @@ const slideData = [
         render: function() { return bgSlide(this, 'bg-japan-night.jpg', '宇宙から見た夜の日本列島（NASA）', `
             <div class="grid grid-cols-2 gap-[2cqw]">
                 ${pro('<img src="images/pro-mochizuki.jpg" alt="望月正行プロ" class="w-full h-full object-cover">',
-                    '望月 正行', ['世界選手権 優勝', '<b class="text-lime-300">2009</b>・<b class="text-lime-300">2021</b>'], '日本人初の世界チャンピオン')}
+                    '望月 正行', ['2009', '2021'], '日本人初の<br>世界チャンピオン')}
                 ${pro('<img src="images/pro-yazawa.jpg" alt="矢澤亜希子プロ" class="w-full h-full object-cover">',
-                    '矢澤 亜希子', ['世界選手権 優勝', '<b class="text-lime-300">2014</b>・<b class="text-lime-300">2018</b>'], '女性で世界初の 2 回優勝')}
+                    '矢澤 亜希子', ['2014', '2018'], '女性で世界初の<br>2 回優勝')}
             </div>
         `, { opacity: 60, credit: '写真（矢澤プロ）: 本人の X（@akikoyazawa）' }); },
     },
