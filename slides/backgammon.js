@@ -169,10 +169,10 @@ const slideData = [
             <div class="grid grid-cols-2 gap-[2cqw]">
                 ${pro('<img src="images/pro-mochizuki.jpg" alt="望月正行プロ" class="w-full h-full object-cover">',
                     '望月 正行', ['世界選手権 優勝', '<b class="text-lime-300">2009</b>・<b class="text-lime-300">2021</b>'], '日本人初の世界チャンピオン')}
-                ${pro('<div class="w-full h-full grid place-items-center bg-gradient-to-b from-amber-400/30 to-amber-700/20 text-amber-300" style="font-size: clamp(2rem, 6cqw, 4.5rem);"><i class="fa-solid fa-trophy"></i></div>',
+                ${pro('<img src="images/pro-yazawa.jpg" alt="矢澤亜希子プロ" class="w-full h-full object-cover">',
                     '矢澤 亜希子', ['世界選手権 優勝', '<b class="text-lime-300">2014</b>・<b class="text-lime-300">2018</b>'], '女性で世界初の 2 回優勝')}
             </div>
-        `, { opacity: 60 }); },
+        `, { opacity: 60, credit: '写真（矢澤プロ）: 本人の X（@akikoyazawa）' }); },
     },
 
     // ── 3. 不遇の歴史（日本では、までを 1 枚に） ──
@@ -221,20 +221,20 @@ const slideData = [
         icon: 'fa-list-check',
         duration: 17,
         narration: 'ゲームとしての面白さもあります。ダイスを使うので、運が良ければ、初心者でも上級者に勝つ可能性があります。ポーカーのように、かけ点を吊り上げる駆け引きもあります。そして、戦略的な思考が必要で、奥が深いゲームです。',
-        render: function() { return bgSlide(this, 'bg-dice.jpg', '黒い面に置いた白いダイス 2 個', `
+        render: function() { return bgSlide(this, 'bg-feltdice.jpg', '緑のフェルトのボードに載った赤と白のダイスとダブリングキューブ', `
             <div class="grid grid-cols-3 gap-[1.6cqw] text-center">
                 ${step('amber', 'fa-dice', 'ダイスの運で<br>初心者でも上級者に勝てる')}
                 ${step('rose', 'fa-arrow-trend-up', 'ポーカーのように<br>掛け点を吊り上げる駆け引き')}
                 ${step('sky', 'fa-chess', '戦略的な思考が必要で<br>奥が深い')}
             </div>
-        `, { opacity: 50, credit: '背景: Jack Elliott (CC BY 2.0)／Wikimedia Commons' }); },
+        `, { credit: '背景: Donald Olszewski (CC BY 4.0)／Wikimedia Commons' }); },
     },
     {
         title: '魅力③ おしゃれ',
         icon: 'fa-list-check',
         duration: 11,
         narration: 'そして、おしゃれなことです。カラフルでおしゃれなボードがたくさんあります。バブル期には、おしゃれなカフェバーなどでプチブームになり、東急ハンズなどで販売されていました。',
-        render: function() { return bgSlide(this, 'bg-umbrellas.jpg', '黒い空間に浮かぶ色とりどりの傘', `
+        render: function() { return bgSlide(this, 'bg-cafe.jpg', 'パリのカフェでバックギャモンを打つ客の絵（Jean Béraud, 1908 年頃）', `
             <div class="grid grid-cols-5 gap-[1.8cqw] items-center">
                 <ul class="col-span-3 space-y-[0.9cqw]">
                     ${li('fa-palette', 'カラフルでおしゃれなボード')}
@@ -250,6 +250,6 @@ const slideData = [
                     <figcaption class="text-slate-500 mt-[0.6cqw] leading-snug" style="font-size: clamp(0.6rem, 1.1cqw, 0.8rem);">写真（一部切り出し）: RG72 (CC BY 4.0)、Alper Çuğun (CC BY 2.0)、Diligent (PD)／Wikimedia Commons</figcaption>
                 </figure>
             </div>
-        `, { credit: '背景: Ladhra (CC BY-SA 4.0)／Wikimedia Commons' }); },
+        `, { opacity: 55, credit: '背景: Jean Béraud「Backgammon at the Café」(PD)／Wikimedia Commons' }); },
     },
 ];
