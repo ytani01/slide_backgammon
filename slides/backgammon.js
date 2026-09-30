@@ -315,8 +315,8 @@ const slideData = [
     {
         title: '関内バックギャモンの会で始めよう',
         icon: 'fa-handshake',
-        duration: 18,
-        narration: '対戦相手が見つからないなら、関内バックギャモンの会に来てください。初めての方には、遊び方を丁寧に教えます。月に2回ほど、主になか区民活動センターで、お喋りしながら気軽に遊んでいます。日程と申し込みは、公式サイトをご覧ください。',
+        duration: 22,
+        narration: '日本では、対戦相手を見つけるのがむずかしい、とお話ししました。それなら、関内バックギャモンの会に来てください。初めての方には、遊び方を丁寧に教えます。月に2回ほど、主になか区民活動センターで、お喋りしながら気軽に遊んでいます。日程と申し込みは、公式サイトをご覧ください。',
         render: function() { return bgSlide(this, 'bg-kannai.jpg', '窓の光が差すテーブルに置いた木のバックギャモンのボード', `
             <div class="flex items-center gap-[2.4cqw]">
                 <ul class="flex-1 flex flex-col gap-[1.2cqw]">
