@@ -327,18 +327,25 @@ const slideData = [
         title: '関内バックギャモンの会で始めよう',
         icon: 'fa-handshake',
         duration: 27,
-        narration: '日本では、まだ知る人の少ないバックギャモンですが、関内バックギャモンの会に来れば、一緒に遊ぶ仲間がいます。初めての方には、遊び方を丁寧に教えます。月に2回ほど、主になか区民活動センターや、Kアリーナのバーで、お喋りしながら気軽に遊んでいます。同じ横浜では、「バックギャモン・ナイト」も開かれています。お問い合わせは、公式サイトをご覧ください。',
+        narration: '日本では、知る人の少ないバックギャモンですが、関内バックギャモンの会に来れば、一緒に遊ぶ仲間がいます。初めての方には、遊び方を丁寧に教えます。月に2回ほど、主になか区民活動センターや、Kアリーナのバーで、お喋りしながら気軽に遊んでいます。会とは別の催しですが、「バックギャモン・ナイト」も開かれています。お問い合わせは、公式サイトをご覧ください。',
         render: function() { return bgSlide(this, 'bg-kannai.jpg', '窓の光が差すテーブルに置いた木のバックギャモンのボード', `
             <div class="flex items-center gap-[2.4cqw]">
-                <!-- 箱 5 つを幅 1280px × 高さ 720px のプレイヤーで枠に収めるため、余白を詰める（TODO-051） -->
-                <ul class="flex-1 flex flex-col gap-[0.4cqw]">
-                    ${li('fa-seedling', '<span class="text-lime-300">初心者歓迎</span>。遊び方を丁寧に教えます', '0.5cqw')}
-                    ${li('fa-calendar-days', '<span class="text-lime-300">月 2 回</span>ほど、主に なか区民活動センターや <span class="whitespace-nowrap">Kアリーナ Bar 7 で</span>', '0.5cqw')}
-                    ${li('fa-comments', 'お喋りしながら<span class="text-lime-300">気軽に</span>交流', '0.5cqw')}
-                    ${li('fa-coins', '参加費は <span class="text-lime-300">100 円〜</span>の投げ銭<span class="text-slate-400 font-medium" style="font-size: 0.7em;">（ボード持参なら無料）</span>', '0.5cqw')}
-                    <!-- 日本バックギャモン協会が 2026 年 7 月から馬車道の BankPark YOKOHAMA 1 階 CRAFT. で開く「大人の木曜日－バックギャモンナイト」（TODO-038） -->
-                    ${li('fa-moon', '馬車道では<span class="text-lime-300">「バックギャモン・ナイト」</span>も', '0.5cqw')}
-                </ul>
+                <div class="flex-1 flex flex-col gap-[1.2cqw]">
+                    <ul class="flex flex-col gap-[0.6cqw]">
+                        ${li('fa-seedling', '<span class="text-lime-300">初心者歓迎</span>。遊び方を丁寧に教えます')}
+                        ${li('fa-calendar-days', '<span class="text-lime-300">月 2 回</span>ほど、主に なか区民活動センターや <span class="whitespace-nowrap">Kアリーナ Bar 7 で</span>')}
+                        ${li('fa-comments', 'お喋りしながら<span class="text-lime-300">気軽に</span>交流')}
+                    </ul>
+                    <!-- 日本バックギャモン協会が 2026 年 7 月から馬車道の BankPark YOKOHAMA 1 階 CRAFT. で開く「大人の木曜日－バックギャモンナイト」（TODO-038）。
+                         会の催しと思われないよう、会の箱から外して区切り線の下に置く（TODO-059） -->
+                    <div class="flex items-center gap-[1.2cqw] border-t border-slate-400/60 pt-[1cqw] px-[1.6cqw] rounded-b-xl bg-slate-950/60 pb-[0.8cqw]">
+                        <i class="fa-solid fa-moon text-slate-300" style="font-size: clamp(0.8rem, 2cqw, 1.5rem);"></i>
+                        <div class="leading-snug">
+                            <div class="text-slate-300 font-medium" style="font-size: clamp(0.6rem, 1.5cqw, 1.1rem);">ほかの催し（会とは別）</div>
+                            <div class="text-slate-50 font-bold" style="font-size: clamp(0.7rem, 2.2cqw, 1.6rem);">馬車道の<span class="text-lime-300">「バックギャモン・ナイト」</span></div>
+                        </div>
+                    </div>
+                </div>
                 <!-- 札ごとリンク。上が公式サイト、下が X。クリックを再生・一時停止に伝えない（TODO-041、TODO-043） -->
                 <div class="shrink-0 w-[27cqw] flex flex-col gap-[1cqw]">
                     ${qrCard('https://kannaibg.wixsite.com/kannai-backgammon', 'kannai-qr.png', '公式サイトの QR コード', 'お問い合わせは<br>公式サイトで', 'kannaibg.wixsite.com/<br>kannai-backgammon')}
