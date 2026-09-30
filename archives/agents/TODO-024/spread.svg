@@ -1,20 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="60 15 280 160" width="1120" height="640">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="96 12 230 130" width="1120" height="633">
   <defs>
     <marker id="h" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="2.6" markerHeight="2.6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#65a30d"/></marker>
   </defs>
   <rect x="0" y="0" width="360" height="180" fill="#9cc3d5"/>
   <image href="land.png" x="0" y="0" width="360" height="180"/>
-  <g fill="none" stroke="#65a30d" stroke-width="4" stroke-linecap="round" marker-end="url(#h)">
-    <!-- 中東(233,58) から各地へ -->
-    <path d="M233,58 Q212,40 192,47"/>
-    <path d="M192,47 Q186,36 178,38"/>
-    <path d="M178,38 Q140,28 108,49"/>
-    <path d="M108,49 Q112,80 132,102"/>
-    <path d="M233,58 Q248,56 256,67"/>
-    <path d="M233,58 Q270,34 289,52"/>
-    <path d="M289,52 Q304,44 316,53"/>
-    <path d="M233,58 Q222,68 213,66"/>
-    <path d="M256,67 Q292,84 312,112"/>
+  <g fill="none" stroke="#65a30d" stroke-width="2.8" stroke-linecap="round" marker-end="url(#h)">
+    <!-- 伝わった道。出典は Wikipedia「Tables game」（archives/agents/TODO-024/spread-sources.md） -->
+    <!-- 中東(233,58) → 古代ローマ(192,48) -->
+    <path d="M233,58 Q212,42 194,48"/>
+    <!-- アラブ世界 → スペイン(176,50)（1000 年ごろ） -->
+    <path d="M226,63 Q200,70 178,52"/>
+    <!-- ヨーロッパの中へ: ドイツ(190,38) → アイスランド(160,25) -->
+    <path d="M192,46 Q194,40 190,38"/>
+    <path d="M189,37 Q176,24 162,26"/>
+    <!-- イングランド(179,38) → アメリカ(106,49)（19 世紀） -->
+    <path d="M178,39 Q140,26 110,48"/>
+    <!-- 中東 → インド西部(250,67) → 中国(285,55)（魏の時代）→ 日本(318,54)（6 世紀） -->
+    <path d="M233,58 Q244,60 249,66"/>
+    <path d="M251,66 Q266,50 284,55"/>
+    <path d="M286,55 Q303,46 316,53"/>
   </g>
-  <circle cx="233" cy="58" r="6" fill="#f59e0b" stroke="#7c2d12" stroke-width="1"/>
+  <circle cx="233" cy="58" r="4.5" fill="#f59e0b" stroke="#7c2d12" stroke-width="1"/>
 </svg>
