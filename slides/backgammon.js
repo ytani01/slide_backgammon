@@ -271,12 +271,12 @@ const slideData = [
     {
         title: '魅力② ゲームとしての面白さ',
         icon: 'fa-dice',
-        duration: 17,
-        narration: 'ゲームとしての面白さもあります。ダイスを使うので、運が良ければ、初心者でも上級者に勝つ可能性があります。ポーカーのように、かけ点を吊り上げる駆け引きもあります。そして、戦略的な思考が必要で、奥が深いゲームです。',
+        duration: 18,
+        narration: 'ゲームとしての面白さもあります。ダイスを使うので、運が良ければ、初心者でも上級者に勝つ可能性があります。途中で「点数を2倍にしよう」と持ちかける、ダブルという駆け引きもあります。そして、戦略的な思考が必要で、奥が深いゲームです。',
         render: function() { return bgSlide(this, 'bg-feltdice.jpg', '緑のフェルトのボードに載った赤と白のダイスとダブリングキューブ', `
             <div class="grid grid-cols-3 gap-[1.6cqw] text-center">
                 ${step('amber', 'fa-dice', 'ダイスの運で<br>初心者でも上級者に勝てる')}
-                ${step('rose', 'fa-arrow-trend-up', 'ポーカーのように<br>掛け点を吊り上げる駆け引き')}
+                ${step('rose', 'fa-arrow-trend-up', '点数を 2 倍にする<br>「ダブル」の駆け引き')}
                 ${step('sky', 'fa-chess', '戦略的な思考が必要で<br>奥が深い')}
             </div>
         `, { credit: '背景: Donald Olszewski (CC BY 4.0)／Wikimedia Commons' }); },
