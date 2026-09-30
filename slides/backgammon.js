@@ -166,13 +166,13 @@ const slideData = [
     {
         title: 'バックギャモンの歴史は古い',
         icon: 'fa-landmark',
-        duration: 14,
-        narration: 'バックギャモンの歴史は古く、約5000年前の中東には、もう似た遊びがありました。日本でも、飛鳥時代には遊ばれていて、日本書紀に記録があります。中世には、ヨーロッパ中に広まりました。',
+        duration: 15,
+        narration: 'バックギャモンの歴史は古く、約5000年前から、中東には似た遊びがありました。日本でも、飛鳥時代には遊ばれていて、日本書紀に記録があります。中世には、ヨーロッパでも遊ばれていました。',
         render: function() {
             return bgSlide(this, 'bg-worldmap.jpg', '古い世界地図（Hondius, 1630）', `
                         <div class="grid grid-cols-3 gap-[1.8cqw] items-end">
                             ${fig('bg-ur.jpg', '象眼細工の盤と駒（ウルの王のゲーム）', 'ウルの王のゲーム（紀元前 2600 年ごろ）')}
-                            ${fig('bg-nara.png', '盤を挟んで向かい合う二人の絵', '盤双六を打つ二人（絵は江戸時代ごろ）')}
+                            ${fig('bg-nara.png', '盤を挟んで向かい合う二人の絵', '盤双六らしい盤を挟む二人（江戸時代ごろの絵）')}
                             ${fig('bg-medieval.png', '盤を挟んで座る二人と、杯を掲げる人の写本の挿絵', '『カルミナ・ブラーナ』の挿絵（1230 年ごろ）')}
                         </div>
                         <!-- 時間軸: 各図の真下に点、右端に矢じり -->
@@ -184,9 +184,9 @@ const slideData = [
                             </div>
                         </div>
                         <div class="grid grid-cols-3 gap-[1.8cqw] mt-[1cqw]">
-                            ${cap('<b class="text-lime-300">約 5,000 年前</b>の中東に<br>似た遊び')}
+                            ${cap('<b class="text-lime-300">約 5,000 年前</b>から<br>中東に似た遊び')}
                             ${cap('日本でも<b class="text-lime-300">飛鳥時代</b>には<br>遊ばれていた')}
-                            ${cap('中世には<br><b class="text-lime-300">ヨーロッパ中</b>に')}
+                            ${cap('中世には<br><b class="text-lime-300">ヨーロッパ</b>でも')}
                         </div>
             `, { credit: '絵: 大英博物館の展示（CC0）、Codex Buranus（PD）／Wikimedia Commons' });
         },
