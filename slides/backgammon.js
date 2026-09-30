@@ -18,12 +18,11 @@ const slidesConfig = {
     ],
 };
 
-// 画像 1 枚と説明（template.js の「画像（本文に収める）」と同じ書式）
-const fig = (src, alt, cap) => `
-    <figure class="m-0 flex flex-col items-center">
-        <img src="images/${src}" alt="${alt}" class="w-full h-auto max-h-[22cqw] object-contain rounded-xl border border-slate-700 shadow-xl shadow-slate-950/60">
-        <figcaption class="text-slate-200 font-medium mt-[0.8cqw] text-center leading-snug" style="font-size: clamp(0.85rem, 1.85cqw, 1.35rem);">${cap}</figcaption>
-    </figure>`;
+// 時間軸の画像 1 枚と、その説明（説明は時間軸の点の下に並べる）
+const fig = (src, alt) => `
+    <img src="images/${src}" alt="${alt}" class="w-full h-auto max-h-[22cqw] object-contain rounded-xl border border-slate-700 shadow-xl shadow-slate-950/60">`;
+const cap = (html) => `
+    <div class="flex justify-center text-slate-200 font-medium leading-snug whitespace-nowrap" style="font-size: clamp(1.1rem, 2.3cqw, 1.7rem);"><span>${html}</span></div>`;
 
 // 箇条書きの 1 行（template.js の「箇条書き」と同じ書式）
 const li = (icon, html) => `
@@ -88,10 +87,23 @@ const slideData = [
                     <div class="absolute inset-0 bg-slate-950/40"></div>
                     <div class="relative flex flex-col h-full justify-center px-[3cqw]">
                         <h2 class="font-bold text-sky-400 mb-[1.5cqw] flex items-center gap-[1cqw]" style="font-size: clamp(1.4rem, 3.2cqw, 2.5rem);"><i class="fa-solid ${this.icon} text-lime-400"></i> ${this.title}</h2>
-                        <div class="grid grid-cols-3 gap-[1.8cqw]">
-                            ${fig('bg-egypt.png', 'エジプトの壁画', '起源は <b class="text-lime-300">約 5,000 年前</b>（中東）')}
-                            ${fig('bg-medieval.png', '中世ヨーロッパの写本', '<b class="text-lime-300">世界中</b>に拡散・定着')}
-                            ${fig('bg-nara.png', '盤を挟んで向かい合う二人の絵', '日本には<b class="text-lime-300">飛鳥時代</b>')}
+                        <div class="grid grid-cols-3 gap-[1.8cqw] items-end">
+                            ${fig('bg-egypt.png', 'エジプトの壁画')}
+                            ${fig('bg-medieval.png', '中世ヨーロッパの写本')}
+                            ${fig('bg-nara.png', '盤を挟んで向かい合う二人の絵')}
+                        </div>
+                        <!-- 時間軸: 各図の真下に点、右端に矢じり -->
+                        <div class="relative mt-[1.2cqw]">
+                            <div class="absolute left-0 right-[2.6cqw] top-1/2 -translate-y-1/2 h-[1.2cqw] rounded-l-full bg-gradient-to-r from-sky-400 to-lime-400"></div>
+                            <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[3.2cqw] h-[3.8cqw] bg-lime-400" style="clip-path: polygon(0 0, 100% 50%, 0 100%);"></div>
+                            <div class="relative grid grid-cols-3 gap-[1.8cqw]">
+                                ${'<div class="justify-self-center w-[2.8cqw] h-[2.8cqw] rounded-full bg-lime-400 ring-[0.6cqw] ring-slate-950"></div>'.repeat(3)}
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-[1.8cqw] mt-[1cqw]">
+                            ${cap('起源は <b class="text-lime-300">約 5,000 年前</b>（中東）')}
+                            ${cap('<b class="text-lime-300">世界中</b>に拡散・定着')}
+                            ${cap('日本には<b class="text-lime-300">飛鳥時代</b>')}
                         </div>
                     </div>
                 </div>
