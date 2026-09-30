@@ -224,10 +224,11 @@ const slideData = [
     {
         title: '世界中でプレーされている',
         icon: 'fa-earth-asia',
-        duration: 17,
-        narration: 'そしていま、バックギャモンは世界中でプレーされています。日本バックギャモン協会によると、世界の遊戯人口は、約3億人と言われます。1979年からは毎年、モナコのモンテカルロで世界選手権が開かれています。',
+        duration: 19,
+        narration: 'そしていま、バックギャモンは世界中でプレーされています。日本バックギャモン協会によると、世界の遊戯人口は、約3億人と言われます。ヨーロッパやアメリカ、アジアなど、世界各地で国際大会が開かれ、モナコのモンテカルロでは、世界選手権も開かれています。',
         render: function() { return bgSlide(this, 'bg-nightearth.jpg', '夜の地球の世界地図（NASA）', `
-            <!-- 数字は出典のあるものだけ。「3 億人」は協会の原文どおり遊戯人口（archives/agents/TODO-048/research-report.md） -->
+            <!-- 数字は出典のあるものだけ。「3 億人」は協会の原文どおり遊戯人口（archives/agents/TODO-048/research-report.md）。
+                 国際大会の開催地は archives/agents/TODO-046/research-report.md。モンテカルロは 2020 年に開かれていないので「毎年」と書かない -->
             <div class="grid grid-cols-5 gap-[1.8cqw] items-center">
                 <!-- いろいろな国で遊ぶ様子を傾けて重ねる（TODO-025。出典は archives/agents/TODO-025/world-photos-report.md） -->
                 <div class="col-span-3 relative h-[31cqw]">
@@ -240,13 +241,13 @@ const slideData = [
                 <div class="col-span-2 space-y-[1.4cqw] text-center">
                     <div class="rounded-2xl bg-slate-900/80 border border-lime-500/40 p-[1.4cqw] shadow-lg shadow-lime-900/20 ring-1 ring-lime-400/20">
                         <div class="text-slate-200 font-medium" style="font-size: clamp(0.9rem, 1.95cqw, 1.4rem);">世界の遊戯人口</div>
-                        <div class="font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-b from-lime-300 to-lime-500" style="font-size: clamp(2rem, 5cqw, 3.8rem);">約 3<span class="text-slate-400 font-bold" style="font-size: clamp(0.9rem, 1.9cqw, 1.4rem);"> 億人</span></div>
+                        <div class="font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-b from-lime-300 to-lime-500" style="font-size: clamp(2rem, 5cqw, 3.8rem);"><span class="text-slate-400 font-bold" style="font-size: clamp(0.9rem, 1.9cqw, 1.4rem);">約 </span>3億<span class="text-slate-400 font-bold" style="font-size: clamp(0.9rem, 1.9cqw, 1.4rem);"> 人</span></div>
                         <div class="text-slate-400 font-medium mt-[0.6cqw]" style="font-size: clamp(0.7rem, 1.4cqw, 1.05rem);">日本バックギャモン協会による</div>
                     </div>
                     <div class="rounded-2xl bg-slate-900/80 border border-sky-500/40 p-[1.4cqw] shadow-lg shadow-slate-950/40">
-                        <div class="text-slate-200 font-medium" style="font-size: clamp(0.9rem, 1.95cqw, 1.4rem);">世界選手権</div>
-                        <div class="font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-b from-sky-300 to-sky-500" style="font-size: clamp(2rem, 5cqw, 3.8rem);">1979<span class="text-slate-400 font-bold" style="font-size: clamp(0.9rem, 1.9cqw, 1.4rem);"> 年から</span></div>
-                        <div class="text-slate-400 font-medium mt-[0.6cqw]" style="font-size: clamp(0.7rem, 1.4cqw, 1.05rem);">毎年 モナコ・モンテカルロで</div>
+                        <div class="text-slate-200 font-medium" style="font-size: clamp(0.9rem, 1.95cqw, 1.4rem);">国際大会</div>
+                        <div class="text-slate-400 font-medium mb-[0.6cqw]" style="font-size: clamp(0.7rem, 1.4cqw, 1.05rem);">モナコをはじめ</div>
+                        <div class="font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-b from-sky-300 to-sky-500" style="font-size: clamp(2rem, 5cqw, 3.8rem);">世界各地で</div>
                     </div>
                 </div>
             </div>
