@@ -17,6 +17,8 @@ const slidesConfig = {
         [/3億人/g, 'さんおくにん'],
         [/望月正行/g, 'もちづきまさゆき'],
         [/矢澤亜希子/g, 'やざわあきこ'],
+        [/盤双六/g, 'ばんすごろく'],
+        [/2人/g, 'ふたり'],
     ],
 };
 
@@ -32,6 +34,13 @@ const li = (icon, html) => `
         <span class="shrink-0 grid place-items-center w-[4.4cqw] h-[4.4cqw] rounded-lg bg-lime-500/15 text-lime-400 border border-lime-500/40" style="font-size: clamp(0.85rem, 2.4cqw, 1.8rem);"><i class="fa-solid ${icon}"></i></span>
         <span class="text-slate-50 font-bold leading-snug" style="font-size: clamp(0.8rem, 2.8cqw, 2.1rem);">${html}</span>
     </li>`;
+
+// ルールの 1 行。li() より小さく、4 行を写真の横に並べる（TODO-020）
+const rule = (icon, html) => `
+    <div class="flex items-center gap-[1cqw] rounded-xl bg-slate-950/75 border border-lime-500/40 px-[1.2cqw] py-[0.8cqw] shadow-lg shadow-slate-950/60">
+        <span class="shrink-0 grid place-items-center w-[3.4cqw] h-[3.4cqw] rounded-lg bg-lime-500/15 text-lime-400 border border-lime-500/40" style="font-size: clamp(0.75rem, 1.8cqw, 1.35rem);"><i class="fa-solid ${icon}"></i></span>
+        <span class="text-slate-50 font-bold leading-snug" style="font-size: clamp(0.75rem, 2cqw, 1.5rem);">${html}</span>
+    </div>`;
 
 // 白い縁を付けて傾けた写真 1 枚。pos は位置と幅の class、deg は傾き
 const snap = (src, alt, pos, deg) => `
@@ -107,6 +116,35 @@ const slideData = [
                 </div>
             `;
         },
+    },
+
+    // ── バックギャモンとは（大きなポイントだけ。出典は archives/agents/TODO-020/research-report.md） ──
+    {
+        title: 'バックギャモンとは',
+        icon: 'fa-circle-question',
+        duration: 21,
+        narration: 'バックギャモンは、2人で遊ぶ、すごろくの仲間です。日本では、盤双六と呼ばれていました。交互にダイスを2個振って、出た目の数だけ自分の駒を進めます。15個の駒を、先に全部ゴールさせた方が勝ちです。相手の駒が1個だけのところに止まると、その駒を振り出しに戻せます。',
+        render: function() { return bgSlide(this, 'bg-cover.jpg', '黒と木目のボードに載ったダイスとダブリングキューブ', `
+            <div class="flex items-center gap-[2.4cqw]">
+                <!-- 盤の写真に、白の駒の進む向きを重ねる（右上 → 左 → 右下のゴール） -->
+                <figure class="relative m-0 shrink-0 w-[44cqw]">
+                    <img src="images/bg-rules-board.jpg" alt="真上から見た、初期配置のバックギャモンの盤" class="w-full h-auto rounded-xl border border-slate-600 shadow-2xl shadow-slate-950/70">
+                    <svg viewBox="0 0 1130 750" class="absolute inset-0 w-full h-full" aria-hidden="true">
+                        <defs><marker id="rules-head" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#a3e635"/></marker></defs>
+                        <path d="M 960 335 L 170 335 Q 95 335 95 375 Q 95 415 170 415 L 1040 415" fill="none" stroke="#a3e635" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#rules-head)" opacity="0.95"/>
+                    </svg>
+                    <div class="absolute right-[0.4cqw] bottom-[0.6cqw] rounded-md bg-lime-400 px-[0.7cqw] py-[0.2cqw] font-bold text-slate-950" style="font-size: clamp(0.7rem, 1.5cqw, 1.1rem);">ゴール</div>
+                    <figcaption class="text-slate-300 mt-[0.5cqw] text-center" style="font-size: clamp(0.65rem, 1.3cqw, 1rem);">白の駒が進む向き（黒は逆向き）</figcaption>
+                </figure>
+                <div class="flex-1 flex flex-col gap-[1cqw]">
+                    <div class="self-start rounded-full border border-amber-400/50 bg-amber-400/10 px-[1.4cqw] py-[0.4cqw] text-amber-200 font-bold" style="font-size: clamp(0.8rem, 1.8cqw, 1.35rem);">すごろくの仲間（日本では「盤双六」）</div>
+                    ${rule('fa-user-group', '<span class="text-lime-300">2 人</span>で、ダイス 2 個を交互に振る')}
+                    ${rule('fa-shoe-prints', '出た目の数だけ、<span class="text-lime-300">自分の駒</span>を進める')}
+                    ${rule('fa-flag-checkered', '<span class="text-lime-300">15 個</span>を先に全部ゴールさせたら勝ち')}
+                    ${rule('fa-rotate-left', '1 個だけの相手の駒は、<span class="text-lime-300">振り出しに戻せる</span>')}
+                </div>
+            </div>
+        `, { opacity: 35, credit: '盤: TaurusEmerald (CC BY-SA 4.0)、背景: Clint Budd (CC BY 2.0)／Wikimedia Commons' }); },
     },
 
     // ── 1. 歴史 ──
@@ -270,7 +308,7 @@ const slideData = [
                     ${li('fa-seedling', '<span class="text-lime-300">初心者歓迎</span>。遊び方を丁寧に教えます')}
                     ${li('fa-calendar-days', '<span class="text-lime-300">月 2 回</span>ほど、主に なか区民活動センターで')}
                     ${li('fa-comments', 'お喋りしながら<span class="text-lime-300">気軽に</span>交流')}
-                    ${li('fa-coins', '参加費は <span class="text-lime-300">100 円〜</span>の投げ銭')}
+                    ${li('fa-coins', '参加費は <span class="text-lime-300">100 円〜</span>の投げ銭<span class="text-slate-400 font-medium" style="font-size: 0.7em;">（ボード持参なら無料）</span>')}
                 </ul>
                 <div class="shrink-0 w-[23cqw] rounded-2xl bg-slate-50 p-[1.4cqw] text-center shadow-2xl shadow-slate-950/80">
                     <img src="images/kannai-qr.png" alt="公式サイトの QR コード" class="w-full h-auto" style="image-rendering: pixelated;">
