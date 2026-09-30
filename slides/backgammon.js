@@ -257,4 +257,27 @@ const slideData = [
             </figure>
         `, { opacity: 55, credit: '背景: Jean Béraud「Backgammon at the Café」(PD)／Wikimedia Commons' }); },
     },
+
+    // ── 会への誘い（中身は会の公式サイトから。日付は古くなるので載せない。TODO-021） ──
+    {
+        title: '関内バックギャモンの会で始めよう',
+        icon: 'fa-handshake',
+        duration: 18,
+        narration: '対戦相手が見つからないなら、関内バックギャモンの会に来てください。初めての方には、遊び方を丁寧に教えます。月に2回ほど、主になか区民活動センターで、お喋りしながら気軽に遊んでいます。日程と申し込みは、公式サイトをご覧ください。',
+        render: function() { return bgSlide(this, 'bg-kannai.jpg', '窓の光が差すテーブルに置いた木のバックギャモンのボード', `
+            <div class="flex items-center gap-[2.4cqw]">
+                <ul class="flex-1 flex flex-col gap-[1.2cqw]">
+                    ${li('fa-seedling', '<span class="text-lime-300">初心者歓迎</span>。遊び方を丁寧に教えます')}
+                    ${li('fa-calendar-days', '<span class="text-lime-300">月 2 回</span>ほど、主に なか区民活動センターで')}
+                    ${li('fa-comments', 'お喋りしながら<span class="text-lime-300">気軽に</span>交流')}
+                    ${li('fa-coins', '参加費は <span class="text-lime-300">100 円〜</span>の投げ銭')}
+                </ul>
+                <div class="shrink-0 w-[23cqw] rounded-2xl bg-slate-50 p-[1.4cqw] text-center shadow-2xl shadow-slate-950/80">
+                    <img src="images/kannai-qr.png" alt="公式サイトの QR コード" class="w-full h-auto" style="image-rendering: pixelated;">
+                    <div class="text-slate-900 font-bold mt-[0.6cqw]" style="font-size: clamp(0.8rem, 1.8cqw, 1.35rem);">日程・申し込みは<br>公式サイトで</div>
+                    <div class="text-slate-600 font-medium mt-[0.4cqw] break-all leading-tight" style="font-size: clamp(0.55rem, 1.05cqw, 0.8rem);">kannaibg.wixsite.com/<br>kannai-backgammon</div>
+                </div>
+            </div>
+        `, { credit: '背景: 関内バックギャモンの会 公式サイト' }); },
+    },
 ];
