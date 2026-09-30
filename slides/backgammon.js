@@ -39,7 +39,7 @@ const snap = (src, alt, pos, deg) => `
 
 // 流れの 1 箱（template.js の「図解」と同じ書式）
 const step = (color, icon, text) => `
-    <div class="flex-1 rounded-2xl bg-gradient-to-b from-${color}-950/60 to-slate-900/50 border border-${color}-500/40 px-[1cqw] py-[1.2cqw] shadow-lg shadow-${color}-900/20">
+    <div class="flex-1 rounded-2xl bg-gradient-to-b from-${color}-950/85 to-slate-900/80 backdrop-blur-sm border border-${color}-500/40 px-[1cqw] py-[1.2cqw] shadow-lg shadow-${color}-900/20">
         <div class="mx-auto grid place-items-center w-[4.6cqw] h-[4.6cqw] rounded-full bg-${color}-500/15 border border-${color}-400/40 text-${color}-300" style="font-size: clamp(1.1rem, 2.4cqw, 1.8rem);"><i class="fa-solid ${icon}"></i></div>
         <div class="font-bold text-slate-100 mt-[0.8cqw]" style="font-size: clamp(0.9rem, 2.0cqw, 1.5rem);">${text}</div>
     </div>`;
@@ -59,15 +59,18 @@ const pro = (photo, name, titles, note) => `
         </div>
     </div>`;
 
-// 背景に画像を薄く敷いた 1 枚。見出しは player.html と同じ書式。
+// 背景に画像を敷いた 1 枚。見出しは player.html と同じ書式。
+// 見出しは上に固定し、中身だけを残りの高さの真ん中に置く（TODO-031）。
 // 暗い画像は opacity を上げる。CC BY の画像は credit にクレジットを渡す
-const bgSlide = (slide, src, alt, body, { opacity = 30, credit = '' } = {}) => `
+const bgSlide = (slide, src, alt, body, { opacity = 50, credit = '' } = {}) => `
     <div class="relative h-full overflow-hidden">
         <img src="images/${src}" alt="${alt}" class="absolute inset-0 w-full h-full object-cover" style="opacity: ${opacity / 100};">
-        <div class="absolute inset-0 bg-slate-950/40"></div>
-        <div class="relative flex flex-col h-full justify-center px-[3cqw]">
-            <h2 class="font-bold text-sky-400 mb-[1.5cqw] flex items-center gap-[1cqw]" style="font-size: clamp(1.4rem, 3.2cqw, 2.5rem);"><i class="fa-solid ${slide.icon} text-lime-400"></i> ${slide.title}</h2>
-            ${body}
+        <div class="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-slate-950/25 to-slate-950/45"></div>
+        <div class="relative flex flex-col h-full px-[3cqw] pt-[2.4cqw] pb-[2.6cqw]">
+            <h2 class="shrink-0 font-bold text-sky-300 mb-[1.5cqw] flex items-center gap-[1cqw] drop-shadow-[0_2px_6px_rgba(2,6,23,0.9)]" style="font-size: clamp(1.4rem, 3.2cqw, 2.5rem);"><i class="fa-solid ${slide.icon} text-lime-400"></i> ${slide.title}</h2>
+            <div class="flex-1 min-h-0 flex flex-col justify-center">
+                ${body}
+            </div>
         </div>
         ${credit ? `<div class="absolute right-[1.2cqw] bottom-[0.8cqw] text-slate-500" style="font-size: clamp(0.6rem, 1.1cqw, 0.8rem);">${credit}</div>` : ''}
     </div>`;
@@ -211,7 +214,7 @@ const slideData = [
     // ── 4. 魅力（簡単で手軽・ゲームとしての面白さ・おしゃれの 3 枚） ──
     {
         title: '魅力① 簡単で手軽',
-        icon: 'fa-list-check',
+        icon: 'fa-feather-pointed',
         duration: 10,
         narration: 'バックギャモンの魅力、まずは簡単で手軽なことです。ルールが簡単で、すぐに覚えられます。15分程度の短い時間でプレーできます。',
         render: function() { return bgSlide(this, 'bg-portable.jpg', '木のテーブルに置いた持ち運び用のバックギャモン', `
@@ -223,7 +226,7 @@ const slideData = [
     },
     {
         title: '魅力② ゲームとしての面白さ',
-        icon: 'fa-list-check',
+        icon: 'fa-dice',
         duration: 17,
         narration: 'ゲームとしての面白さもあります。ダイスを使うので、運が良ければ、初心者でも上級者に勝つ可能性があります。ポーカーのように、かけ点を吊り上げる駆け引きもあります。そして、戦略的な思考が必要で、奥が深いゲームです。',
         render: function() { return bgSlide(this, 'bg-feltdice.jpg', '緑のフェルトのボードに載った赤と白のダイスとダブリングキューブ', `
@@ -236,7 +239,7 @@ const slideData = [
     },
     {
         title: '魅力③ おしゃれ',
-        icon: 'fa-list-check',
+        icon: 'fa-wand-magic-sparkles',
         duration: 11,
         narration: 'そして、おしゃれなことです。カラフルでおしゃれなボードがたくさんあります。バブル期には、おしゃれなカフェバーなどでプチブームになり、東急ハンズなどで販売されていました。',
         render: function() { return bgSlide(this, 'bg-cafe.jpg', 'パリのカフェでバックギャモンを打つ客の絵（Jean Béraud, 1908 年頃）', `
