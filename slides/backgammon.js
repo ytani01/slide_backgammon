@@ -279,14 +279,14 @@ const slideData = [
         icon: 'fa-feather-pointed',
         duration: 13,
         narration: 'バックギャモンの魅力、まずは簡単で手軽なことです。基本のルールはシンプルで、すぐに覚えられます。1ゲームは15分ほど。ボードは畳んで持ち運べるので、どこでも遊べます。',
-        render: function() { return bgSlide(this, 'bg-portable.jpg', '木のテーブルに置いた持ち運び用のバックギャモン', `
+        render: function() { return bgSlide(this, 'bg-friends.jpg', '部屋のテーブルで、3 人が笑いながらバックギャモンを遊ぶ絵', `
             <!-- 大きな数字で「どう簡単か」を見せる（TODO-028） -->
             <div class="grid grid-cols-3 gap-[1.8cqw] text-center">
                 ${easy('sky', 'fa-list-check', 'ルール', '<span style="font-size: 0.6em;">シンプル</span>', 'すぐに覚えられる')}
                 ${easy('lime', 'fa-stopwatch', '1 ゲーム', '15<span style="font-size: 0.45em;"> 分</span>', 'すき間の時間で遊べる')}
                 ${easy('amber', 'fa-suitcase', 'ボード', '<span style="font-size: 0.6em;">持ち運べる</span>', '畳んでどこでも')}
             </div>
-        `, { credit: '背景: Takuro Iwabuchi (CC BY 2.0)／Wikimedia Commons' }); },
+        `, { credit: '背景: AI 生成（Gemini）' }); },
     },
     {
         title: '魅力② ゲームとしての面白さ',
