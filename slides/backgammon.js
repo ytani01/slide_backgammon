@@ -181,27 +181,29 @@ const slideData = [
     {
         title: '世界中でプレーされている',
         icon: 'fa-earth-asia',
-        duration: 10,
-        narration: 'バックギャモンは、世界中でプレーされています。競技人口は世界で3億人とも言われます。趣味レベルでは、10億人を超えるとも言われます。',
+        duration: 16,
+        narration: 'バックギャモンは、世界中でプレーされています。日本バックギャモン協会によると、世界で約3億人が遊んでいると言われます。1979年からは毎年、モナコのモンテカルロで世界選手権が開かれています。',
         render: function() { return bgSlide(this, 'bg-nightearth.jpg', '夜の地球の世界地図（NASA）', `
+            <!-- 数字は出典のあるものだけ（archives/agents/TODO-025/research-report.md） -->
             <div class="grid grid-cols-5 gap-[1.8cqw] items-center">
                 <figure class="col-span-3 m-0">
-                    <img src="images/bg-crowd.png" alt="屋外で大勢が対局する写真" class="w-full h-auto max-h-[32cqw] object-contain rounded-xl border border-slate-700 shadow-xl shadow-slate-950/60">
+                    <img src="images/bg-crowd2.jpg" alt="大会の会場で、何組もがバックギャモンを打っている写真" class="w-full h-[28cqw] object-cover object-[center_75%] rounded-xl border border-slate-600 shadow-xl shadow-slate-950/60">
+                    <figcaption class="text-slate-300 mt-[0.5cqw]" style="font-size: clamp(0.65rem, 1.3cqw, 1rem);">チェコの大会の会場（2008 年）</figcaption>
                 </figure>
                 <div class="col-span-2 space-y-[1.4cqw] text-center">
-                    <div class="rounded-2xl bg-slate-800/40 border border-lime-500/40 p-[1.6cqw] shadow-lg shadow-lime-900/20 ring-1 ring-lime-400/20">
-                        <div class="text-slate-200 font-medium" style="font-size: clamp(0.9rem, 1.95cqw, 1.4rem);">競技人口</div>
-                        <div class="font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-b from-lime-300 to-lime-500" style="font-size: clamp(2rem, 5cqw, 3.8rem);">3<span class="text-slate-500 font-bold" style="font-size: clamp(0.9rem, 1.9cqw, 1.4rem);"> 億人</span></div>
-                        <div class="text-slate-400 font-medium mt-[0.6cqw]" style="font-size: clamp(0.8rem, 1.6cqw, 1.2rem);">とも言われる</div>
+                    <div class="rounded-2xl bg-slate-900/80 border border-lime-500/40 p-[1.4cqw] shadow-lg shadow-lime-900/20 ring-1 ring-lime-400/20">
+                        <div class="text-slate-200 font-medium" style="font-size: clamp(0.9rem, 1.95cqw, 1.4rem);">世界で遊ぶ人</div>
+                        <div class="font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-b from-lime-300 to-lime-500" style="font-size: clamp(2rem, 5cqw, 3.8rem);">約 3<span class="text-slate-400 font-bold" style="font-size: clamp(0.9rem, 1.9cqw, 1.4rem);"> 億人</span></div>
+                        <div class="text-slate-400 font-medium mt-[0.6cqw]" style="font-size: clamp(0.7rem, 1.4cqw, 1.05rem);">日本バックギャモン協会による</div>
                     </div>
-                    <div class="rounded-2xl bg-slate-800/40 border border-slate-700 p-[1.6cqw] shadow-lg shadow-slate-950/40">
-                        <div class="text-slate-200 font-medium" style="font-size: clamp(0.9rem, 1.95cqw, 1.4rem);">趣味レベル</div>
-                        <div class="font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-b from-sky-300 to-sky-500" style="font-size: clamp(2rem, 5cqw, 3.8rem);">10<span class="text-slate-500 font-bold" style="font-size: clamp(0.9rem, 1.9cqw, 1.4rem);"> 億人超え</span></div>
-                        <div class="text-slate-400 font-medium mt-[0.6cqw]" style="font-size: clamp(0.8rem, 1.6cqw, 1.2rem);">とも言われる</div>
+                    <div class="rounded-2xl bg-slate-900/80 border border-sky-500/40 p-[1.4cqw] shadow-lg shadow-slate-950/40">
+                        <div class="text-slate-200 font-medium" style="font-size: clamp(0.9rem, 1.95cqw, 1.4rem);">世界選手権</div>
+                        <div class="font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-b from-sky-300 to-sky-500" style="font-size: clamp(2rem, 5cqw, 3.8rem);">1979<span class="text-slate-400 font-bold" style="font-size: clamp(0.9rem, 1.9cqw, 1.4rem);"> 年から</span></div>
+                        <div class="text-slate-400 font-medium mt-[0.6cqw]" style="font-size: clamp(0.7rem, 1.4cqw, 1.05rem);">毎年 モナコ・モンテカルロで</div>
                     </div>
                 </div>
             </div>
-        `, { opacity: 70 }); },
+        `, { opacity: 70, credit: '写真: Matěj Baťha (CC BY-SA 3.0)／Wikimedia Commons' }); },
     },
 
     // ── 2b. 日本人の活躍（優勝歴は世界選手権だけ。出典は archives/agents/TODO-013/search-report.md） ──
