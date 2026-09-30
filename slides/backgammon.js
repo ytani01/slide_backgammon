@@ -8,6 +8,7 @@ const slidesConfig = {
     rules: [
         [/中区/g, 'なかく'],
         [/関内/g, 'かんない'],
+        [/Kアリーナ/g, 'けーありーな'],
         [/奈良時代/g, 'ならじだい'],
         [/飛鳥時代/g, 'あすかじだい'],
         [/賭博/g, 'とばく'],
@@ -274,14 +275,14 @@ const slideData = [
     {
         title: '世界中で日本人が大活躍',
         icon: 'fa-trophy',
-        duration: 30,
-        narration: 'その世界選手権で、日本人が大活躍しています。望月正行プロは、2009年に日本人で初めて世界チャンピオンになり、2021年にも優勝しました。世界ランキングでも、長年1位に選ばれています。矢澤亜希子プロは、2014年と2018年に世界選手権で優勝し、女性として世界で初めて、2度の優勝を果たしました。テレビ番組にも、たびたび出演しています。ほかにも、世界ランキングの上位には、景山充人さん、上田英明さん、横田一稀さんなどが並び、2024年の女子の部では、岡美穂さんが世界チャンピオンになりました。',
+        duration: 28,
+        narration: 'その世界選手権で、日本人が大活躍しています。望月正行プロは、日本人初の世界チャンピオンで、世界ランキングでも長年1位です。矢澤亜希子プロは、女性で世界初の2度優勝。テレビ番組にも出演しています。ほかにも、世界ランキングの上位には、景山充人さん、上田英明さん、横田一稀さんなどが並び、2024年の女子の部では、岡美穂さんが世界チャンピオンになりました。',
         render: function() { return bgSlide(this, 'bg-japan-night.jpg', '宇宙から見た夜の日本列島（NASA）', `
             <div class="grid grid-cols-2 gap-[2cqw]">
                 ${pro('<img src="images/pro-mochizuki.jpg" alt="望月正行プロ" class="w-full h-full object-cover">',
                     '望月 正行', ['2009', '2021'], '日本人初の世界チャンピオン<br><span class="text-lime-300">世界ランキングで長年 1 位</span>')}
                 ${pro('<img src="images/pro-yazawa.jpg" alt="矢澤亜希子プロ" class="w-full h-full object-cover">',
-                    '矢澤 亜希子', ['2014', '2018'], '女性で世界初の 2 回優勝<br><span class="text-lime-300">テレビ番組にもたびたび出演</span>')}
+                    '矢澤 亜希子', ['2014', '2018'], '女性で世界初の 2 回優勝<br><span class="text-lime-300">テレビ番組にも出演</span>')}
             </div>
             <!-- 2 人のほかにも、今活躍している日本人がいる（Giants of Backgammon 2024 と World Backgammon Championship の一覧。TODO-033） -->
             <div class="mt-[1.6cqw] flex items-center justify-center gap-[1cqw] rounded-xl bg-slate-900/80 border border-amber-400/40 px-[1.6cqw] py-[1cqw] text-slate-100 font-medium" style="font-size: clamp(0.85rem, 1.9cqw, 1.45rem);">
@@ -344,13 +345,13 @@ const slideData = [
     {
         title: '関内バックギャモンの会で始めよう',
         icon: 'fa-handshake',
-        duration: 21,
-        narration: '日本では、まだ知る人の少ないバックギャモンですが、関内バックギャモンの会に来れば、一緒に遊ぶ仲間がいます。初めての方には、遊び方を丁寧に教えます。月に2回ほど、主になか区民活動センターで、お喋りしながら気軽に遊んでいます。日程と申し込みは、公式サイトをご覧ください。',
+        duration: 23,
+        narration: '日本では、まだ知る人の少ないバックギャモンですが、関内バックギャモンの会に来れば、一緒に遊ぶ仲間がいます。初めての方には、遊び方を丁寧に教えます。月に2回ほど、主になか区民活動センターや、Kアリーナのバーで、お喋りしながら気軽に遊んでいます。日程と申し込みは、公式サイトをご覧ください。',
         render: function() { return bgSlide(this, 'bg-kannai.jpg', '窓の光が差すテーブルに置いた木のバックギャモンのボード', `
             <div class="flex items-center gap-[2.4cqw]">
                 <ul class="flex-1 flex flex-col gap-[1.2cqw]">
                     ${li('fa-seedling', '<span class="text-lime-300">初心者歓迎</span>。遊び方を丁寧に教えます')}
-                    ${li('fa-calendar-days', '<span class="text-lime-300">月 2 回</span>ほど、主に なか区民活動センターで')}
+                    ${li('fa-calendar-days', '<span class="text-lime-300">月 2 回</span>ほど、主に なか区民活動センターや <span class="whitespace-nowrap">Kアリーナ Bar 7 で</span>')}
                     ${li('fa-comments', 'お喋りしながら<span class="text-lime-300">気軽に</span>交流')}
                     ${li('fa-coins', '参加費は <span class="text-lime-300">100 円〜</span>の投げ銭<span class="text-slate-400 font-medium" style="font-size: 0.7em;">（ボード持参なら無料）</span>')}
                 </ul>
