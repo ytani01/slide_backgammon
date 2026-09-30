@@ -37,10 +37,10 @@ const slidesConfig = {
 const fig = (src, alt, label, pos = 'object-top') => `
     <figure class="m-0 flex flex-col items-center">
         <img src="images/${src}" alt="${alt}" class="w-full h-[17cqw] object-cover ${pos} rounded-xl border border-slate-700 shadow-xl shadow-slate-950/60">
-        <figcaption class="text-slate-300 mt-[0.4cqw] text-center leading-tight" style="font-size: clamp(0.6rem, 1.2cqw, 0.9rem);">${label}</figcaption>
+        <figcaption class="text-slate-300 mt-[0.4cqw] text-center leading-tight" style="font-size: clamp(0.75rem, 1.7cqw, 1.3rem);">${label}</figcaption>
     </figure>`;
 const cap = (html) => `
-    <div class="text-center text-slate-100 font-medium leading-snug" style="font-size: clamp(0.9rem, 2cqw, 1.5rem);">${html}</div>`;
+    <div class="text-center text-slate-100 font-medium leading-snug" style="font-size: clamp(1rem, 2.6cqw, 2rem);">${html}</div>`;
 
 // 箇条書きの 1 行。template.js の「箇条書き」より大きく、写真と重なっても読めるよう地を濃くした（TODO-018）。
 // py は行が多いスライドで上下の余白を詰めるため（TODO-051）
@@ -201,10 +201,10 @@ const slideData = [
         narration: 'バックギャモンの歴史は古く、起源は太古の昔です。約5000年前の中東にも、似た遊びがありました。その後、古代ローマなどを経て、世界中に広がりました。日本にも、飛鳥時代には伝わっていて、日本書紀に記録があります。',
         render: function() {
             return bgSlide(this, 'bg-worldmap.jpg', '古い世界地図（Hondius, 1630）', `
-                        <div class="grid grid-cols-3 gap-[1.8cqw] items-end">
-                            ${fig('bg-nard.jpg', 'ペルシャの写本の、盤を挟んでナルドを打つ人々', 'ペルシャの「ナルド」（15 世紀の絵）')}
-                            ${fig('bg-spread.jpg', '中東から世界各地へ矢印が伸びる世界地図', '中東から世界へ伝わった道（おおよそ）', 'object-center')}
-                            ${fig('bg-nara.png', '盤を挟んで向かい合う二人の絵', '盤双六らしい盤を挟む二人（江戸時代ごろの絵）')}
+                        <div class="grid grid-cols-3 gap-[1.8cqw] items-start">
+                            ${fig('bg-ur.jpg', '貝殻の象眼で花や目の模様を描いた 20 マスの盤と、丸い駒', 'ウルの王族の墓から出た盤<br>（紀元前 2600 年ごろ、イラク）', 'object-center')}
+                            ${fig('bg-spread.jpg', '中東から世界各地へ矢印が伸びる世界地図', '中東から世界へ', 'object-center')}
+                            ${fig('bg-nara.png', '盤を挟んで向かい合う二人の絵', '盤双六らしい盤を挟む二人<br>（江戸時代ごろの絵）')}
                         </div>
                         <!-- 時間軸: 各図の真下に点、右端に矢じり -->
                         <div class="relative mt-[1.2cqw]">
@@ -219,7 +219,7 @@ const slideData = [
                             ${cap('その後<br><b class="text-lime-300">世界中</b>に広がる')}
                             ${cap('日本にも<b class="text-lime-300">飛鳥時代</b>には<br>伝わっていた')}
                         </div>
-            `, { credit: '絵: バイスングルの『シャー・ナーメ』（PD）、地図: Natural Earth（CC0）／Wikimedia Commons' });
+            `, { credit: '写真: BabelStone（CC0）、地図: Natural Earth（CC0）／Wikimedia Commons' });
         },
     },
 
