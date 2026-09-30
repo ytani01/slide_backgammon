@@ -50,6 +50,16 @@ const li = (icon, html) => `
         <span class="text-slate-50 font-bold leading-snug" style="font-size: clamp(0.8rem, 2.8cqw, 2.1rem);">${html}</span>
     </li>`;
 
+// QR コードの札。札ごと url へのリンクで、QR を左、文字を右に置く（TODO-043）
+const qrCard = (url, img, alt, label, shown) => `
+    <a href="${url}" target="_blank" rel="noopener" onclick="event.stopPropagation()" class="flex items-center gap-[1cqw] no-underline rounded-2xl bg-slate-50 p-[1cqw] shadow-2xl shadow-slate-950/80">
+        <img src="images/${img}" alt="${alt}" class="shrink-0 w-[11cqw] h-auto" style="image-rendering: pixelated;">
+        <div class="min-w-0">
+            <div class="text-slate-900 font-bold leading-snug" style="font-size: clamp(0.7rem, 1.6cqw, 1.2rem);">${label}</div>
+            <div class="text-slate-600 font-medium mt-[0.4cqw] break-all leading-tight" style="font-size: clamp(0.5rem, 0.95cqw, 0.72rem);">${shown}</div>
+        </div>
+    </a>`;
+
 // ルールの 1 行。li() より小さく、4 行を写真の横に並べる（TODO-020）
 const rule = (icon, html) => `
     <div class="flex items-center gap-[1cqw] rounded-xl bg-slate-950/75 border border-lime-500/40 px-[1.2cqw] py-[0.8cqw] shadow-lg shadow-slate-950/60">
@@ -360,12 +370,11 @@ const slideData = [
                     <!-- 日本バックギャモン協会が 2026 年 7 月から馬車道の BankPark YOKOHAMA 1 階 CRAFT. で開く「大人の木曜日－バックギャモンナイト」（TODO-038） -->
                     ${li('fa-moon', '馬車道では<span class="text-lime-300">「バックギャモン・ナイト」</span>も')}
                 </ul>
-                <!-- 札ごと公式サイトへのリンク。クリックを再生・一時停止に伝えない（TODO-041） -->
-                <a href="https://kannaibg.wixsite.com/kannai-backgammon" target="_blank" rel="noopener" onclick="event.stopPropagation()" class="block no-underline shrink-0 w-[23cqw] rounded-2xl bg-slate-50 p-[1.4cqw] text-center shadow-2xl shadow-slate-950/80">
-                    <img src="images/kannai-qr.png" alt="公式サイトの QR コード" class="w-full h-auto" style="image-rendering: pixelated;">
-                    <div class="text-slate-900 font-bold mt-[0.6cqw]" style="font-size: clamp(0.8rem, 1.8cqw, 1.35rem);">日程・申し込みは<br>公式サイトで</div>
-                    <div class="text-slate-600 font-medium mt-[0.4cqw] break-all leading-tight" style="font-size: clamp(0.55rem, 1.05cqw, 0.8rem);">kannaibg.wixsite.com/<br>kannai-backgammon</div>
-                </a>
+                <!-- 札ごとリンク。上が公式サイト、下が X。クリックを再生・一時停止に伝えない（TODO-041、TODO-043） -->
+                <div class="shrink-0 w-[27cqw] flex flex-col gap-[1cqw]">
+                    ${qrCard('https://kannaibg.wixsite.com/kannai-backgammon', 'kannai-qr.png', '公式サイトの QR コード', '日程・<span class="whitespace-nowrap">申し込みは</span><br>公式サイトで', 'kannaibg.wixsite.com/<br>kannai-backgammon')}
+                    ${qrCard('https://x.com/lppcn5b6mw94np2', 'x-qr.png', 'X の QR コード', '最新情報は<br>X で', 'x.com/<br>lppcn5b6mw94np2')}
+                </div>
             </div>
         `, { credit: '背景: 関内バックギャモンの会 公式サイト' }); },
     },
