@@ -15,6 +15,8 @@ const slidesConfig = {
         [/東急ハンズ/g, 'とうきゅうハンズ'],
         [/駆け引き/g, 'かけひき'],
         [/3億人/g, 'さんおくにん'],
+        [/望月正行/g, 'もちづきまさゆき'],
+        [/矢澤亜希子/g, 'やざわあきこ'],
     ],
 };
 
@@ -40,6 +42,17 @@ const step = (color, icon, text) => `
 const arrow = `
     <div class="flex items-center justify-center shrink-0">
         <i class="fa-solid fa-arrow-right text-lime-400" style="font-size: clamp(1.1rem, 2.4cqw, 1.8rem);"></i>
+    </div>`;
+
+// 選手の紹介カード（写真の枠・名前・優勝歴・一言）
+const pro = (photo, name, titles, note) => `
+    <div class="flex items-center gap-[1.6cqw] rounded-2xl bg-slate-900/60 border border-lime-500/40 p-[1.4cqw] shadow-lg shadow-lime-900/20">
+        <div class="shrink-0 w-[13cqw] h-[16cqw] rounded-xl overflow-hidden border border-slate-600">${photo}</div>
+        <div>
+            <div class="font-bold text-slate-50" style="font-size: clamp(1.1rem, 2.8cqw, 2.1rem);">${name}<span class="text-slate-400 font-medium" style="font-size: clamp(0.8rem, 1.7cqw, 1.25rem);"> プロ</span></div>
+            <div class="text-slate-200 font-medium mt-[0.6cqw] leading-snug" style="font-size: clamp(0.95rem, 2.1cqw, 1.55rem);">${titles.join('<br>')}</div>
+            <div class="text-amber-300 font-medium mt-[0.6cqw]" style="font-size: clamp(0.8rem, 1.7cqw, 1.25rem);">${note}</div>
+        </div>
     </div>`;
 
 // 背景に画像を薄く敷いた 1 枚。見出しは player.html と同じ書式。
@@ -146,6 +159,21 @@ const slideData = [
         `, { opacity: 70 }); },
     },
 
+    // ── 2b. 日本人の活躍（優勝歴は世界選手権だけ。出典は archives/agents/TODO-013/search-report.md） ──
+    {
+        title: '世界中で日本人が大活躍',
+        icon: 'fa-trophy',
+        duration: 22,
+        narration: 'バックギャモンの世界では、日本人が大活躍しています。望月正行プロは、2009年に日本人で初めて世界チャンピオンになり、2021年にも優勝しました。矢澤亜希子プロは、2014年と2018年に世界選手権で優勝し、女性として世界で初めて、2度の優勝を果たしました。',
+        render: function() { return bgSlide(this, 'bg-japan-night.jpg', '宇宙から見た夜の日本列島（NASA）', `
+            <div class="grid grid-cols-2 gap-[2cqw]">
+                ${pro('<img src="images/pro-mochizuki.jpg" alt="望月正行プロ" class="w-full h-full object-cover">',
+                    '望月 正行', ['世界選手権 優勝', '<b class="text-lime-300">2009</b>・<b class="text-lime-300">2021</b>'], '日本人初の世界チャンピオン')}
+                ${pro('<div class="w-full h-full grid place-items-center bg-gradient-to-b from-amber-400/30 to-amber-700/20 text-amber-300" style="font-size: clamp(2rem, 6cqw, 4.5rem);"><i class="fa-solid fa-trophy"></i></div>',
+                    '矢澤 亜希子', ['世界選手権 優勝', '<b class="text-lime-300">2014</b>・<b class="text-lime-300">2018</b>'], '女性で世界初の 2 回優勝')}
+            </div>
+        `, { opacity: 60 }); },
+    },
 
     // ── 3. 不遇の歴史（日本では、までを 1 枚に） ──
     {
