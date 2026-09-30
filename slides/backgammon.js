@@ -176,7 +176,7 @@ const slideData = [
         render: function() {
             return bgSlide(this, 'bg-worldmap.jpg', '古い世界地図（Hondius, 1630）', `
                         <div class="grid grid-cols-3 gap-[1.8cqw] items-end">
-                            ${fig('bg-ur.jpg', '象眼細工の盤と駒（ウルの王のゲーム）', 'ウルの王のゲーム（紀元前 2600 年ごろ）')}
+                            ${fig('bg-nard.jpg', 'ペルシャの写本の、盤を挟んでナルドを打つ人々', 'ペルシャの「ナルド」（絵は 1430 年ごろ）')}
                             ${fig('bg-nara.png', '盤を挟んで向かい合う二人の絵', '盤双六らしい盤を挟む二人（江戸時代ごろの絵）')}
                             ${fig('bg-medieval.png', '盤を挟んで座る二人と、杯を掲げる人の写本の挿絵', '『カルミナ・ブラーナ』の挿絵（1230 年ごろ）')}
                         </div>
@@ -193,7 +193,7 @@ const slideData = [
                             ${cap('日本でも<b class="text-lime-300">飛鳥時代</b>には<br>遊ばれていた')}
                             ${cap('中世には<br><b class="text-lime-300">ヨーロッパ</b>でも')}
                         </div>
-            `, { credit: '絵: 大英博物館の展示（CC0）、Codex Buranus（PD）／Wikimedia Commons' });
+            `, { credit: '絵: バイスングルの『シャー・ナーメ』（PD）、Codex Buranus（PD）／Wikimedia Commons' });
         },
     },
 
