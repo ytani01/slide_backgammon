@@ -264,7 +264,7 @@ const slideData = [
                     </div>
                 </div>
             </div>
-        `, { opacity: 70, credit: '写真: Adam Jones、Marcin Konsek、Monaam Ben Fredj、Alex Proimos、Matěj Baťha（CC BY / BY-SA）／Wikimedia Commons' }); },
+        `, { opacity: 70, credit: '写真（一部切り出し）: Adam Jones、Marcin Konsek、Monaam Ben Fredj、Alex Proimos、Matěj Baťha（CC BY / BY-SA）／Wikimedia Commons' }); },
     },
 
     // ── 日本人の活躍（優勝歴は世界選手権だけ。出典は archives/agents/TODO-013/search-report.md） ──
