@@ -206,15 +206,20 @@ const slideData = [
                             ${fig('bg-spread.jpg', '中東から世界各地へ矢印が伸びる世界地図', '中東から世界へ', 'object-center')}
                             ${fig('bg-nara.png', '盤を挟んで向かい合う二人の絵', '盤双六らしい盤を挟む二人<br>（江戸時代ごろの絵）')}
                         </div>
-                        <!-- 時間軸: 各図の真下に点、右端に矢じり -->
+                        <!-- 時間軸: 各図の真下に点。線は起源の点から始め、次の点の手前と右端に矢じり（TODO-066）。
+                             線の左端 (100% - gap 2 つ) / 6 は、1 列目の中心 -->
                         <div class="relative mt-[1.2cqw]">
-                            <div class="absolute left-0 right-[2.6cqw] top-1/2 -translate-y-1/2 h-[1.2cqw] rounded-l-full bg-gradient-to-r from-sky-400 to-lime-400"></div>
-                            <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[3.2cqw] h-[3.8cqw] bg-lime-400" style="clip-path: polygon(0 0, 100% 50%, 0 100%);"></div>
+                            <div class="absolute left-[calc((100%-3.6cqw)/6)] right-[3.4cqw] top-1/2 -translate-y-1/2 h-[1.2cqw] bg-gradient-to-r from-sky-400 to-lime-400"></div>
+                            <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[4cqw] h-[4.8cqw] bg-lime-400" style="clip-path: polygon(0 0, 100% 50%, 0 100%);"></div>
                             <div class="relative grid grid-cols-3 gap-[1.8cqw]">
-                                ${'<div class="justify-self-center w-[2.8cqw] h-[2.8cqw] rounded-full bg-lime-400 ring-[0.6cqw] ring-slate-950"></div>'.repeat(3)}
+                                ${['', 'bg-emerald-300', 'bg-lime-400'].map((arrow) => `
+                                <div class="relative flex justify-center items-center">
+                                    ${arrow ? `<div class="absolute right-[calc(50%+2.3cqw)] w-[3.6cqw] h-[4.4cqw] ${arrow}" style="clip-path: polygon(0 0, 100% 50%, 0 100%);"></div>` : ''}
+                                    <div class="w-[2.8cqw] h-[2.8cqw] rounded-full bg-lime-400 ring-[0.6cqw] ring-slate-950"></div>
+                                </div>`).join('')}
                             </div>
                         </div>
-                        <div class="grid grid-cols-3 gap-[1.8cqw] mt-[1cqw]">
+                        <div class="grid grid-cols-3 gap-[1.8cqw] mt-[1.6cqw]">
                             ${cap('<b class="text-lime-300">太古の昔</b>に起源<br>（約 5,000 年前の中東）')}
                             ${cap('その後<br><b class="text-lime-300">世界中</b>に広がる')}
                             ${cap('日本にも<b class="text-lime-300">飛鳥時代</b>には<br>伝わっていた')}
