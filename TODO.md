@@ -1,6 +1,6 @@
 # TODO
 
-**残っている項目: TODO-052〜060。** これまでに 46 件を決着させた。
+**残っている項目: TODO-052〜059。** これまでに 47 件を決着させた。
 新しく足すときは「完了済み」の上に節を作る。**番号は `TODO-061` から。**
 
 番号は、分ける前のリポジトリ（`~/work/slide_ytsched`）から続けている。TODO-001・002・008・009・042 は
@@ -114,24 +114,6 @@ TODO-059 も同じスライド 9 を変えるので、まとめて着手する�
 - [ ] スライドの書き方もそれにあわせて工夫する
 
 ナレーションの文言と読みは、確認の担当を起こす前に利用者に見てもらう。
-
----
-
-## TODO-060. この資料をgithub pagesで見られるようにする。
-
-|      | main | 担当 |
-|------|------|------|
-| 見込み | Opus 5.5 / effort medium | main（調査と設定）+ verifier（Sonnet 5.5 / medium。公開した URL で動くかを確かめる） |
-
-- [x] GitHub Pages で動くかを調べる（「Online Voice」の音声がそのまま使えるか）
-- [x] 公開できるようにする。`git push` と GitHub 側の設定は利用者がやる
-
-やったこと（2026-10-01）:
-
-- リポジトリが private で、今のプランでは Pages を有効にできなかった（HTTP 422）。利用者が public にすることを選んだ
-- public にして、Pages を master のトップから公開する設定にした（`https://ytani01.github.io/slide_backgammon/`）。`git push` は利用者がやり、GitHub 側の設定は main がやった（利用者の指示）
-- Jekyll が `archives/` の `.md` を処理して構築に失敗したので、`.nojekyll` を置いた
-- 「Online Voice」は `<audio>` で Google の読み上げを直接鳴らすので、置き場所に関係なく動く見込み。公開した URL で verifier に確かめさせる
 
 ---
 
