@@ -25,6 +25,10 @@ const slidesConfig = {
         [/来れば/g, 'くれば'],
         [/主に/g, 'おもに'],
         [/日本人/g, 'にほんじん'],
+        [/景山充人/g, 'かげやまみちひと'],
+        [/上田英明/g, 'うえだひであき'],
+        [/横田一稀/g, 'よこたかずき'],
+        [/岡美穂/g, 'おかみほ'],
         [/2人/g, 'ふたり'],
     ],
 };
@@ -56,11 +60,10 @@ const rule = (icon, html) => `
 const snap = (src, alt, pos, deg) => `
     <img src="images/${src}" alt="${alt}" class="absolute ${pos} h-auto bg-slate-50 p-[0.5cqw] rounded-sm shadow-2xl shadow-slate-950/80" style="transform: rotate(${deg}deg);">`;
 
-// 国名の札を付けて傾けた写真 1 枚（「世界中でプレーされている」用。TODO-025）
-const world = (src, alt, country, pos, deg) => `
+// 傾けた写真 1 枚（「世界中でプレーされている」用。TODO-025。国名は出さない。TODO-034）
+const world = (src, alt, pos, deg) => `
     <div class="absolute ${pos} bg-slate-50 p-[0.45cqw] rounded-sm shadow-2xl shadow-slate-950/80" style="transform: rotate(${deg}deg);">
         <img src="images/${src}" alt="${alt}" class="w-full aspect-[4/3] object-cover">
-        <span class="absolute left-[0.9cqw] top-[0.9cqw] rounded-md bg-lime-400 px-[0.6cqw] py-[0.1cqw] font-bold text-slate-950 shadow" style="font-size: clamp(0.6rem, 1.4cqw, 1.05rem);">${country}</span>
     </div>`;
 
 // 流れの 1 箱（template.js の「図解」と同じ書式）
@@ -245,11 +248,11 @@ const slideData = [
             <div class="grid grid-cols-5 gap-[1.8cqw] items-center">
                 <!-- いろいろな国で遊ぶ様子を傾けて重ねる（TODO-025。出典は archives/agents/TODO-025/world-photos-report.md） -->
                 <div class="col-span-3 relative h-[31cqw]">
-                    ${world('bg-world-iran.jpg', 'イランの路上で、2 人が台の上の盤で打つ写真', 'イラン', 'left-0 top-[0.5cqw] w-[19cqw]', -5)}
-                    ${world('bg-world-georgia.jpg', '公園のベンチで、年配の男性たちが打つ写真', 'ジョージア', 'left-[17.5cqw] top-0 w-[18cqw]', 4)}
-                    ${world('bg-world-tunisia.jpg', 'カフェで、緑の盤を囲む男性たちの写真', 'チュニジア', 'left-[34cqw] top-[1cqw] w-[18cqw]', -3)}
-                    ${world('bg-world-peru.jpg', '屋外のテーブルで、緑の盤を囲む男性たちの写真', 'ペルー', 'left-[5cqw] top-[15.5cqw] w-[19cqw]', 3)}
-                    ${world('bg-crowd2.jpg', '大会の会場で、何組もが打つ写真', 'チェコ', 'left-[26cqw] top-[16cqw] w-[20cqw]', -4)}
+                    ${world('bg-world-iran.jpg', 'イランの路上で、2 人が台の上の盤で打つ写真', 'left-0 top-[0.5cqw] w-[19cqw]', -5)}
+                    ${world('bg-world-georgia.jpg', '公園のベンチで、年配の男性たちが打つ写真', 'left-[17.5cqw] top-0 w-[18cqw]', 4)}
+                    ${world('bg-world-tunisia.jpg', 'カフェで、緑の盤を囲む男性たちの写真', 'left-[34cqw] top-[1cqw] w-[18cqw]', -3)}
+                    ${world('bg-world-peru.jpg', '屋外のテーブルで、緑の盤を囲む男性たちの写真', 'left-[5cqw] top-[15.5cqw] w-[19cqw]', 3)}
+                    ${world('bg-crowd2.jpg', '大会の会場で、何組もが打つ写真', 'left-[26cqw] top-[16cqw] w-[20cqw]', -4)}
                 </div>
                 <div class="col-span-2 space-y-[1.4cqw] text-center">
                     <div class="rounded-2xl bg-slate-900/80 border border-lime-500/40 p-[1.4cqw] shadow-lg shadow-lime-900/20 ring-1 ring-lime-400/20">
@@ -271,14 +274,19 @@ const slideData = [
     {
         title: '世界中で日本人が大活躍',
         icon: 'fa-trophy',
-        duration: 22,
-        narration: 'その世界選手権で、日本人が大活躍しています。望月正行プロは、2009年に日本人で初めて世界チャンピオンになり、2021年にも優勝しました。矢澤亜希子プロは、2014年と2018年に世界選手権で優勝し、女性として世界で初めて、2度の優勝を果たしました。',
+        duration: 30,
+        narration: 'その世界選手権で、日本人が大活躍しています。望月正行プロは、2009年に日本人で初めて世界チャンピオンになり、2021年にも優勝しました。世界ランキングでも、長年1位に選ばれています。矢澤亜希子プロは、2014年と2018年に世界選手権で優勝し、女性として世界で初めて、2度の優勝を果たしました。テレビ番組にも、たびたび出演しています。ほかにも、世界ランキングの上位には、景山充人さん、上田英明さん、横田一稀さんなどが並び、2024年の女子の部では、岡美穂さんが世界チャンピオンになりました。',
         render: function() { return bgSlide(this, 'bg-japan-night.jpg', '宇宙から見た夜の日本列島（NASA）', `
             <div class="grid grid-cols-2 gap-[2cqw]">
                 ${pro('<img src="images/pro-mochizuki.jpg" alt="望月正行プロ" class="w-full h-full object-cover">',
-                    '望月 正行', ['2009', '2021'], '日本人初の<br>世界チャンピオン')}
+                    '望月 正行', ['2009', '2021'], '日本人初の世界チャンピオン<br><span class="text-lime-300">世界ランキングで長年 1 位</span>')}
                 ${pro('<img src="images/pro-yazawa.jpg" alt="矢澤亜希子プロ" class="w-full h-full object-cover">',
-                    '矢澤 亜希子', ['2014', '2018'], '女性で世界初の<br>2 回優勝')}
+                    '矢澤 亜希子', ['2014', '2018'], '女性で世界初の 2 回優勝<br><span class="text-lime-300">テレビ番組にもたびたび出演</span>')}
+            </div>
+            <!-- 2 人のほかにも、今活躍している日本人がいる（Giants of Backgammon 2024 と World Backgammon Championship の一覧。TODO-033） -->
+            <div class="mt-[1.6cqw] flex items-center justify-center gap-[1cqw] rounded-xl bg-slate-900/80 border border-amber-400/40 px-[1.6cqw] py-[1cqw] text-slate-100 font-medium" style="font-size: clamp(0.85rem, 1.9cqw, 1.45rem);">
+                <i class="fa-solid fa-medal text-amber-300"></i>
+                <span class="leading-snug">ほかにも 世界ランキング上位に <b class="text-lime-300">景山 充人</b>・<b class="text-lime-300">上田 英明</b>・<b class="text-lime-300">横田 一稀</b><br>2024 年 女子の世界王者 <b class="text-lime-300">岡 美穂</b>（Miho Oka Macleod）</span>
             </div>
         `, { opacity: 60, credit: '写真（矢澤プロ）: 本人の X（@akikoyazawa）' }); },
     },
