@@ -346,8 +346,8 @@ const slideData = [
     // ── 表紙 ──
     {
         title: '表紙',
-        duration: 9,
-        narration: 'バックギャモンのススメ。5000年遊ばれてきた、世界のボードゲームを紹介します。お届けするのは、関内バックギャモンの会です。',
+        duration: 6,
+        narration: 'バックギャモンのススメ。5000年遊ばれてきた、世界のボードゲームを紹介します。',
         render: function() {
             return `
                 <div class="relative h-full flex flex-col justify-center items-center text-center px-[5cqw] overflow-hidden">
@@ -547,15 +547,16 @@ const slideData = [
             <!-- 写真は右に傾けて重ね、文字はその手前に置く（重なってよい） -->
             <figure class="relative m-0 h-[34cqw]">
                 ${snap('bg-board1.jpg', '青と白の競技用のボード', 'right-[0.5cqw] top-0 w-[38cqw]', 4)}
-                ${snap('bg-board2.jpg', 'オレンジの台に置いた白木のボード', 'right-[23cqw] bottom-[0.5cqw] w-[24cqw]', -6)}
-                ${snap('bg-board3.jpg', 'ターコイズ色の古い木箱のボード', 'right-0 bottom-[1cqw] w-[25cqw]', 5)}
+                ${snap('bg-board2.jpg', 'オレンジの台に置いた白木のボード', 'right-[23cqw] bottom-[4.5cqw] w-[24cqw]', -6)}
+                ${snap('bg-board3.jpg', 'ターコイズ色の古い木箱のボード', 'right-0 bottom-[5cqw] w-[25cqw]', 5)}
                 <ul class="relative w-[54cqw] h-full flex flex-col justify-center gap-[1.4cqw]">
                     ${li('fa-palette', '<span class="text-lime-300">カラフル</span>でおしゃれなボード')}
                     ${li('fa-couch', '部屋に飾れる、<br><span class="text-lime-300">インテリア</span>のようなボードも')}
                 </ul>
-                <figcaption class="absolute left-0 bottom-0 max-w-[44cqw] text-slate-500 leading-snug" style="font-size: clamp(0.6rem, 1.1cqw, 0.8rem);">写真（一部切り出し）: RG72 (CC BY 4.0)、Alper Çuğun (CC BY 2.0)、Diligent (PD)／Wikimedia Commons</figcaption>
             </figure>
-        `, { opacity: 55, credit: '背景: Jean Béraud「Backgammon at the Café」(PD)／Wikimedia Commons' }); },
+            <!-- 写真のクレジットは右下、背景のクレジットは左下に置く。狭い幅でも背景のクレジットと並ぶよう 2 行にし、下の写真 2 枚はその分だけ上げる（TODO-074） -->
+            <p class="absolute right-[1.2cqw] bottom-[0.8cqw] whitespace-nowrap text-right text-slate-500 leading-snug" style="font-size: clamp(0.6rem, 1.1cqw, 0.8rem);">写真（一部切り出し）: RG72 (CC BY 4.0)、Alper Çuğun (CC BY 2.0)、<br>Diligent (PD)／Wikimedia Commons</p>
+        `, { opacity: 55, credit: '背景: Jean Béraud「Backgammon at the Café」(PD)／Wikimedia Commons', creditLeft: true }); },
     },
 
     // ── 会への誘い（中身は会の公式サイトから。日付は古くなるので載せない。TODO-021） ──
@@ -572,7 +573,7 @@ const slideData = [
                 <div class="flex-1 flex flex-col gap-[1.2cqw] mb-[3cqw]">
                     <ul class="flex flex-col gap-[0.6cqw]">
                         ${li('fa-seedling', '<span class="text-lime-300">初心者歓迎</span>。遊び方を丁寧に教えます')}
-                        ${li('fa-calendar-days', '<span class="text-lime-300">月 2 回</span>ほど、主に <span class="whitespace-nowrap">なか区民活動センター</span>や <span class="whitespace-nowrap">Kアリーナ Bar 7 で</span>')}
+                        ${li('fa-calendar-days', '<span class="text-lime-300">月 2 回</span>ほど、主に <span class="whitespace-nowrap text-lime-300">なか区民活動センター</span>や <span class="whitespace-nowrap"><span class="text-lime-300">Kアリーナ Bar 7</span> で</span>')}
                         ${li('fa-comments', 'お喋りしながら<span class="text-lime-300">気軽に</span>交流')}
                     </ul>
                 </div>
