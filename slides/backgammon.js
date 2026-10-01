@@ -50,10 +50,10 @@ const li = (icon, html, py = '1.1cqw') => `
         <span class="text-slate-50 font-bold leading-snug" style="font-size: clamp(0.8rem, 2.8cqw, 2.1rem);">${html}</span>
     </li>`;
 
-// QR コードの札。札ごと url へのリンクで、QR を左、文字を右に置く（TODO-043）
+// QR コードの札。札ごと url へのリンクで、QR を左、文字を右に置く（TODO-043）。夜景を見せるため 15cqw から 12cqw にした（TODO-068）
 const qrCard = (url, img, alt, label, shown) => `
     <a href="${url}" target="_blank" rel="noopener" onclick="event.stopPropagation()" class="flex items-center gap-[1cqw] no-underline rounded-2xl bg-slate-50 p-[1cqw] shadow-2xl shadow-slate-950/80">
-        <img src="images/${img}" alt="${alt}" class="shrink-0 w-[15cqw] h-auto" style="image-rendering: pixelated;">
+        <img src="images/${img}" alt="${alt}" class="shrink-0 w-[12cqw] h-auto" style="image-rendering: pixelated;">
         <div class="min-w-0">
             <div class="text-slate-900 font-bold leading-snug" style="font-size: clamp(0.7rem, 1.6cqw, 1.2rem);">${label}</div>
             <div class="text-slate-600 font-medium mt-[0.4cqw] break-all leading-tight" style="font-size: clamp(0.5rem, 0.95cqw, 0.72rem);">${shown}</div>
@@ -137,8 +137,8 @@ const pro = (photo, name, years, note) => `
 
 // 背景に画像を敷いた 1 枚。見出しは player.html と同じ書式。
 // 見出しは上に固定し、中身だけを残りの高さの真ん中に置く（TODO-031）。
-// 暗い画像は opacity を上げる。CC BY の画像は credit にクレジットを渡す
-const bgSlide = (slide, src, alt, body, { opacity = 50, credit = '' } = {}) => `
+// 暗い画像は opacity を上げる。CC BY の画像は credit にクレジットを渡す。creditLeft でクレジットを左下に置く。写真に重なるので、地を敷いて明るい字にする（TODO-068）
+const bgSlide = (slide, src, alt, body, { opacity = 50, credit = '', creditLeft = false } = {}) => `
     <div class="relative h-full overflow-hidden">
         <img src="images/${src}" alt="${alt}" class="absolute inset-0 w-full h-full object-cover" style="opacity: ${opacity / 100};">
         <div class="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-slate-950/25 to-slate-950/45"></div>
@@ -148,7 +148,7 @@ const bgSlide = (slide, src, alt, body, { opacity = 50, credit = '' } = {}) => `
                 ${body}
             </div>
         </div>
-        ${credit ? `<div class="absolute right-[1.2cqw] bottom-[0.8cqw] text-slate-500" style="font-size: clamp(0.6rem, 1.1cqw, 0.8rem);">${credit}</div>` : ''}
+        ${credit ? `<div class="absolute ${creditLeft ? 'left-[1.2cqw] text-slate-300 bg-slate-950/70 px-[0.6cqw] rounded' : 'right-[1.2cqw] text-slate-500'} bottom-[0.8cqw]" style="font-size: clamp(0.6rem, 1.1cqw, 0.8rem);">${credit}</div>` : ''}
     </div>`;
 
 const slideData = [
@@ -369,9 +369,11 @@ const slideData = [
         icon: 'fa-handshake',
         duration: 22,
         narration: '日本では、知る人の少ないバックギャモンですが、関内バックギャモンの会に来れば、一緒に遊ぶ仲間がいます。初めての方には、遊び方を丁寧に教えます。月に2回ほど、主になか区民活動センターや、Kアリーナのバーで、お喋りしながら気軽に遊んでいます。お問い合わせは、公式サイトをご覧ください。',
-        render: function() { return bgSlide(this, 'bg-kannai.jpg', '窓の光が差すテーブルに置いた木のバックギャモンのボード', `
-            <div class="flex items-center gap-[2.4cqw]">
-                <div class="flex-1 flex flex-col gap-[1.2cqw]">
+        // 背景は会で遊んでいる K-ARENA Bar の写真。おしゃれなバーで遊ぶ様子を見せる（TODO-068）
+        render: function() { return bgSlide(this, 'bg-karena.jpg', '夜景が見える K アリーナのバーで、窓際のテーブルでバックギャモンを遊ぶ人たち', `
+            <!-- 背景の夜景を見せるため、中身を下に寄せる。左下のボードが見えるよう、箇条書きは少し上げる（TODO-068） -->
+            <div class="mt-auto flex items-end gap-[2.4cqw]">
+                <div class="flex-1 flex flex-col gap-[1.2cqw] mb-[3cqw]">
                     <ul class="flex flex-col gap-[0.6cqw]">
                         ${li('fa-seedling', '<span class="text-lime-300">初心者歓迎</span>。遊び方を丁寧に教えます')}
                         ${li('fa-calendar-days', '<span class="text-lime-300">月 2 回</span>ほど、主に <span class="whitespace-nowrap">なか区民活動センター</span>や <span class="whitespace-nowrap">Kアリーナ Bar 7 で</span>')}
@@ -380,11 +382,11 @@ const slideData = [
                 </div>
                 <!-- 札ごとリンク。上が公式サイト、下が X。クリックを再生・一時停止に伝えない（TODO-041、TODO-043）。
                      隣の QR を読み込まないよう、QR を大きくして札の間を離す（TODO-063） -->
-                <div class="shrink-0 w-[33cqw] flex flex-col gap-[2.4cqw]">
+                <div class="shrink-0 w-[29cqw] flex flex-col gap-[2.4cqw]">
                     ${qrCard('https://kannaibg.wixsite.com/kannai-backgammon', 'kannai-qr.png', '公式サイトの QR コード', 'お問い合わせは<br>公式サイトで', 'kannaibg.wixsite.com/<br>kannai-backgammon')}
                     ${qrCard('https://x.com/lppcn5b6mw94np2', 'x-qr.png', 'X の QR コード', '最新情報は<br>X で', 'x.com/<br>lppcn5b6mw94np2')}
                 </div>
             </div>
-        `, { credit: '背景: 関内バックギャモンの会 公式サイト' }); },
+        `, { opacity: 90, credit: '背景: K-ARENA Bar での会の様子（写真: 関内バックギャモンの会）', creditLeft: true }); },
     },
 ];
