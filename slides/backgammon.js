@@ -162,6 +162,56 @@ const rulesBattle = () => {
     requestAnimationFrame(frame);
 };
 
+// 「バックギャモンの歴史は古い」の時間軸の線を、ナレーションに合わせて左から伸ばす（TODO-073）。
+// 読み上げの位置は取れないので、読み始めてからの秒を自分で数える。player.html は、再生を始めたとき・再開したとき・
+// シーク・速度変更・ミュート解除・声の切り替えなどで、ナレーションをスライドの頭から読み直す。そのたびに増える
+// speechRunId を見て、線も最初から伸ばし直す（進行バーとはずれる。利用者が選んだ）。進行バーの経過秒
+// （currentSlideElapsedTime）はスライドの尺で止まるので使わない。秒は読み上げの速さを掛けて、1.0x の秒にそろえる。
+// ミュート中は、player.html がナレーションの代わりに尺の分だけ待つので、その待ちに合わせて伸ばす。
+// 伸ばし始める秒は、Online TTS の音声を文の区切りまで取って長さを測り、1.4 倍速で割った値
+// （「その後」が 8.3 秒、「日本にも」が 12.5 秒、全体が 17.5 秒）。Web Speech では少しずれる
+const HISTORY_STEPS = [8.3, 12.5];  // 1 区間目（起源 → 中央の点）と 2 区間目（中央の点 → 右端）を伸ばし始める秒
+const HISTORY_GROW = 2.5;           // 1 区間を伸ばす秒数
+const historyGrow = () => {
+    const line = document.getElementById('history-line');
+    if (!line || line.dataset.running) return;
+    line.dataset.running = '1';
+    const box = line.parentElement;
+    const r = line.getBoundingClientRect();
+    const at = (x) => (x - r.left) / r.width;  // 線の上の位置（左端 0、右端 1）
+    const dot = box.querySelectorAll('[data-history-dot]')[1].getBoundingClientRect();
+    const stops = [0, at(dot.left + dot.width / 2), 1];
+    // 矢じりは、線の先が左端に届いたら出す
+    const heads = [...box.querySelectorAll('[data-history-head]')].map((el) => ({ el, x: at(el.getBoundingClientRect().left) }));
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // t は読み始めてからの秒（null はまだ読んでいない）。シークでは要素ごと作り直されるので、再生中に作られたら読み直しとみなす
+    let t = null, run = null, last = performance.now();
+
+    const frame = () => {
+        if (!line.isConnected) return;
+        const now = performance.now();
+        // 音声の速さは player.html で MAX_SPEECH_RATE に抑えられる。ミュート中の待ちは抑えない
+        const rate = isMuted ? playbackRate : Math.min(MAX_SPEECH_RATE, getEffectiveSpeed()) / BASE_SPEED_MULTIPLIER;
+        if (isPlaying && t !== null) t += (now - last) / 1000 * rate;  // 一時停止中は止める
+        last = now;
+        if (isPlaying && speechRunId !== run) t = 0;
+        run = speechRunId;
+        // 再生していないうちに開いたときと、動きを減らす設定のときは、最後まで伸ばした形で見せる
+        let p = 1;
+        if (!reduce && t !== null) {
+            p = 0;
+            HISTORY_STEPS.forEach((start, i) => {
+                const k = Math.min(1, (t - start) / HISTORY_GROW);
+                if (k > 0) p = stops[i] + (stops[i + 1] - stops[i]) * (1 - (1 - k) ** 2);  // 終わりにかけて緩める
+            });
+        }
+        line.style.clipPath = `inset(0 ${(1 - p) * 100}% 0 0)`;
+        for (const h of heads) h.el.style.opacity = p >= h.x ? 1 : 0;
+        if (!reduce) requestAnimationFrame(frame);
+    };
+    frame();
+};
+
 // 傾けた写真 1 枚（「世界中でプレーされている」用。TODO-025。国名は出さない。TODO-034）
 const world = (src, alt, pos, deg) => `
     <div class="absolute ${pos} bg-slate-50 p-[0.45cqw] rounded-sm shadow-2xl shadow-slate-950/80" style="transform: rotate(${deg}deg);">
@@ -326,7 +376,7 @@ const slideData = [
         icon: 'fa-landmark',
         duration: 18,
         narration: 'バックギャモンの歴史は古く、起源は太古の昔です。約5000年前の中東にも、似た遊びがありました。その後、古代ローマなどを経て、世界中に広がりました。日本にも、飛鳥時代には伝わっていて、日本書紀に記録があります。',
-        render: function() {
+        render: function() { setTimeout(historyGrow);
             return bgSlide(this, 'bg-worldmap.jpg', '古い世界地図（Hondius, 1630）', `
                         <div class="grid grid-cols-3 gap-[1.8cqw] items-start">
                             ${fig('bg-ur.jpg', '貝殻の象眼で花や目の模様を描いた 20 マスの盤と、丸い駒', 'ウルの王族の墓から出た盤<br>（紀元前 2600 年ごろ、イラク）', 'object-center')}
@@ -334,15 +384,15 @@ const slideData = [
                             ${fig('bg-nara.png', '盤を挟んで向かい合う二人の絵', '盤双六らしい盤を挟む二人<br>（江戸時代ごろの絵）')}
                         </div>
                         <!-- 時間軸: 各図の真下に点。線は起源の点から始め、次の点の手前と右端に矢じり（TODO-066）。
-                             線の左端 (100% - gap 2 つ) / 6 は、1 列目の中心 -->
+                             線の左端 (100% - gap 2 つ) / 6 は、1 列目の中心。線はナレーションに合わせて伸ばす（TODO-073。動きは historyGrow） -->
                         <div class="relative mt-[1.2cqw]">
-                            <div class="absolute left-[calc((100%-3.6cqw)/6)] right-[3.4cqw] top-1/2 -translate-y-1/2 h-[1.2cqw] bg-gradient-to-r from-sky-400 to-lime-400"></div>
-                            <div class="absolute right-0 top-1/2 -translate-y-1/2 w-[4cqw] h-[4.8cqw] bg-lime-400" style="clip-path: polygon(0 0, 100% 50%, 0 100%);"></div>
+                            <div id="history-line" class="absolute left-[calc((100%-3.6cqw)/6)] right-[3.4cqw] top-1/2 -translate-y-1/2 h-[1.2cqw] bg-gradient-to-r from-sky-400 to-lime-400"></div>
+                            <div data-history-head class="absolute right-0 top-1/2 -translate-y-1/2 w-[4cqw] h-[4.8cqw] bg-lime-400" style="clip-path: polygon(0 0, 100% 50%, 0 100%);"></div>
                             <div class="relative grid grid-cols-3 gap-[1.8cqw]">
                                 ${['', 'bg-emerald-300', 'bg-lime-400'].map((arrow) => `
                                 <div class="relative flex justify-center items-center">
-                                    ${arrow ? `<div class="absolute right-[calc(50%+2.3cqw)] w-[3.6cqw] h-[4.4cqw] ${arrow}" style="clip-path: polygon(0 0, 100% 50%, 0 100%);"></div>` : ''}
-                                    <div class="w-[2.8cqw] h-[2.8cqw] rounded-full bg-lime-400 ring-[0.6cqw] ring-slate-950"></div>
+                                    ${arrow ? `<div data-history-head class="absolute right-[calc(50%+2.3cqw)] w-[3.6cqw] h-[4.4cqw] ${arrow}" style="clip-path: polygon(0 0, 100% 50%, 0 100%);"></div>` : ''}
+                                    <div data-history-dot class="w-[2.8cqw] h-[2.8cqw] rounded-full bg-lime-400 ring-[0.6cqw] ring-slate-950"></div>
                                 </div>`).join('')}
                             </div>
                         </div>
