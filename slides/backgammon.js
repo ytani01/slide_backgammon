@@ -33,26 +33,26 @@ const slidesConfig = {
     ],
 };
 
-// 時間軸の画像 1 枚と、何の絵かの小さな説明。時代の説明は時間軸の点の下に並べる（TODO-024）
-const fig = (src, alt, label, pos = 'object-top') => `
+// 時間軸の画像 1 枚と、何の絵かの小さな説明。時代の説明は時間軸の点の下に並べる（TODO-024）。強調の枠が説明に被らないよう離す（TODO-083）
+const fig = (src, alt, label, say, pos = 'object-top') => `
     <figure class="m-0 flex flex-col items-center">
-        <img src="images/${src}" alt="${alt}" class="w-full h-[17cqw] object-cover ${pos} rounded-xl border border-slate-700 shadow-xl shadow-slate-950/60">
-        <figcaption class="text-slate-300 mt-[0.4cqw] text-center leading-tight" style="font-size: clamp(0.75rem, 1.7cqw, 1.3rem);">${label}</figcaption>
+        <img src="images/${src}" alt="${alt}" data-say="${say}" data-say-strong class="w-full h-[17cqw] object-cover ${pos} rounded-xl border border-slate-700 shadow-xl shadow-slate-950/60">
+        <figcaption class="text-slate-300 mt-[1.2cqw] text-center leading-tight" style="font-size: clamp(0.75rem, 1.7cqw, 1.3rem);">${label}</figcaption>
     </figure>`;
 const cap = (html) => `
     <div class="text-center text-slate-100 font-medium leading-snug" style="font-size: clamp(1rem, 2.6cqw, 2rem);">${html}</div>`;
 
 // 箇条書きの 1 行。template.js の「箇条書き」より大きく、写真と重なっても読めるよう地を濃くした（TODO-018）。
 // py は行が多いスライドで上下の余白を詰めるため（TODO-051）
-const li = (icon, html, py = '1.1cqw') => `
-    <li class="flex items-center gap-[1.4cqw] rounded-xl bg-slate-950/75 backdrop-blur-sm border border-lime-500/40 px-[1.6cqw] py-[${py}] shadow-lg shadow-slate-950/60">
+const li = (icon, html, say, py = '1.1cqw') => `
+    <li data-say="${say}" class="flex items-center gap-[1.4cqw] rounded-xl bg-slate-950/75 backdrop-blur-sm border border-lime-500/40 px-[1.6cqw] py-[${py}] shadow-lg shadow-slate-950/60">
         <span class="shrink-0 grid place-items-center w-[4.4cqw] h-[4.4cqw] rounded-lg bg-lime-500/15 text-lime-400 border border-lime-500/40" style="font-size: clamp(0.85rem, 2.4cqw, 1.8rem);"><i class="fa-solid ${icon}"></i></span>
         <span class="text-slate-50 font-bold leading-snug" style="font-size: clamp(0.8rem, 2.8cqw, 2.1rem);">${html}</span>
     </li>`;
 
 // QR コードの札。札ごと url へのリンクで、QR を左、文字を右に置く（TODO-043）。夜景を見せるため 15cqw から 12cqw にした（TODO-068）
-const qrCard = (url, img, alt, label, shown) => `
-    <a href="${url}" target="_blank" rel="noopener" onclick="event.stopPropagation()" class="flex items-center gap-[1cqw] no-underline rounded-2xl bg-slate-50 p-[1cqw] shadow-2xl shadow-slate-950/80">
+const qrCard = (url, img, alt, label, shown, say = '') => `
+    <a href="${url}" ${say && `data-say="${say}" data-say-strong`} target="_blank" rel="noopener" onclick="event.stopPropagation()" class="flex items-center gap-[1cqw] no-underline rounded-2xl bg-slate-50 p-[1cqw] shadow-2xl shadow-slate-950/80">
         <img src="images/${img}" alt="${alt}" class="shrink-0 w-[12cqw] h-auto" style="image-rendering: pixelated;">
         <div class="min-w-0">
             <div class="text-slate-900 font-bold leading-snug" style="font-size: clamp(0.7rem, 1.6cqw, 1.2rem);">${label}</div>
@@ -61,15 +61,15 @@ const qrCard = (url, img, alt, label, shown) => `
     </a>`;
 
 // ルールの 1 行。li() より小さく、4 行を写真の横に並べる（TODO-020）
-const rule = (icon, html) => `
-    <div class="flex items-center gap-[1cqw] rounded-xl bg-slate-950/75 border border-lime-500/40 px-[1.2cqw] py-[0.8cqw] shadow-lg shadow-slate-950/60">
+const rule = (icon, html, say) => `
+    <div data-say="${say}" class="flex items-center gap-[1cqw] rounded-xl bg-slate-950/75 border border-lime-500/40 px-[1.2cqw] py-[0.8cqw] shadow-lg shadow-slate-950/60">
         <span class="shrink-0 grid place-items-center w-[3.4cqw] h-[3.4cqw] rounded-lg bg-lime-500/15 text-lime-400 border border-lime-500/40" style="font-size: clamp(0.75rem, 1.8cqw, 1.35rem);"><i class="fa-solid ${icon}"></i></span>
         <span class="text-slate-50 font-bold leading-snug" style="font-size: clamp(0.75rem, 2cqw, 1.5rem);">${html}</span>
     </div>`;
 
 // 白い縁を付けて傾けた写真 1 枚。pos は位置と幅の class、deg は傾き
-const snap = (src, alt, pos, deg) => `
-    <img src="images/${src}" alt="${alt}" class="absolute ${pos} h-auto bg-slate-50 p-[0.5cqw] rounded-sm shadow-2xl shadow-slate-950/80" style="transform: rotate(${deg}deg);">`;
+const snap = (src, alt, pos, deg, cue) => `
+    <img src="images/${src}" alt="${alt}" data-cue="${cue}" class="absolute ${pos} h-auto bg-slate-50 p-[0.5cqw] rounded-sm shadow-2xl shadow-slate-950/80" style="transform: rotate(${deg}deg);">`;
 
 // 「バックギャモンとは」の盤の矢印（TODO-072）。白（緑）は右上から、茶色（オレンジ）は右下から、同じ U 字を
 // 向かい合って進む。矢じりが出会ったら火花を散らして戦い、勝ち負けはランダム。負けたほうはすぐスタートから
@@ -162,33 +162,22 @@ const rulesBattle = () => {
     requestAnimationFrame(frame);
 };
 
-// 「バックギャモンの歴史は古い」の時間軸の線を、ナレーションに合わせて左から伸ばす（TODO-073）。
+// ナレーションを読み始めてからの秒を数え、毎フレーム draw(t) を呼ぶ（TODO-073 の historyGrow から切り出した。TODO-079〜081）。
 // 読み上げの位置は取れないので、読み始めてからの秒を自分で数える。player.html は、再生を始めたとき・再開したとき・
 // シーク・速度変更・ミュート解除・声の切り替えなどで、ナレーションをスライドの頭から読み直す。そのたびに増える
-// speechRunId を見て、線も最初から伸ばし直す（進行バーとはずれる。利用者が選んだ）。進行バーの経過秒
+// speechRunId を見て、動きも最初からやり直す（進行バーとはずれる。利用者が選んだ）。進行バーの経過秒
 // （currentSlideElapsedTime）はスライドの尺で止まるので使わない。秒は読み上げの速さを掛けて、1.0x の秒にそろえる。
-// ミュート中は、player.html がナレーションの代わりに尺の分だけ待つので、その待ちに合わせて伸ばす。
-// 伸ばし始める秒は、Online TTS の音声を文の区切りまで取って長さを測り、1.4 倍速で割った値
-// （「その後」が 8.3 秒、「日本にも」が 12.5 秒、全体が 17.5 秒）。Web Speech では少しずれる
-const HISTORY_STEPS = [8.3, 12.5];  // 1 区間目（起源 → 中央の点）と 2 区間目（中央の点 → 右端）を伸ばし始める秒
-const HISTORY_GROW = 2.5;           // 1 区間を伸ばす秒数
-const historyGrow = () => {
-    const line = document.getElementById('history-line');
-    if (!line || line.dataset.running) return;
-    line.dataset.running = '1';
-    const box = line.parentElement;
-    const r = line.getBoundingClientRect();
-    const at = (x) => (x - r.left) / r.width;  // 線の上の位置（左端 0、右端 1）
-    const dot = box.querySelectorAll('[data-history-dot]')[1].getBoundingClientRect();
-    const stops = [0, at(dot.left + dot.width / 2), 1];
-    // 矢じりは、線の先が左端に届いたら出す
-    const heads = [...box.querySelectorAll('[data-history-head]')].map((el) => ({ el, x: at(el.getBoundingClientRect().left) }));
+// ミュート中は、player.html がナレーションの代わりに尺の分だけ待つので、その待ちに合わせる。
+// t は 1.0x の秒で、null はまだ読んでいないとき（再生していないうちに開いたとき）。動きを減らす設定では draw(null) を 1 回だけ呼ぶ。
+// draw(null) では最後の形（今の画面）を出す
+const narrationClock = (el, draw) => {
+    if (!el || el.dataset.running) return;
+    el.dataset.running = '1';
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    // t は読み始めてからの秒（null はまだ読んでいない）。シークでは要素ごと作り直されるので、再生中に作られたら読み直しとみなす
+    // シークでは要素ごと作り直されるので、再生中に作られたら読み直しとみなす
     let t = null, run = null, last = performance.now();
-
     const frame = () => {
-        if (!line.isConnected) return;
+        if (!el.isConnected) return;
         const now = performance.now();
         // 音声の速さは player.html で MAX_SPEECH_RATE に抑えられる。ミュート中の待ちは抑えない
         const rate = isMuted ? playbackRate : Math.min(MAX_SPEECH_RATE, getEffectiveSpeed()) / BASE_SPEED_MULTIPLIER;
@@ -196,20 +185,74 @@ const historyGrow = () => {
         last = now;
         if (isPlaying && speechRunId !== run) t = 0;
         run = speechRunId;
+        draw(reduce ? null : t);
+        if (!reduce) requestAnimationFrame(frame);
+    };
+    frame();
+};
+// 0〜1 の進み具合。start 秒から len 秒かけて進み、終わりにかけて緩める。t が null なら 1
+const ease = (t, start, len) => t === null ? 1 : 1 - (1 - Math.min(1, Math.max(0, (t - start) / len))) ** 2;
+
+// 「バックギャモンの歴史は古い」の時間軸の線を、ナレーションに合わせて左から伸ばす（TODO-073）。
+// 伸ばし始める秒は、Online TTS の音声を文の区切りまで取って長さを測り、1.4 倍速で割った値
+// （「その後」が 8.3 秒、「日本にも」が 12.5 秒、全体が 17.5 秒）。Web Speech では少しずれる
+const HISTORY_STEPS = [8.3, 12.5];  // 1 区間目（起源 → 中央の点）と 2 区間目（中央の点 → 右端）を伸ばし始める秒
+const HISTORY_GROW = 2.5;           // 1 区間を伸ばす秒数
+const historyGrow = () => {
+    const line = document.getElementById('history-line');
+    if (!line || line.dataset.running) return;
+    const box = line.parentElement;
+    const r = line.getBoundingClientRect();
+    const at = (x) => (x - r.left) / r.width;  // 線の上の位置（左端 0、右端 1）
+    const dot = box.querySelectorAll('[data-history-dot]')[1].getBoundingClientRect();
+    const stops = [0, at(dot.left + dot.width / 2), 1];
+    // 矢じりは、線の先が左端に届いたら出す
+    const heads = [...box.querySelectorAll('[data-history-head]')].map((el) => ({ el, x: at(el.getBoundingClientRect().left) }));
+    narrationClock(line, (t) => {
         // 再生していないうちに開いたときと、動きを減らす設定のときは、最後まで伸ばした形で見せる
         let p = 1;
-        if (!reduce && t !== null) {
+        if (t !== null) {
             p = 0;
             HISTORY_STEPS.forEach((start, i) => {
-                const k = Math.min(1, (t - start) / HISTORY_GROW);
-                if (k > 0) p = stops[i] + (stops[i + 1] - stops[i]) * (1 - (1 - k) ** 2);  // 終わりにかけて緩める
+                if (t > start) p = stops[i] + (stops[i + 1] - stops[i]) * ease(t, start, HISTORY_GROW);
             });
         }
         line.style.clipPath = `inset(0 ${(1 - p) * 100}% 0 0)`;
         for (const h of heads) h.el.style.opacity = p >= h.x ? 1 : 0;
-        if (!reduce) requestAnimationFrame(frame);
-    };
-    frame();
+    });
+};
+
+// 写真や札を、ナレーションに合わせて出す（TODO-079〜081）。[data-cue] の要素を、data-cue の秒から
+// 上から落ちてきて元の傾きで止まるように出す。元の transform（傾き）は style に書いてあるので、その前に足す
+const DROP = 0.7;  // 落ちる秒数
+const cueDrop = (box) => {
+    if (!box) return;
+    const els = [...box.querySelectorAll('[data-cue]')].map((el) => ({ el, at: Number(el.dataset.cue), base: el.style.transform }));
+    narrationClock(box, (t) => {
+        for (const { el, at, base } of els) {
+            const k = ease(t, at, DROP);
+            el.style.opacity = t === null ? '' : Math.min(1, k * 2);
+            el.style.transform = `translateY(${(1 - k) * -6}cqw) scale(${1 + (1 - k) * 0.15}) ${base}`;
+        }
+    });
+};
+
+// 読み上げている箇所の札を光らせる（TODO-080）。[data-say] の要素を、data-say の秒から次の札の秒まで強調する。
+// 最後の札は end 秒（ナレーションの終わり）まで。強調しない間と、最後の形（t が null）は今の画面のまま
+const SAY_CLASSES = ['ring-4', 'ring-amber-300/80'];  // 拡大すると歴史の写真が下の説明に被るので、枠だけ（TODO-083）
+// data-say-strong の札は、太い枠と光のにじみで強く強調する。歴史の写真と、白い地の QR の札で目立たなかった（TODO-083）
+const SAY_STRONG = ['ring-[0.7cqw]', 'ring-amber-300', '!shadow-[0_0_3cqw_0.6cqw_rgba(252,211,77,0.8)]'];
+const cueSay = (box, end) => {
+    if (!box) return;
+    const els = [...box.querySelectorAll('[data-say]')];
+    els.forEach((el) => el.classList.add('transition', 'duration-300'));
+    const at = els.map((el) => Number(el.dataset.say));
+    narrationClock(box, (t) => els.forEach((el, i) => {
+        const on = t !== null && t >= at[i] && t < (at[i + 1] ?? end);
+        (el.hasAttribute('data-say-strong') ? SAY_STRONG : SAY_CLASSES).forEach((c) => el.classList.toggle(c, on));
+        // data-say-show の要素は、その札を強調し始めるまで隠す
+        el.querySelectorAll('[data-say-show]').forEach((s) => { s.style.opacity = t !== null && t < at[i] ? 0 : ''; });
+    }));
 };
 
 // 「関内バックギャモンの会で始めよう」の背景の夜景の光を、ランダムにきらめかせる（TODO-076）。
@@ -260,16 +303,38 @@ const karenaTwinkle = () => {
     tick();
 };
 
+// 「世界中でプレーされている」: 写真を冒頭から 1 枚ずつ置き、「約 3 億人」を読むところで数字を 0 から数え上げる
+// （TODO-079）。秒は Online TTS で測った（archives/agents/TODO-079/tts-cues.js）
+const WORLD_COUNT = 8.3, WORLD_COUNT_LEN = 1.5;
+const worldPlay = () => {
+    cueDrop(document.getElementById('world-photos'));
+    cueSay(document.getElementById('world-say'), 19.2);
+    const n = document.getElementById('world-count');
+    narrationClock(n, (t) => {
+        n.textContent = `${+(3 * ease(t, WORLD_COUNT, WORLD_COUNT_LEN)).toFixed(1)}億`;
+    });
+};
+
+// 表紙: タイトルの下の線を伸ばし、札のダイスを転がして止める（TODO-082）。飾りなのでナレーションには合わせない
+const coverPlay = () => {
+    const line = document.getElementById('cover-line');
+    if (!line || line.dataset.running || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    line.dataset.running = '1';
+    line.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: 900, delay: 300, easing: 'ease-out', fill: 'backwards' });
+    document.getElementById('cover-dice').animate([{ transform: 'translateX(-4cqw) rotate(-720deg)', opacity: 0 }, { transform: 'none', opacity: 1 }],
+        { duration: 1200, easing: 'cubic-bezier(0.2, 0.8, 0.3, 1)', fill: 'backwards' });
+};
+
 // 傾けた写真 1 枚（「世界中でプレーされている」用。TODO-025。国名は出さない。TODO-034）
-const world = (src, alt, pos, deg) => `
-    <div class="absolute ${pos} bg-slate-50 p-[0.45cqw] rounded-sm shadow-2xl shadow-slate-950/80" style="transform: rotate(${deg}deg);">
+const world = (src, alt, pos, deg, cue) => `
+    <div data-cue="${cue}" class="absolute ${pos} bg-slate-50 p-[0.45cqw] rounded-sm shadow-2xl shadow-slate-950/80" style="transform: rotate(${deg}deg);">
         <img src="images/${src}" alt="${alt}" class="w-full aspect-[4/3] object-cover">
     </div>`;
 
 // 魅力②の 1 枚分。後ろの席からも読めるよう、文字を大きくして 3 行に分ける（TODO-064）。
 // 上に場面の絵を置く。絵は 3:2 に揃えて、はみ出た所は切る（TODO-065）
-const step = (color, src, alt, text) => `
-    <div class="flex flex-col rounded-2xl bg-gradient-to-b from-${color}-950/85 to-slate-900/80 backdrop-blur-sm border border-${color}-500/40 p-[0.8cqw] pb-[1.4cqw] shadow-lg shadow-${color}-900/20">
+const step = (color, src, alt, text, say) => `
+    <div data-say="${say}" class="flex flex-col rounded-2xl bg-gradient-to-b from-${color}-950/85 to-slate-900/80 backdrop-blur-sm border border-${color}-500/40 p-[0.8cqw] pb-[1.4cqw] shadow-lg shadow-${color}-900/20">
         <img src="images/${src}" alt="${alt}" class="w-full aspect-[3/2] object-cover rounded-xl border border-${color}-400/40">
         <div class="font-bold text-slate-100 leading-snug mt-auto pt-[1cqw]" style="font-size: clamp(0.75rem, 3.2cqw, 2.4rem);">${text}</div>
     </div>`;
@@ -304,8 +369,8 @@ const easyFig = {
         <ellipse cx="44" cy="50" rx="3.2" ry="2.1"/><ellipse cx="90" cy="50" rx="3.2" ry="2.1"/>`,
 };
 // 魅力①の 1 枚分: 図・見出し・大きな数字・一言（TODO-028、TODO-067）
-const easy = (color, fig, icon, label, big, note) => `
-    <div class="rounded-2xl bg-gradient-to-b from-${color}-950/85 to-slate-900/80 backdrop-blur-sm border border-${color}-500/40 px-[1cqw] py-[1.8cqw] shadow-lg shadow-${color}-900/20">
+const easy = (color, fig, icon, label, big, note, say) => `
+    <div data-say="${say}" class="rounded-2xl bg-gradient-to-b from-${color}-950/85 to-slate-900/80 backdrop-blur-sm border border-${color}-500/40 px-[1cqw] py-[1.8cqw] shadow-lg shadow-${color}-900/20">
         <svg viewBox="0 0 120 76" class="mx-auto mb-[1cqw] h-[9cqw] text-${color}-300" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${easyFig[fig]}</svg>
         <div class="flex items-center justify-center gap-[0.8cqw] text-slate-200 font-bold" style="font-size: clamp(0.9rem, 2.1cqw, 1.6rem);"><i class="fa-solid ${icon} text-${color}-300"></i>${label}</div>
         <div class="font-extrabold text-${color}-300 leading-none mt-[1.2cqw] h-[7cqw] flex items-center justify-center" style="font-size: clamp(2.4rem, 7cqw, 5.2rem);">${big}</div>
@@ -313,13 +378,13 @@ const easy = (color, fig, icon, label, big, note) => `
     </div>`;
 
 // 選手の紹介カード（写真の枠・名前・優勝した年・一言）。写真と年を大きく見せる（TODO-026）
-const pro = (photo, name, years, note) => `
-    <div class="flex items-center gap-[1.6cqw] rounded-2xl bg-slate-900/80 border border-lime-500/40 p-[1.4cqw] shadow-lg shadow-lime-900/20">
+const pro = (photo, name, years, note, say) => `
+    <div data-say="${say}" class="flex items-center gap-[1.6cqw] rounded-2xl bg-slate-900/80 border border-lime-500/40 p-[1.4cqw] shadow-lg shadow-lime-900/20">
         <div class="shrink-0 w-[17cqw] h-[23cqw] rounded-xl overflow-hidden border border-slate-600">${photo}</div>
         <div class="min-w-0">
             <div class="font-bold text-slate-50 whitespace-nowrap" style="font-size: clamp(1.1rem, 3.1cqw, 2.3rem);">${name}<span class="text-slate-400 font-medium" style="font-size: clamp(0.8rem, 1.7cqw, 1.25rem);"> プロ</span></div>
             <div class="text-slate-200 font-medium mt-[1cqw] flex items-center gap-[0.6cqw]" style="font-size: clamp(0.9rem, 2cqw, 1.5rem);"><i class="fa-solid fa-trophy text-amber-300"></i>世界選手権 優勝</div>
-            <div class="font-extrabold text-lime-300 leading-tight whitespace-nowrap" style="font-size: clamp(1.4rem, 3.6cqw, 2.7rem);">${years.join('<span class="text-slate-500 font-bold">・</span>')}</div>
+            <div data-say-show class="font-extrabold text-lime-300 leading-tight whitespace-nowrap" style="font-size: clamp(1.4rem, 3.6cqw, 2.7rem);">${years.join('<span class="text-slate-500 font-bold">・</span>')}</div>
             <div class="text-amber-300 font-bold mt-[1cqw] leading-snug" style="font-size: clamp(0.8rem, 1.8cqw, 1.35rem);">${note}</div>
         </div>
     </div>`;
@@ -327,10 +392,10 @@ const pro = (photo, name, years, note) => `
 // 背景に画像を敷いた 1 枚。見出しは player.html と同じ書式。
 // 見出しは上に固定し、中身だけを残りの高さの真ん中に置く（TODO-031）。
 // 暗い画像は opacity を上げる。CC BY の画像は credit にクレジットを渡す。creditLeft でクレジットを左下に置く。写真に重なるので、地を敷いて明るい字にする（TODO-068）
-// overlay は背景の上、中身の下に重ねる（TODO-076）
-const bgSlide = (slide, src, alt, body, { opacity = 50, credit = '', creditLeft = false, overlay = '' } = {}) => `
+// overlay は背景の上、中身の下に重ねる（TODO-076）。brightness は、もとの写真が暗い背景を明るくする（TODO-085）
+const bgSlide = (slide, src, alt, body, { opacity = 50, credit = '', creditLeft = false, overlay = '', brightness = 1 } = {}) => `
     <div class="relative h-full overflow-hidden">
-        <img src="images/${src}" alt="${alt}" class="absolute inset-0 w-full h-full object-cover" style="opacity: ${opacity / 100};">
+        <img src="images/${src}" alt="${alt}" class="absolute inset-0 w-full h-full object-cover" style="opacity: ${opacity / 100}; filter: brightness(${brightness});">
         <div class="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-slate-950/25 to-slate-950/45"></div>
         ${overlay}
         <div class="relative flex flex-col h-full px-[3cqw] pt-[2.4cqw] pb-[2.6cqw]">
@@ -348,7 +413,7 @@ const slideData = [
         title: '表紙',
         duration: 6,
         narration: 'バックギャモンのススメ。5000年遊ばれてきた、世界のボードゲームを紹介します。',
-        render: function() {
+        render: function() { setTimeout(coverPlay);
             return `
                 <div class="relative h-full flex flex-col justify-center items-center text-center px-[5cqw] overflow-hidden">
                     <img src="images/bg-cover.jpg" alt="黒と木目のボードに載ったダイスとダブリングキューブ" class="absolute inset-0 w-full h-full object-cover opacity-[0.45]">
@@ -360,12 +425,12 @@ const slideData = [
                     <div class="absolute -bottom-[20cqw] -right-[8cqw] w-[40cqw] h-[40cqw] rounded-full bg-lime-500/20 blur-[6cqw]"></div>
                     <div class="relative">
                         <div class="inline-flex items-center gap-[0.8cqw] rounded-full border border-lime-400/40 bg-lime-400/10 px-[1.8cqw] py-[0.5cqw] text-lime-300 font-bold tracking-widest" style="font-size: clamp(0.8rem, 1.7cqw, 1.2rem);">
-                            <i class="fa-solid fa-dice"></i> BACKGAMMON
+                            <i id="cover-dice" class="fa-solid fa-dice"></i> BACKGAMMON
                         </div>
                         <h1 class="font-extrabold leading-tight mt-[1.8cqw]" style="font-size: clamp(2rem, 6cqw, 4.6rem);">
                             <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-slate-50 to-lime-300">バックギャモンのススメ</span>
                         </h1>
-                        <div class="mx-auto mt-[2cqw] h-[0.35cqw] w-[18cqw] rounded-full bg-gradient-to-r from-sky-400 to-lime-400"></div>
+                        <div id="cover-line" class="mx-auto mt-[2cqw] h-[0.35cqw] w-[18cqw] rounded-full bg-gradient-to-r from-sky-400 to-lime-400"></div>
                         <p class="text-slate-50 font-bold mt-[2cqw] drop-shadow-[0_2px_6px_rgba(2,6,23,0.9)]" style="font-size: clamp(1.1rem, 3cqw, 2.3rem);">
                             <span class="text-lime-300">5000 年</span>遊ばれてきた、世界のボードゲーム
                         </p>
@@ -388,7 +453,7 @@ const slideData = [
         icon: 'fa-circle-question',
         duration: 14,
         narration: '対戦型のすごろくのようなものです。ダイスを2個振って、15個の駒を進め、全部ゴールさせたら勝ちです。振り出しに戻したり、壁で妨害したりして、駆け引きしながら競います。',
-        render: function() { setTimeout(rulesBattle); return bgSlide(this, 'bg-cover.jpg', '黒と木目のボードに載ったダイスとダブリングキューブ', `
+        render: function() { setTimeout(() => { rulesBattle(); cueSay(document.getElementById('rules-say'), 13.2); }); return bgSlide(this, 'bg-cover.jpg', '黒と木目のボードに載ったダイスとダブリングキューブ', `
             <div class="flex items-center gap-[2.4cqw]">
                 <!-- 盤の写真に、駒の進む向きを重ねる。白は右上 → 左 → 右下のゴール（緑）、
                      茶色は右下 → 左 → 右上のゴール（オレンジ）。参考の動画のように矢じりごと伸ばし（TODO-071）、
@@ -405,19 +470,19 @@ const slideData = [
                     <div class="absolute right-[0.4cqw] bottom-[0.6cqw] rounded-md bg-lime-400 px-[0.7cqw] py-[0.2cqw] font-bold text-slate-950" style="font-size: clamp(0.7rem, 1.5cqw, 1.1rem);">ゴール</div>
                     <figcaption class="text-slate-300 mt-[0.5cqw] text-center" style="font-size: clamp(0.65rem, 1.3cqw, 1rem);">駒が進む向き（<span class="text-lime-300">白</span>と<span class="text-orange-300">茶色</span>は逆向き）</figcaption>
                 </figure>
-                <div class="flex-1 flex flex-col gap-[1cqw]">
+                <div id="rules-say" class="flex-1 flex flex-col gap-[1cqw]">
                     <!-- 知らない人にまず「すごろく」と伝える（TODO-053） -->
                     <p class="m-0 font-black text-amber-300 leading-none drop-shadow-[0_2px_6px_rgba(2,6,23,0.9)]" style="font-size: clamp(1.6rem, 4.4cqw, 3.4rem);">対戦型のすごろく！</p>
-                    ${rule('fa-dice', 'ダイスを <span class="text-lime-300">2 個</span>振る')}
-                    ${rule('fa-flag-checkered', '<span class="text-lime-300">15 個</span>のコマを全部ゴールさせたら勝ち')}
+                    ${rule('fa-dice', 'ダイスを <span class="text-lime-300">2 個</span>振る', 2.6)}
+                    ${rule('fa-flag-checkered', '<span class="text-lime-300">15 個</span>のコマを全部ゴールさせたら勝ち', 4)}
                     <!-- 特徴的なルールなので、ほかの行と分けて目立たせる（TODO-053） -->
-                    <div class="flex items-center gap-[1cqw] rounded-xl bg-amber-400/15 border-2 border-amber-400 px-[1.2cqw] py-[0.8cqw] shadow-lg shadow-slate-950/60">
+                    <div data-say="8" class="flex items-center gap-[1cqw] rounded-xl bg-amber-400/15 border-2 border-amber-400 px-[1.2cqw] py-[0.8cqw] shadow-lg shadow-slate-950/60">
                         <span class="shrink-0 grid place-items-center w-[3.4cqw] h-[3.4cqw] rounded-lg bg-amber-400/15 text-amber-300 border border-amber-400/60" style="font-size: clamp(0.75rem, 1.8cqw, 1.35rem);"><i class="fa-solid fa-rotate-left"></i></span>
                         <p class="m-0 text-amber-200 font-bold leading-snug" style="font-size: clamp(0.75rem, 2cqw, 1.5rem);">振り出しに戻したり、壁で妨害したりして、<br>駆け引きしながらゴールを目指す</p>
                     </div>
                 </div>
             </div>
-        `, { opacity: 35, credit: '盤: TaurusEmerald (CC BY-SA 4.0)、背景: Clint Budd (CC BY 2.0)／Wikimedia Commons' }); },
+        `, { opacity: 35, brightness: 2, credit: '盤: TaurusEmerald (CC BY-SA 4.0)、背景: Clint Budd (CC BY 2.0)／Wikimedia Commons' }); },
     },
 
     // ── 歴史 ──
@@ -426,12 +491,12 @@ const slideData = [
         icon: 'fa-landmark',
         duration: 18,
         narration: 'バックギャモンの歴史は古く、起源は太古の昔です。約5000年前の中東にも、似た遊びがありました。その後、古代ローマなどを経て、世界中に広がりました。日本にも、飛鳥時代には伝わっていて、日本書紀に記録があります。',
-        render: function() { setTimeout(historyGrow);
+        render: function() { setTimeout(() => { historyGrow(); cueSay(document.getElementById('history-say'), 17.5); });
             return bgSlide(this, 'bg-worldmap.jpg', '古い世界地図（Hondius, 1630）', `
-                        <div class="grid grid-cols-3 gap-[1.8cqw] items-start">
-                            ${fig('bg-ur.jpg', '貝殻の象眼で花や目の模様を描いた 20 マスの盤と、丸い駒', 'ウルの王族の墓から出た盤<br>（紀元前 2600 年ごろ、イラク）', 'object-center')}
-                            ${fig('bg-spread.jpg', '中東から世界各地へ矢印が伸びる世界地図', '中東から世界へ', 'object-center')}
-                            ${fig('bg-nara.png', '盤を挟んで向かい合う二人の絵', '盤双六らしい盤を挟む二人<br>（江戸時代ごろの絵）')}
+                        <div id="history-say" class="grid grid-cols-3 gap-[1.8cqw] items-start">
+                            ${fig('bg-ur.jpg', '貝殻の象眼で花や目の模様を描いた 20 マスの盤と、丸い駒', 'ウルの王族の墓から出た盤<br>（紀元前 2600 年ごろ、イラク）', 2.1, 'object-center')}
+                            ${fig('bg-spread.jpg', '中東から世界各地へ矢印が伸びる世界地図', '中東から世界へ', HISTORY_STEPS[0], 'object-center')}
+                            ${fig('bg-nara.png', '盤を挟んで向かい合う二人の絵', '盤双六らしい盤を挟む二人<br>（江戸時代ごろの絵）', HISTORY_STEPS[1])}
                         </div>
                         <!-- 時間軸: 各図の真下に点。線は起源の点から始め、次の点の手前と右端に矢じり（TODO-066）。
                              線の左端 (100% - gap 2 つ) / 6 は、1 列目の中心。線はナレーションに合わせて伸ばす（TODO-073。動きは historyGrow） -->
@@ -461,32 +526,33 @@ const slideData = [
         icon: 'fa-earth-asia',
         duration: 19,
         narration: 'そしていま、バックギャモンは世界中でプレーされています。日本バックギャモン協会によると、世界の遊戯人口は、約3億人と言われます。ヨーロッパやアメリカ、アジアなど、世界各地で国際大会が開かれ、モナコのモンテカルロでは、世界選手権も開かれています。',
-        render: function() { return bgSlide(this, 'bg-nightearth.jpg', '夜の地球の世界地図（NASA）', `
+        render: function() { setTimeout(worldPlay);
+            return bgSlide(this, 'bg-nightearth.jpg', '夜の地球の世界地図（NASA）', `
             <!-- 数字は出典のあるものだけ。「3 億人」は協会の原文どおり遊戯人口（archives/agents/TODO-048/research-report.md）。
                  国際大会の開催地は archives/agents/TODO-046/research-report.md。モンテカルロは 2020 年に開かれていないので「毎年」と書かない -->
             <div class="grid grid-cols-5 gap-[1.8cqw] items-center">
                 <!-- いろいろな国で遊ぶ様子を傾けて重ねる（TODO-025。出典は archives/agents/TODO-025/world-photos-report.md） -->
-                <div class="col-span-3 relative h-[31cqw]">
-                    ${world('bg-world-iran.jpg', 'イランの路上で、2 人が台の上の盤で打つ写真', 'left-0 top-[0.5cqw] w-[19cqw]', -5)}
-                    ${world('bg-world-georgia.jpg', '公園のベンチで、年配の男性たちが打つ写真', 'left-[17.5cqw] top-0 w-[18cqw]', 4)}
-                    ${world('bg-world-tunisia.jpg', 'カフェで、緑の盤を囲む男性たちの写真', 'left-[34cqw] top-[1cqw] w-[18cqw]', -3)}
-                    ${world('bg-world-peru.jpg', '屋外のテーブルで、緑の盤を囲む男性たちの写真', 'left-[5cqw] top-[15.5cqw] w-[19cqw]', 3)}
-                    ${world('bg-crowd2.jpg', '大会の会場で、何組もが打つ写真', 'left-[26cqw] top-[16cqw] w-[20cqw]', -4)}
+                <div id="world-photos" class="col-span-3 relative h-[31cqw]">
+                    ${world('bg-world-iran.jpg', 'イランの路上で、2 人が台の上の盤で打つ写真', 'left-0 top-[0.5cqw] w-[19cqw]', -5, 0.3)}
+                    ${world('bg-world-georgia.jpg', '公園のベンチで、年配の男性たちが打つ写真', 'left-[17.5cqw] top-0 w-[18cqw]', 4, 1)}
+                    ${world('bg-world-tunisia.jpg', 'カフェで、緑の盤を囲む男性たちの写真', 'left-[34cqw] top-[1cqw] w-[18cqw]', -3, 1.7)}
+                    ${world('bg-world-peru.jpg', '屋外のテーブルで、緑の盤を囲む男性たちの写真', 'left-[5cqw] top-[15.5cqw] w-[19cqw]', 3, 2.4)}
+                    ${world('bg-crowd2.jpg', '大会の会場で、何組もが打つ写真', 'left-[26cqw] top-[16cqw] w-[20cqw]', -4, 3.1)}
                 </div>
-                <div class="col-span-2 space-y-[1.4cqw] text-center">
-                    <div class="rounded-2xl bg-slate-900/80 border border-lime-500/40 p-[1.4cqw] shadow-lg shadow-lime-900/20 ring-1 ring-lime-400/20">
+                <div id="world-say" class="col-span-2 space-y-[1.4cqw] text-center">
+                    <div data-say="4" class="rounded-2xl bg-slate-900/80 border border-lime-500/40 p-[1.4cqw] shadow-lg shadow-lime-900/20 ring-1 ring-lime-400/20">
                         <div class="text-slate-200 font-medium" style="font-size: clamp(0.9rem, 1.95cqw, 1.4rem);">世界の遊戯人口</div>
-                        <div class="font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-b from-lime-300 to-lime-500" style="font-size: clamp(2rem, 5cqw, 3.8rem);"><span class="text-slate-400 font-bold" style="font-size: clamp(0.9rem, 1.9cqw, 1.4rem);">約 </span>3億<span class="text-slate-400 font-bold" style="font-size: clamp(0.9rem, 1.9cqw, 1.4rem);"> 人</span></div>
+                        <div class="font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-b from-lime-300 to-lime-500" style="font-size: clamp(2rem, 5cqw, 3.8rem);"><span class="text-slate-400 font-bold" style="font-size: clamp(0.9rem, 1.9cqw, 1.4rem);">約 </span><span id="world-count">3億</span><span class="text-slate-400 font-bold" style="font-size: clamp(0.9rem, 1.9cqw, 1.4rem);"> 人</span></div>
                         <div class="text-slate-400 font-medium mt-[0.6cqw]" style="font-size: clamp(0.7rem, 1.4cqw, 1.05rem);">日本バックギャモン協会による</div>
                     </div>
-                    <div class="rounded-2xl bg-slate-900/80 border border-sky-500/40 p-[1.4cqw] shadow-lg shadow-slate-950/40">
+                    <div data-say="10.1" class="rounded-2xl bg-slate-900/80 border border-sky-500/40 p-[1.4cqw] shadow-lg shadow-slate-950/40">
                         <div class="text-slate-200 font-medium" style="font-size: clamp(0.9rem, 1.95cqw, 1.4rem);">国際大会</div>
                         <div class="text-slate-400 font-medium mb-[0.6cqw]" style="font-size: clamp(0.7rem, 1.4cqw, 1.05rem);">モナコをはじめ</div>
                         <div class="font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-b from-sky-300 to-sky-500" style="font-size: clamp(2rem, 5cqw, 3.8rem);">世界各地で</div>
                     </div>
                 </div>
             </div>
-        `, { opacity: 70, credit: '写真（一部切り出し）: Adam Jones、Marcin Konsek、Monaam Ben Fredj、Alex Proimos、Matěj Baťha（CC BY / BY-SA）／Wikimedia Commons' }); },
+        `, { opacity: 100, brightness: 3.5, credit: '写真（一部切り出し）: Adam Jones、Marcin Konsek、Monaam Ben Fredj、Alex Proimos、Matěj Baťha（CC BY / BY-SA）／Wikimedia Commons' }); },
     },
 
     // ── 日本人の活躍（優勝歴は世界選手権だけ。出典は archives/agents/TODO-013/search-report.md） ──
@@ -495,19 +561,22 @@ const slideData = [
         icon: 'fa-trophy',
         duration: 23,
         narration: 'その世界選手権で、日本人が大活躍しています。望月正行プロは、日本人初の世界チャンピオンで、世界ランキングでも長年1位です。矢澤亜希子プロは、女性で世界初の2度優勝。テレビ番組にも出演しています。ほかにも、景山充人プロをはじめ、多くの日本人が世界ランキングの上位にいます。',
-        render: function() { return bgSlide(this, 'bg-japan-night.jpg', '宇宙から見た夜の日本列島（NASA）', `
+        render: function() { setTimeout(() => cueSay(document.getElementById('japan-say'), 23.3));
+            return bgSlide(this, 'bg-japan-night.jpg', '宇宙から見た夜の日本列島（NASA）', `
+            <div id="japan-say">
             <div class="grid grid-cols-2 gap-[2cqw]">
                 ${pro('<img src="images/pro-mochizuki.jpg" alt="望月正行プロ" class="w-full h-full object-cover">',
-                    '望月 正行', ['2009', '2021'], '日本人初の世界チャンピオン<br><span class="text-lime-300">世界ランキングで長年 1 位</span>')}
+                    '望月 正行', ['2009', '2021'], '日本人初の世界チャンピオン<br><span class="text-lime-300">世界ランキングで長年 1 位</span>', 4.1)}
                 ${pro('<img src="images/pro-yazawa.jpg" alt="矢澤亜希子プロ" class="w-full h-full object-cover">',
-                    '矢澤 亜希子', ['2014', '2018'], '女性で世界初の 2 回優勝<br><span class="text-lime-300">テレビ番組にも出演</span>')}
+                    '矢澤 亜希子', ['2014', '2018'], '女性で世界初の 2 回優勝<br><span class="text-lime-300">テレビ番組にも出演</span>', 10.8)}
             </div>
             <!-- 2 人のほかにも、今活躍している日本人がいる（Giants of Backgammon 2024 と World Backgammon Championship の一覧。TODO-033） -->
-            <div class="mt-[1.6cqw] flex items-center justify-center gap-[1cqw] rounded-xl bg-slate-900/80 border border-amber-400/40 px-[1.6cqw] py-[1cqw] text-slate-100 font-medium" style="font-size: clamp(0.85rem, 1.9cqw, 1.45rem);">
+            <div data-say="17" class="mt-[1.6cqw] flex items-center justify-center gap-[1cqw] rounded-xl bg-slate-900/80 border border-amber-400/40 px-[1.6cqw] py-[1cqw] text-slate-100 font-medium" style="font-size: clamp(0.85rem, 1.9cqw, 1.45rem);">
                 <i class="fa-solid fa-medal text-amber-300"></i>
                 <span class="leading-snug">ほかにも 世界ランキング上位に <b class="text-lime-300">景山 充人</b>・<b class="text-lime-300">上田 英明</b>・<b class="text-lime-300">横田 一稀</b><br>2024 年 女子の世界王者 <b class="text-lime-300">岡 美穂</b>（Miho Oka Macleod）</span>
             </div>
-        `, { opacity: 60, credit: '写真（矢澤プロ）: 本人の X（@akikoyazawa）' }); },
+            </div>
+        `, { opacity: 100, brightness: 3.5, credit: '写真（望月プロ）: Mamta1210（CC0）／Wikimedia Commons、写真（矢澤プロ）: 本人の X（@akikoyazawa）', creditLeft: true }); },
     },
 
     // ── 魅力（簡単で手軽・ゲームとしての面白さ・おしゃれの 3 枚） ──
@@ -516,12 +585,13 @@ const slideData = [
         icon: 'fa-feather-pointed',
         duration: 13,
         narration: 'バックギャモンの魅力、まずは簡単で手軽なことです。基本のルールはシンプルで、すぐに覚えられます。1ゲームは15分ほど。ボードは畳んで持ち運べるので、どこでも遊べます。',
-        render: function() { return bgSlide(this, 'bg-friends.jpg', '部屋のテーブルで、3 人が笑いながらバックギャモンを遊ぶ絵', `
+        render: function() { setTimeout(() => cueSay(document.getElementById('easy-say'), 13.4));
+            return bgSlide(this, 'bg-friends.jpg', '部屋のテーブルで、3 人が笑いながらバックギャモンを遊ぶ絵', `
             <!-- 大きな数字で「どう簡単か」を見せる（TODO-028） -->
-            <div class="grid grid-cols-3 gap-[1.8cqw] text-center">
-                ${easy('sky', 'rules', 'fa-list-check', 'ルール', '<span style="font-size: 0.6em;">シンプル</span>', 'すぐに覚えられる')}
-                ${easy('lime', 'time', 'fa-stopwatch', '1 ゲーム', '<span style="font-size: 0.45em;">約 </span>15<span style="font-size: 0.45em;"> 分</span>', 'すき間の時間で遊べる')}
-                ${easy('amber', 'board', 'fa-suitcase', 'ボード', '<span style="font-size: 0.6em;">持ち運べる</span>', '畳んでどこでも')}
+            <div id="easy-say" class="grid grid-cols-3 gap-[1.8cqw] text-center">
+                ${easy('sky', 'rules', 'fa-list-check', 'ルール', '<span style="font-size: 0.6em;">シンプル</span>', 'すぐに覚えられる', 4.1)}
+                ${easy('lime', 'time', 'fa-stopwatch', '1 ゲーム', '<span style="font-size: 0.45em;">約 </span>15<span style="font-size: 0.45em;"> 分</span>', 'すき間の時間で遊べる', 7.7)}
+                ${easy('amber', 'board', 'fa-suitcase', 'ボード', '<span style="font-size: 0.6em;">持ち運べる</span>', '畳んでどこでも', 9.6)}
             </div>
         `, { credit: '背景: AI 生成（Gemini）' }); },
     },
@@ -530,11 +600,12 @@ const slideData = [
         icon: 'fa-dice',
         duration: 22,
         narration: 'ゲームとしての面白さもあります。ダイスを使うので、運が良ければ、初心者でも上級者に勝つ可能性があります。相手の駒を振り出しに戻して、一気に逆転することもあります。戦略的な思考が必要で、奥が深いゲームです。そして、途中で「点数を2倍にしよう」と持ちかける、ダブルという駆け引きもあります。',
-        render: function() { return bgSlide(this, 'bg-feltdice.jpg', '緑のフェルトのボードに載った赤と白のダイスとダブリングキューブ', `
-            <div class="grid grid-cols-3 gap-[1.6cqw] text-center">
-                ${step('amber', 'card-luck.jpg', 'ゾロ目に両手を上げて喜ぶ若い女性と、頭をかく年配の男性', 'ダイスの運で<br>初心者でも<br>上級者に勝てる')}
-                ${step('sky', 'card-strategy.jpg', 'あごに手を当てて盤を見つめる男性と、次の手を示す光る矢印', '戦略的な<br>思考が必要で<br>奥が深い')}
-                ${step('rose', 'card-double.jpg', '「2」のキューブを掲げて笑う男性と、腕を組んで考え込む相手', '点数を 2 倍にする<br>「ダブル」の<br>駆け引き')}
+        render: function() { setTimeout(() => cueSay(document.getElementById('fun-say'), 22.7));
+            return bgSlide(this, 'bg-feltdice.jpg', '緑のフェルトのボードに載った赤と白のダイスとダブリングキューブ', `
+            <div id="fun-say" class="grid grid-cols-3 gap-[1.6cqw] text-center">
+                ${step('amber', 'card-luck.jpg', 'ゾロ目に両手を上げて喜ぶ若い女性と、頭をかく年配の男性', 'ダイスの運で<br>初心者でも<br>上級者に勝てる', 2.2)}
+                ${step('sky', 'card-strategy.jpg', 'あごに手を当てて盤を見つめる男性と、次の手を示す光る矢印', '戦略的な<br>思考が必要で<br>奥が深い', 12.5)}
+                ${step('rose', 'card-double.jpg', '「2」のキューブを掲げて笑う男性と、腕を組んで考え込む相手', '点数を 2 倍にする<br>「ダブル」の<br>駆け引き', 16.5)}
             </div>
         `, { credit: '背景: Donald Olszewski (CC BY 4.0)／Wikimedia Commons、絵: AI 生成（Gemini）' }); },
     },
@@ -543,15 +614,16 @@ const slideData = [
         icon: 'fa-wand-magic-sparkles',
         duration: 9,
         narration: '3つ目は、おしゃれなことです。カラフルでおしゃれなボードがたくさんあり、部屋に飾れる、インテリアのようなボードもあります。',
-        render: function() { return bgSlide(this, 'bg-cafe.jpg', 'パリのカフェでバックギャモンを打つ客の絵（Jean Béraud, 1908 年頃）', `
+        render: function() { setTimeout(() => { cueDrop(document.getElementById('style-photos')); cueSay(document.getElementById('style-say'), 8.3); });
+            return bgSlide(this, 'bg-cafe.jpg', 'パリのカフェでバックギャモンを打つ客の絵（Jean Béraud, 1908 年頃）', `
             <!-- 写真は右に傾けて重ね、文字はその手前に置く（重なってよい） -->
-            <figure class="relative m-0 h-[34cqw]">
-                ${snap('bg-board1.jpg', '青と白の競技用のボード', 'right-[0.5cqw] top-0 w-[38cqw]', 4)}
-                ${snap('bg-board2.jpg', 'オレンジの台に置いた白木のボード', 'right-[23cqw] bottom-[4.5cqw] w-[24cqw]', -6)}
-                ${snap('bg-board3.jpg', 'ターコイズ色の古い木箱のボード', 'right-0 bottom-[5cqw] w-[25cqw]', 5)}
-                <ul class="relative w-[54cqw] h-full flex flex-col justify-center gap-[1.4cqw]">
-                    ${li('fa-palette', '<span class="text-lime-300">カラフル</span>でおしゃれなボード')}
-                    ${li('fa-couch', '部屋に飾れる、<br><span class="text-lime-300">インテリア</span>のようなボードも')}
+            <figure id="style-photos" class="relative m-0 h-[34cqw]">
+                ${snap('bg-board1.jpg', '青と白の競技用のボード', 'right-[0.5cqw] top-0 w-[38cqw]', 4, 2.2)}
+                ${snap('bg-board2.jpg', 'オレンジの台に置いた白木のボード', 'right-[23cqw] bottom-[4.5cqw] w-[24cqw]', -6, 2.9)}
+                ${snap('bg-board3.jpg', 'ターコイズ色の古い木箱のボード', 'right-0 bottom-[5cqw] w-[25cqw]', 5, 6.2)}
+                <ul id="style-say" class="relative w-fit h-full flex flex-col justify-center gap-[1.4cqw]">
+                    ${li('fa-palette', '<span class="text-lime-300">カラフル</span>でおしゃれなボード', 2.2)}
+                    ${li('fa-couch', '部屋に飾れる、<br><span class="text-lime-300">インテリア</span>のようなボードも', 4.7)}
                 </ul>
             </figure>
             <!-- 写真のクレジットは右下、背景のクレジットは左下に置く。狭い幅でも背景のクレジットと並ぶよう 2 行にし、下の写真 2 枚はその分だけ上げる（TODO-074） -->
@@ -563,25 +635,26 @@ const slideData = [
     {
         title: '関内バックギャモンの会で始めよう',
         icon: 'fa-handshake',
-        duration: 22,
-        narration: '日本では、知る人の少ないバックギャモンですが、関内バックギャモンの会に来れば、一緒に遊ぶ仲間がいます。初めての方には、遊び方を丁寧に教えます。月に2回ほど、主になか区民活動センターや、Kアリーナのバーで、お喋りしながら気軽に遊んでいます。お問い合わせは、公式サイトをご覧ください。',
+        duration: 27,
+        narration: '日本では、知る人の少ないバックギャモンですが、関内バックギャモンの会に来れば、一緒に遊ぶ仲間がいます。初めての方には、遊び方を丁寧に教えます。月に2回ほど、主になか区民活動センターや、Kアリーナのバーで、お喋りしながら気軽に遊んでいます。お問い合わせは公式サイトを、最新情報はXをご覧ください。あなたも、バックギャモンを始めてみませんか。',
+        // X の札の強調は 24 秒で終え、締めくくりの文では強調しない（TODO-084）
         // 背景は会で遊んでいる K-ARENA Bar の写真。おしゃれなバーで遊ぶ様子を見せる（TODO-068）。窓の外の夜景の明かりをきらめかせる（TODO-076）
-        render: function() { setTimeout(karenaTwinkle);
+        render: function() { setTimeout(() => { karenaTwinkle(); cueSay(document.getElementById('karena-say'), 24); });
             return bgSlide(this, 'bg-karena.jpg', '夜景が見える K アリーナのバーで、窓際のテーブルでバックギャモンを遊ぶ人たち', `
             <!-- 背景の夜景を見せるため、中身を下に寄せる。左下のボードが見えるよう、箇条書きは少し上げる（TODO-068） -->
-            <div class="mt-auto flex items-end gap-[2.4cqw]">
+            <div id="karena-say" class="mt-auto flex items-end gap-[2.4cqw]">
                 <div class="flex-1 flex flex-col gap-[1.2cqw] mb-[3cqw]">
                     <ul class="flex flex-col gap-[0.6cqw]">
-                        ${li('fa-seedling', '<span class="text-lime-300">初心者歓迎</span>。遊び方を丁寧に教えます')}
-                        ${li('fa-calendar-days', '<span class="text-lime-300">月 2 回</span>ほど、主に <span class="whitespace-nowrap text-lime-300">なか区民活動センター</span>や <span class="whitespace-nowrap"><span class="text-lime-300">Kアリーナ Bar 7</span> で</span>')}
-                        ${li('fa-comments', 'お喋りしながら<span class="text-lime-300">気軽に</span>交流')}
+                        ${li('fa-seedling', '<span class="text-lime-300">初心者歓迎</span>。遊び方を丁寧に教えます', 7.6)}
+                        ${li('fa-calendar-days', '<span class="text-lime-300">月 2 回</span>ほど、主に <span class="whitespace-nowrap text-lime-300">なか区民活動センター</span>や <span class="whitespace-nowrap"><span class="text-lime-300">Kアリーナ Bar 7</span> で</span>', 11.4)}
+                        ${li('fa-comments', 'お喋りしながら<span class="text-lime-300">気軽に</span>交流', 16.8)}
                     </ul>
                 </div>
                 <!-- 札ごとリンク。上が公式サイト、下が X。クリックを再生・一時停止に伝えない（TODO-041、TODO-043）。
-                     隣の QR を読み込まないよう、QR を大きくして札の間を離す（TODO-063） -->
-                <div class="shrink-0 w-[29cqw] flex flex-col gap-[2.4cqw]">
-                    ${qrCard('https://kannaibg.wixsite.com/kannai-backgammon', 'kannai-qr.png', '公式サイトの QR コード', 'お問い合わせは<br>公式サイトで', 'kannaibg.wixsite.com/<br>kannai-backgammon')}
-                    ${qrCard('https://x.com/lppcn5b6mw94np2', 'x-qr.png', 'X の QR コード', '最新情報は<br>X で', 'x.com/<br>lppcn5b6mw94np2')}
+                     隣の QR を読み込まないよう、QR を大きくして札の間を離す（TODO-063、TODO-084） -->
+                <div class="shrink-0 w-[29cqw] flex flex-col gap-[4cqw]">
+                    ${qrCard('https://kannaibg.wixsite.com/kannai-backgammon', 'kannai-qr.png', '公式サイトの QR コード', 'お問い合わせは<br>公式サイトで', 'kannaibg.wixsite.com/<br>kannai-backgammon', 19.1)}
+                    ${qrCard('https://x.com/lppcn5b6mw94np2', 'x-qr.png', 'X の QR コード', '最新情報は<br>X（旧 Twitter）で', 'x.com/<br>lppcn5b6mw94np2', 21.2)}
                 </div>
             </div>
         `, { opacity: 90, credit: '背景: K-ARENA Bar での会の様子（写真: 関内バックギャモンの会）', creditLeft: true, overlay: karenaLights }); },
