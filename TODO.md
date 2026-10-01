@@ -1,7 +1,7 @@
 # TODO
 
-**残っている項目: TODO-087、TODO-088、TODO-089。** これまでに 81 件を決着させた。
-新しく足すときは「完了済み」の上に節を作る。**番号は `TODO-090` から。**
+**残っている項目: TODO-087、TODO-088、TODO-089、TODO-090。** これまでに 81 件を決着させた。
+新しく足すときは「完了済み」の上に節を作る。**番号は `TODO-091` から。**
 
 番号は、分ける前のリポジトリ（`~/work/slide_ytsched`）から続けている。TODO-001・002・008・009・042 は
 そちらにあり、ここには無い（TODO-042 で分けた）。
@@ -44,11 +44,25 @@ TODO-085 のあとの明るさの平均（幅 1280px）は、バックギャモ�
 |------|------|------|
 | 見込み | Opus 5.5 / effort medium | main（実装）+ verifier（Sonnet 5.5 / medium） |
 
-- [ ] `archives/agents/TODO-087/candidates/pexels2.jpg` を `images/bg-board4.jpg` として足す（Denys Gromov、Pexels License。作者名は元のページで確かめた）
-- [ ] 4 枚をばらけた角度で傾けて並べ直す。角度は固定にする（表示のたびに変えると、文字やクレジットと重ならないことを確かめられない）
-- [ ] 写真を置く秒（TODO-081）と、写真のクレジットに 4 枚目を足す
+- [x] `archives/agents/TODO-087/candidates/pexels2.jpg` を `images/bg-board4.jpg` として足す（Denys Gromov、Pexels License。作者名は元のページで確かめた）
+- [x] 4 枚をばらけた角度で傾けて並べ直す。角度は固定にする（表示のたびに変えると、文字やクレジットと重ならないことを確かめられない）
+- [x] 写真を置く秒（TODO-081）と、写真のクレジットに 4 枚目を足す
 
 利用者の指示（2026-10-02）: 本体のボードの写真として pexels2.jpg を使いたい。合計 4 枚の写真をランダムに傾けて並べ直す。
+
+---
+
+## TODO-090. 「魅力② ゲームとしての面白さ」の真ん中の絵を、strategy1.jpg に差し替える
+
+|      | main | 担当 |
+|------|------|------|
+| 見込み | Opus 5.5 / effort medium | main（実装）+ verifier（Sonnet 5.5 / medium） |
+
+- [x] `images/strategy1.jpg`（2816x1536）を、ほかの 2 枚と同じ 900x600（3:2、中央で切る）に縮めて `images/card-strategy.jpg` を置き換える
+- [x] alt を新しい絵に合わせる
+
+利用者の指示（2026-10-02）: 魅力②の真ん中の写真を `images/strategy1.jpg` に差し替えて、同じように配置する。
+もとの 3.2MB の `strategy1.jpg` はリポジトリに入れない（縮めたものだけ使う）。
 
 ---
 
