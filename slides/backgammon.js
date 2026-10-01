@@ -71,6 +71,17 @@ const rule = (icon, html) => `
 const snap = (src, alt, pos, deg) => `
     <img src="images/${src}" alt="${alt}" class="absolute ${pos} h-auto bg-slate-50 p-[0.5cqw] rounded-sm shadow-2xl shadow-slate-950/80" style="transform: rotate(${deg}deg);">`;
 
+// 「バックギャモンとは」の盤に重ねる、伸びていく矢印 1 本（TODO-071）。
+// 線は pathLength を 1 にして stroke-dashoffset で描き進め、矢じりは同じ速さで線の先端を動かす。
+// 1.01 から始めるのは、長さ 0 の dash に丸い端が点として出るのを避けるため
+const flow = (id, d, color) => `
+    <path id="${id}" d="${d}" pathLength="1" stroke-dasharray="1 2" fill="none" stroke="${color}" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" opacity="0.95">
+        <animate attributeName="stroke-dashoffset" values="1.01;0;0" keyTimes="0;0.7;1" dur="3.5s" repeatCount="indefinite"/>
+    </path>
+    <path d="M -30 -44 L 44 0 L -30 44 Z" fill="${color}" opacity="0.95">
+        <animateMotion keyPoints="0;1;1" keyTimes="0;0.7;1" calcMode="linear" dur="3.5s" repeatCount="indefinite" rotate="auto"><mpath href="#${id}"/></animateMotion>
+    </path>`;
+
 // 傾けた写真 1 枚（「世界中でプレーされている」用。TODO-025。国名は出さない。TODO-034）
 const world = (src, alt, pos, deg) => `
     <div class="absolute ${pos} bg-slate-50 p-[0.45cqw] rounded-sm shadow-2xl shadow-slate-950/80" style="transform: rotate(${deg}deg);">
@@ -199,15 +210,18 @@ const slideData = [
         narration: '対戦型のすごろくのようなものです。ダイスを2個振って、15個の駒を進め、全部ゴールさせたら勝ちです。振り出しに戻したり、壁で妨害したりして、駆け引きしながら競います。',
         render: function() { return bgSlide(this, 'bg-cover.jpg', '黒と木目のボードに載ったダイスとダブリングキューブ', `
             <div class="flex items-center gap-[2.4cqw]">
-                <!-- 盤の写真に、白の駒の進む向きを重ねる（右上 → 左 → 右下のゴール） -->
+                <!-- 盤の写真に、駒の進む向きを重ねる。白は右上 → 左 → 右下のゴール（緑）、
+                     茶色はその外側を右下 → 左 → 右上のゴール（オレンジ）。参考の動画のように、
+                     2 本とも矢じりごと始点から伸ばし、描き切ったら少し止めて繰り返す（TODO-071） -->
                 <figure class="relative m-0 shrink-0 w-[44cqw]">
                     <img src="images/bg-rules-board.jpg" alt="真上から見た、初期配置のバックギャモンの盤" class="w-full aspect-[3/2] object-cover rounded-xl border border-slate-600 shadow-2xl shadow-slate-950/70">
                     <svg viewBox="0 0 1130 750" class="absolute inset-0 w-full h-full" aria-hidden="true">
-                        <defs><marker id="rules-head" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#a3e635"/></marker></defs>
-                        <path d="M 960 335 L 170 335 Q 95 335 95 375 Q 95 415 170 415 L 1040 415" fill="none" stroke="#a3e635" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#rules-head)" opacity="0.95"/>
+                        ${flow('rules-white', 'M 960 250 L 200 250 Q 120 250 120 375 Q 120 500 200 500 L 1040 500', '#a3e635')}
+                        ${flow('rules-brown', 'M 960 580 L 190 580 Q 55 580 55 375 Q 55 170 190 170 L 1040 170', '#fb923c')}
                     </svg>
+                    <div class="absolute right-[0.4cqw] top-[0.6cqw] rounded-md bg-orange-400 px-[0.7cqw] py-[0.2cqw] font-bold text-slate-950" style="font-size: clamp(0.7rem, 1.5cqw, 1.1rem);">ゴール</div>
                     <div class="absolute right-[0.4cqw] bottom-[0.6cqw] rounded-md bg-lime-400 px-[0.7cqw] py-[0.2cqw] font-bold text-slate-950" style="font-size: clamp(0.7rem, 1.5cqw, 1.1rem);">ゴール</div>
-                    <figcaption class="text-slate-300 mt-[0.5cqw] text-center" style="font-size: clamp(0.65rem, 1.3cqw, 1rem);">白の駒が進む向き（茶色は逆向き）</figcaption>
+                    <figcaption class="text-slate-300 mt-[0.5cqw] text-center" style="font-size: clamp(0.65rem, 1.3cqw, 1rem);">駒が進む向き（<span class="text-lime-300">白</span>と<span class="text-orange-300">茶色</span>は逆向き）</figcaption>
                 </figure>
                 <div class="flex-1 flex flex-col gap-[1cqw]">
                     <!-- 知らない人にまず「すごろく」と伝える（TODO-053） -->
