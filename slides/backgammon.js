@@ -212,6 +212,54 @@ const historyGrow = () => {
     frame();
 };
 
+// 「関内バックギャモンの会で始めよう」の背景の夜景の光を、ランダムにきらめかせる（TODO-076）。
+// 光の位置は、bg-karena.jpg（1600×1200）の窓の外のビルの明かりを画像から拾った座標。SVG の viewBox を画像と
+// 同じにして slice で敷くと、object-cover（中央）と同じ切り方になるので、幅を変えても明かりからずれない
+const KARENA_LIGHTS = [[1143,49],[797,56],[845,80],[1155,95],[813,103],[1071,112],[840,120],[996,127],[1088,140],[1171,153],[996,162],[844,178],[566,188],[1118,193],[486,195],[580,238],[1138,267],[597,274],[214,276],[320,278],[267,286],[1040,292],[549,305],[237,320],[1070,345],[191,346],[550,348],[633,349],[116,360],[212,387],[180,390],[829,398],[570,402],[645,405],[600,407],[500,409],[228,410],[190,419],[219,438],[621,445],[663,445],[282,450],[8,457],[240,465],[174,476],[292,480],[638,482],[261,492],[766,492],[605,493],[227,494],[15,499],[311,501],[703,526],[285,535],[239,536],[670,540],[420,541],[12,543],[202,543],[63,557],[617,563],[263,564],[343,568],[383,575],[3,577],[224,579],[420,583],[87,584],[302,585],[454,587],[340,601],[47,612],[421,613],[260,624],[372,638],[222,639],[38,661],[204,665],[494,665],[318,670],[241,673],[78,675],[448,675],[277,684],[396,693],[44,762],[113,763],[82,773],[131,798]];
+const karenaLights = `
+        <svg id="karena-lights" viewBox="0 0 1600 1200" preserveAspectRatio="xMidYMid slice" class="absolute inset-0 w-full h-full pointer-events-none" aria-hidden="true">
+            <defs><radialGradient id="karena-glow"><stop offset="0" stop-color="#fff"/><stop offset="0.35" stop-color="#fef3c7" stop-opacity="0.8"/><stop offset="1" stop-color="#fde68a" stop-opacity="0"/></radialGradient></defs>
+            ${KARENA_LIGHTS.map(([x, y]) => `<g transform="translate(${x} ${y})"><g opacity="0"><circle r="20" fill="url(#karena-glow)"/><path d="M -34 0 H 34 M 0 -34 V 34" stroke="#fff" stroke-width="3" stroke-linecap="round"/></g></g>`).join('')}
+        </svg>`;
+const KARENA_MAX = 3;  // 同時に光る数
+const karenaTwinkle = () => {
+    const svg = document.getElementById('karena-lights');
+    if (!svg || svg.dataset.running) return;
+    svg.dataset.running = '1';
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;  // 動きを減らす設定なら光らせない
+    const lights = [...svg.querySelectorAll('g > g')];
+    const box = svg.parentElement;
+    const hit = (r, b) => r.right > b.left && r.left < b.right && r.bottom > b.top && r.top < b.bottom;
+    let active = 0;
+    const tick = () => {
+        if (!svg.isConnected) return;
+        if (active < KARENA_MAX) {
+            // 切られて見えない明かりと、見出し・箇条書き・QR の札に重なる明かりは使わない。見出しは箱が横幅いっぱいなので、
+            // 文字の範囲で見る。重なりは光らせるたびに見るので、幅を変えても効く
+            const area = svg.getBoundingClientRect();
+            const title = document.createRange();
+            title.selectNodeContents(box.querySelector('h2'));
+            const blocks = [title, ...box.querySelectorAll('ul, a')].map((e) => e.getBoundingClientRect());
+            const free = lights.filter((g) => {
+                if (g.getAnimations().length) return false;
+                const r = g.getBoundingClientRect();
+                const x = (r.left + r.right) / 2, y = (r.top + r.bottom) / 2;
+                return x > area.left && x < area.right && y > area.top && y < area.bottom && !blocks.some((b) => hit(r, b));
+            });
+            if (free.length) {
+                active++;
+                free[Math.floor(Math.random() * free.length)].animate([
+                    { opacity: 0, transform: 'scale(0.3) rotate(0deg)' },
+                    { opacity: 1, transform: 'scale(1) rotate(20deg)' },
+                    { opacity: 0, transform: 'scale(0.3) rotate(40deg)' },
+                ], { duration: 900 + Math.random() * 900, easing: 'ease-in-out' }).onfinish = () => active--;
+            }
+        }
+        setTimeout(tick, 150 + Math.random() * 600);
+    };
+    tick();
+};
+
 // 傾けた写真 1 枚（「世界中でプレーされている」用。TODO-025。国名は出さない。TODO-034）
 const world = (src, alt, pos, deg) => `
     <div class="absolute ${pos} bg-slate-50 p-[0.45cqw] rounded-sm shadow-2xl shadow-slate-950/80" style="transform: rotate(${deg}deg);">
@@ -279,10 +327,12 @@ const pro = (photo, name, years, note) => `
 // 背景に画像を敷いた 1 枚。見出しは player.html と同じ書式。
 // 見出しは上に固定し、中身だけを残りの高さの真ん中に置く（TODO-031）。
 // 暗い画像は opacity を上げる。CC BY の画像は credit にクレジットを渡す。creditLeft でクレジットを左下に置く。写真に重なるので、地を敷いて明るい字にする（TODO-068）
-const bgSlide = (slide, src, alt, body, { opacity = 50, credit = '', creditLeft = false } = {}) => `
+// overlay は背景の上、中身の下に重ねる（TODO-076）
+const bgSlide = (slide, src, alt, body, { opacity = 50, credit = '', creditLeft = false, overlay = '' } = {}) => `
     <div class="relative h-full overflow-hidden">
         <img src="images/${src}" alt="${alt}" class="absolute inset-0 w-full h-full object-cover" style="opacity: ${opacity / 100};">
         <div class="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-slate-950/25 to-slate-950/45"></div>
+        ${overlay}
         <div class="relative flex flex-col h-full px-[3cqw] pt-[2.4cqw] pb-[2.6cqw]">
             <h2 class="shrink-0 font-bold text-sky-300 mb-[1.5cqw] flex items-center gap-[1cqw] drop-shadow-[0_2px_6px_rgba(2,6,23,0.9)]" style="font-size: clamp(1.4rem, 3.2cqw, 2.5rem);"><i class="fa-solid ${slide.icon} text-lime-400"></i> ${slide.title}</h2>
             <div class="flex-1 min-h-0 flex flex-col justify-center">
@@ -514,8 +564,9 @@ const slideData = [
         icon: 'fa-handshake',
         duration: 22,
         narration: '日本では、知る人の少ないバックギャモンですが、関内バックギャモンの会に来れば、一緒に遊ぶ仲間がいます。初めての方には、遊び方を丁寧に教えます。月に2回ほど、主になか区民活動センターや、Kアリーナのバーで、お喋りしながら気軽に遊んでいます。お問い合わせは、公式サイトをご覧ください。',
-        // 背景は会で遊んでいる K-ARENA Bar の写真。おしゃれなバーで遊ぶ様子を見せる（TODO-068）
-        render: function() { return bgSlide(this, 'bg-karena.jpg', '夜景が見える K アリーナのバーで、窓際のテーブルでバックギャモンを遊ぶ人たち', `
+        // 背景は会で遊んでいる K-ARENA Bar の写真。おしゃれなバーで遊ぶ様子を見せる（TODO-068）。窓の外の夜景の明かりをきらめかせる（TODO-076）
+        render: function() { setTimeout(karenaTwinkle);
+            return bgSlide(this, 'bg-karena.jpg', '夜景が見える K アリーナのバーで、窓際のテーブルでバックギャモンを遊ぶ人たち', `
             <!-- 背景の夜景を見せるため、中身を下に寄せる。左下のボードが見えるよう、箇条書きは少し上げる（TODO-068） -->
             <div class="mt-auto flex items-end gap-[2.4cqw]">
                 <div class="flex-1 flex flex-col gap-[1.2cqw] mb-[3cqw]">
@@ -532,6 +583,6 @@ const slideData = [
                     ${qrCard('https://x.com/lppcn5b6mw94np2', 'x-qr.png', 'X の QR コード', '最新情報は<br>X で', 'x.com/<br>lppcn5b6mw94np2')}
                 </div>
             </div>
-        `, { opacity: 90, credit: '背景: K-ARENA Bar での会の様子（写真: 関内バックギャモンの会）', creditLeft: true }); },
+        `, { opacity: 90, credit: '背景: K-ARENA Bar での会の様子（写真: 関内バックギャモンの会）', creditLeft: true, overlay: karenaLights }); },
     },
 ];
