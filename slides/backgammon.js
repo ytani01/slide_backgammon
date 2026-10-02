@@ -37,17 +37,17 @@ const slidesConfig = {
 const fig = (src, alt, label, say, pos = 'object-top') => `
     <figure class="m-0 flex flex-col items-center">
         <img src="images/${src}" alt="${alt}" data-say="${say}" data-say-strong class="w-full h-[17cqw] object-cover ${pos} rounded-xl border border-slate-700 shadow-xl shadow-slate-950/60">
-        <figcaption class="text-slate-300 mt-[1.2cqw] text-center leading-tight" style="font-size: clamp(0.75rem, 1.7cqw, 1.3rem);">${label}</figcaption>
+        <figcaption class="text-slate-300 mt-[1.2cqw] text-center leading-tight" style="font-size: 1.7cqw;">${label}</figcaption>
     </figure>`;
 const cap = (html) => `
-    <div class="text-center text-slate-100 font-medium leading-snug" style="font-size: clamp(1rem, 2.6cqw, 2rem);">${html}</div>`;
+    <div class="text-center text-slate-100 font-medium leading-snug" style="font-size: 2.6cqw;">${html}</div>`;
 
 // 箇条書きの 1 行。template.js の「箇条書き」より大きく、写真と重なっても読めるよう地を濃くした（TODO-018）。
 // py は行が多いスライドで上下の余白を詰めるため（TODO-051）
 const li = (icon, html, say, py = '1.1cqw') => `
     <li data-say="${say}" class="flex items-center gap-[1.4cqw] rounded-xl bg-slate-950/75 backdrop-blur-sm border border-lime-500/40 px-[1.6cqw] py-[${py}] shadow-lg shadow-slate-950/60">
-        <span class="shrink-0 grid place-items-center w-[4.4cqw] h-[4.4cqw] rounded-lg bg-lime-500/15 text-lime-400 border border-lime-500/40" style="font-size: clamp(0.85rem, 2.4cqw, 1.8rem);"><i class="fa-solid ${icon}"></i></span>
-        <span class="text-slate-50 font-bold leading-snug" style="font-size: clamp(0.8rem, 2.8cqw, 2.1rem);">${html}</span>
+        <span class="shrink-0 grid place-items-center w-[4.4cqw] h-[4.4cqw] rounded-lg bg-lime-500/15 text-lime-400 border border-lime-500/40" style="font-size: 2.4cqw;"><i class="fa-solid ${icon}"></i></span>
+        <span class="text-slate-50 font-bold leading-snug" style="font-size: 2.8cqw;">${html}</span>
     </li>`;
 
 // QR コードの札。札ごと url へのリンクで、QR を左、文字を右に置く（TODO-043）。夜景を見せるため 15cqw から 12cqw にした（TODO-068）
@@ -55,16 +55,16 @@ const qrCard = (url, img, alt, label, shown, say = '') => `
     <a href="${url}" ${say && `data-say="${say}" data-say-strong`} target="_blank" rel="noopener" onclick="event.stopPropagation()" class="flex items-center gap-[1cqw] no-underline rounded-2xl bg-slate-50 p-[1cqw] shadow-2xl shadow-slate-950/80">
         <img src="images/${img}" alt="${alt}" class="shrink-0 w-[12cqw] h-auto" style="image-rendering: pixelated;">
         <div class="min-w-0">
-            <div class="text-slate-900 font-bold leading-snug" style="font-size: clamp(0.7rem, 1.6cqw, 1.2rem);">${label}</div>
-            <div class="text-slate-600 font-medium mt-[0.4cqw] break-all leading-tight" style="font-size: clamp(0.5rem, 0.95cqw, 0.72rem);">${shown}</div>
+            <div class="text-slate-900 font-bold leading-snug" style="font-size: 1.6cqw;">${label}</div>
+            <div class="text-slate-600 font-medium mt-[0.4cqw] break-all leading-tight" style="font-size: 0.95cqw;">${shown}</div>
         </div>
     </a>`;
 
 // ルールの 1 行。li() より小さく、4 行を写真の横に並べる（TODO-020）
 const rule = (icon, html, say) => `
     <div data-say="${say}" class="flex items-center gap-[1cqw] rounded-xl bg-slate-950/75 border border-lime-500/40 px-[1.2cqw] py-[0.8cqw] shadow-lg shadow-slate-950/60">
-        <span class="shrink-0 grid place-items-center w-[3.4cqw] h-[3.4cqw] rounded-lg bg-lime-500/15 text-lime-400 border border-lime-500/40" style="font-size: clamp(0.75rem, 1.8cqw, 1.35rem);"><i class="fa-solid ${icon}"></i></span>
-        <span class="text-slate-50 font-bold leading-snug" style="font-size: clamp(0.75rem, 2cqw, 1.5rem);">${html}</span>
+        <span class="shrink-0 grid place-items-center w-[3.4cqw] h-[3.4cqw] rounded-lg bg-lime-500/15 text-lime-400 border border-lime-500/40" style="font-size: 1.8cqw;"><i class="fa-solid ${icon}"></i></span>
+        <span class="text-slate-50 font-bold leading-snug" style="font-size: 2cqw;">${html}</span>
     </div>`;
 
 // 白い縁を付けて傾けた写真 1 枚。pos は位置と幅の class、deg は傾き
@@ -75,7 +75,7 @@ const snap = (src, alt, pos, deg, cue) => `
 // 向かい合って進む。矢じりが出会ったら火花を散らして戦い、勝ち負けはランダム。負けたほうはすぐスタートから
 // 出直し、勝ったほうはそのまま進む。ゴールに着いたほうも、少し止まってからスタートから出直す。
 // 位置 s は U 字の上の割合（0 が右上、1 が右下）。線は pathLength="1" なので dash も同じ割合で書ける
-const RULES_TRACK = 'M 1000 210 L 220 210 Q 70 210 70 375 Q 70 540 220 540 L 1000 540';
+const RULES_TRACK = 'M 1000 210 L 330 210 Q 180 210 180 375 Q 180 540 330 540 L 1000 540';  // 曲がり角は左の駒の列のあたり（TODO-091）
 const rulesArrow = (id, color) => `
     <path id="rules-line-${id}" d="${RULES_TRACK}" pathLength="1" stroke-dasharray="0 3" visibility="hidden" fill="none" stroke="${color}" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
     <path id="rules-head-${id}" d="M -30 -44 L 44 0 L -30 44 Z" visibility="hidden" fill="${color}" opacity="0.95"/>`;
@@ -303,9 +303,9 @@ const karenaTwinkle = () => {
     tick();
 };
 
-// 「世界中でプレーされている」: 写真を冒頭から 1 枚ずつ置き、「約 3 億人」を読むところで数字を 0 から数え上げる
+// 「世界中でプレーされている」: 写真を冒頭から 1 枚ずつ置き、数字を 0 から「約 3 億人」を読むところまでかけて数え上げる
 // （TODO-079）。秒は Online TTS で測った（archives/agents/TODO-079/tts-cues.js）
-const WORLD_COUNT = 8.3, WORLD_COUNT_LEN = 1.5;
+const WORLD_COUNT = 0.3, WORLD_COUNT_LEN = 8;  // 写真と一緒に数え始め、「約 3 億人」を読む 8.3 秒で 3 億にする（TODO-091）
 const worldPlay = () => {
     cueDrop(document.getElementById('world-photos'));
     cueSay(document.getElementById('world-say'), 19.2);
@@ -315,14 +315,15 @@ const worldPlay = () => {
     });
 };
 
-// 表紙: タイトルの下の線を伸ばし、札のダイスを転がして止める（TODO-082）。飾りなのでナレーションには合わせない
+// 表紙: タイトルの下の線を伸ばし、札のダイスを転がして止める（TODO-082）。飾りなのでナレーションには合わせない。
+// 表示してすぐ動くと気付きにくいので、少し遅らせてゆっくり動かす（TODO-091）
 const coverPlay = () => {
     const line = document.getElementById('cover-line');
     if (!line || line.dataset.running || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     line.dataset.running = '1';
-    line.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: 900, delay: 300, easing: 'ease-out', fill: 'backwards' });
+    line.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: 1800, delay: 1000, easing: 'ease-out', fill: 'backwards' });
     document.getElementById('cover-dice').animate([{ transform: 'translateX(-4cqw) rotate(-720deg)', opacity: 0 }, { transform: 'none', opacity: 1 }],
-        { duration: 1200, easing: 'cubic-bezier(0.2, 0.8, 0.3, 1)', fill: 'backwards' });
+        { duration: 2200, delay: 700, easing: 'cubic-bezier(0.2, 0.8, 0.3, 1)', fill: 'backwards' });
 };
 
 // 傾けた写真 1 枚（「世界中でプレーされている」用。TODO-025。国名は出さない。TODO-034）
@@ -336,7 +337,7 @@ const world = (src, alt, pos, deg, cue) => `
 const step = (color, src, alt, text, say) => `
     <div data-say="${say}" class="flex flex-col rounded-2xl bg-gradient-to-b from-${color}-950/85 to-slate-900/80 backdrop-blur-sm border border-${color}-500/40 p-[0.8cqw] pb-[1.4cqw] shadow-lg shadow-${color}-900/20">
         <img src="images/${src}" alt="${alt}" class="w-full aspect-[3/2] object-cover rounded-xl border border-${color}-400/40">
-        <div class="font-bold text-slate-100 leading-snug mt-auto pt-[1cqw]" style="font-size: clamp(0.75rem, 3.2cqw, 2.4rem);">${text}</div>
+        <div class="font-bold text-slate-100 leading-snug mt-auto pt-[1cqw]" style="font-size: 3.2cqw;">${text}</div>
     </div>`;
 // 魅力①の図。②の絵・③の写真と違う形にするため、線画で描く（TODO-067）。色は currentColor
 const easyFig = {
@@ -372,9 +373,9 @@ const easyFig = {
 const easy = (color, fig, icon, label, big, note, say) => `
     <div data-say="${say}" class="rounded-2xl bg-gradient-to-b from-${color}-950/85 to-slate-900/80 backdrop-blur-sm border border-${color}-500/40 px-[1cqw] py-[1.8cqw] shadow-lg shadow-${color}-900/20">
         <svg viewBox="0 0 120 76" class="mx-auto mb-[1cqw] h-[9cqw] text-${color}-300" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${easyFig[fig]}</svg>
-        <div class="flex items-center justify-center gap-[0.8cqw] text-slate-200 font-bold" style="font-size: clamp(0.9rem, 2.1cqw, 1.6rem);"><i class="fa-solid ${icon} text-${color}-300"></i>${label}</div>
-        <div class="font-extrabold text-${color}-300 leading-none mt-[1.2cqw] h-[7cqw] flex items-center justify-center" style="font-size: clamp(2.4rem, 7cqw, 5.2rem);">${big}</div>
-        <div class="text-slate-200 font-medium mt-[1.2cqw]" style="font-size: clamp(0.8rem, 1.8cqw, 1.35rem);">${note}</div>
+        <div class="flex items-center justify-center gap-[0.8cqw] text-slate-200 font-bold" style="font-size: 2.1cqw;"><i class="fa-solid ${icon} text-${color}-300"></i>${label}</div>
+        <div class="font-extrabold text-${color}-300 leading-none mt-[1.2cqw] h-[7cqw] flex items-center justify-center" style="font-size: 7cqw;">${big}</div>
+        <div class="text-slate-200 font-medium mt-[1.2cqw]" style="font-size: 1.8cqw;">${note}</div>
     </div>`;
 
 // 選手の紹介カード（写真の枠・名前・優勝した年・一言）。写真と年を大きく見せる（TODO-026）
@@ -382,10 +383,10 @@ const pro = (photo, name, years, note, say) => `
     <div data-say="${say}" class="flex items-center gap-[1.6cqw] rounded-2xl bg-slate-900/80 border border-lime-500/40 p-[1.4cqw] shadow-lg shadow-lime-900/20">
         <div class="shrink-0 w-[17cqw] h-[23cqw] rounded-xl overflow-hidden border border-slate-600">${photo}</div>
         <div class="min-w-0">
-            <div class="font-bold text-slate-50 whitespace-nowrap" style="font-size: clamp(1.1rem, 3.1cqw, 2.3rem);">${name}<span class="text-slate-400 font-medium" style="font-size: clamp(0.8rem, 1.7cqw, 1.25rem);"> プロ</span></div>
-            <div class="text-slate-200 font-medium mt-[1cqw] flex items-center gap-[0.6cqw]" style="font-size: clamp(0.9rem, 2cqw, 1.5rem);"><i class="fa-solid fa-trophy text-amber-300"></i>世界選手権 優勝</div>
-            <div data-say-show class="font-extrabold text-lime-300 leading-tight whitespace-nowrap" style="font-size: clamp(1.4rem, 3.6cqw, 2.7rem);">${years.join('<span class="text-slate-500 font-bold">・</span>')}</div>
-            <div class="text-amber-300 font-bold mt-[1cqw] leading-snug" style="font-size: clamp(0.8rem, 1.8cqw, 1.35rem);">${note}</div>
+            <div class="font-bold text-slate-50 whitespace-nowrap" style="font-size: 3.1cqw;">${name}<span class="text-slate-400 font-medium" style="font-size: 1.7cqw;"> プロ</span></div>
+            <div class="text-slate-200 font-medium mt-[1cqw] flex items-center gap-[0.6cqw]" style="font-size: 2cqw;"><i class="fa-solid fa-trophy text-amber-300"></i>世界選手権 優勝</div>
+            <div data-say-show class="font-extrabold text-lime-300 leading-tight whitespace-nowrap" style="font-size: 3.6cqw;">${years.join('<span class="text-slate-500 font-bold">・</span>')}</div>
+            <div class="text-amber-300 font-bold mt-[1cqw] leading-snug" style="font-size: 1.8cqw;">${note}</div>
         </div>
     </div>`;
 
@@ -399,12 +400,12 @@ const bgSlide = (slide, src, alt, body, { opacity = 50, credit = '', creditLeft 
         <div class="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-slate-950/25 to-slate-950/45"></div>
         ${overlay}
         <div class="relative flex flex-col h-full px-[3cqw] pt-[2.4cqw] pb-[2.6cqw]">
-            <h2 class="shrink-0 font-bold text-sky-300 mb-[1.5cqw] flex items-center gap-[1cqw] drop-shadow-[0_2px_6px_rgba(2,6,23,0.9)]" style="font-size: clamp(1.4rem, 3.2cqw, 2.5rem);"><i class="fa-solid ${slide.icon} text-lime-400"></i> ${slide.title}</h2>
+            <h2 class="shrink-0 font-bold text-sky-300 mb-[1.5cqw] flex items-center gap-[1cqw] drop-shadow-[0_2px_6px_rgba(2,6,23,0.9)]" style="font-size: 3.2cqw;"><i class="fa-solid ${slide.icon} text-lime-400"></i> ${slide.title}</h2>
             <div class="flex-1 min-h-0 flex flex-col justify-center">
                 ${body}
             </div>
         </div>
-        ${credit ? `<div class="absolute ${creditLeft ? 'left-[1.2cqw] text-slate-300 bg-slate-950/70 px-[0.6cqw] rounded' : 'right-[1.2cqw] text-slate-500'} bottom-[0.8cqw]" style="font-size: clamp(0.6rem, 1.1cqw, 0.8rem);">${credit}</div>` : ''}
+        ${credit ? `<div class="absolute ${creditLeft ? 'left-[1.2cqw] text-slate-300 bg-slate-950/70 px-[0.6cqw] rounded' : 'right-[1.2cqw] text-slate-500'} bottom-[0.8cqw]" style="font-size: 1.1cqw;">${credit}</div>` : ''}
     </div>`;
 
 const slideData = [
@@ -416,29 +417,29 @@ const slideData = [
         render: function() { setTimeout(coverPlay);
             return `
                 <div class="relative h-full flex flex-col justify-center items-center text-center px-[5cqw] overflow-hidden">
-                    <img src="images/bg-cover.jpg" alt="黒と木目のボードに載ったダイスとダブリングキューブ" class="absolute inset-0 w-full h-full object-cover opacity-[0.45]">
+                    <img src="images/bg-cover.jpg" alt="黒と木目のボードに載ったダイスとダブリングキューブ" class="absolute inset-0 w-full h-full object-cover opacity-[0.45]" style="filter: brightness(1.9);">
                     <div class="absolute inset-0 bg-slate-950/40"></div>
-                    <div class="absolute right-[1.2cqw] bottom-[0.8cqw] text-slate-500" style="font-size: clamp(0.6rem, 1.1cqw, 0.8rem);">背景: Clint Budd (CC BY 2.0)／Wikimedia Commons</div>
+                    <div class="absolute right-[1.2cqw] bottom-[0.8cqw] text-slate-500" style="font-size: 1.1cqw;">背景: Clint Budd (CC BY 2.0)／Wikimedia Commons</div>
                     <!-- 版はタグに合わせて手で書き換える（TODO-040） -->
-                    <div class="absolute left-[1.2cqw] bottom-[0.8cqw] text-slate-500" style="font-size: clamp(0.6rem, 1.1cqw, 0.8rem);">v0.4.1</div>
+                    <div class="absolute left-[1.2cqw] bottom-[0.8cqw] text-slate-500" style="font-size: 1.1cqw;">v0.4.1</div>
                     <div class="absolute -top-[18cqw] -left-[10cqw] w-[45cqw] h-[45cqw] rounded-full bg-sky-500/20 blur-[6cqw]"></div>
                     <div class="absolute -bottom-[20cqw] -right-[8cqw] w-[40cqw] h-[40cqw] rounded-full bg-lime-500/20 blur-[6cqw]"></div>
                     <div class="relative">
-                        <div class="inline-flex items-center gap-[0.8cqw] rounded-full border border-lime-400/40 bg-lime-400/10 px-[1.8cqw] py-[0.5cqw] text-lime-300 font-bold tracking-widest" style="font-size: clamp(0.8rem, 1.7cqw, 1.2rem);">
+                        <div class="inline-flex items-center gap-[0.8cqw] rounded-full border border-lime-400/40 bg-lime-400/10 px-[1.8cqw] py-[0.5cqw] text-lime-300 font-bold tracking-widest" style="font-size: 1.7cqw;">
                             <i id="cover-dice" class="fa-solid fa-dice"></i> BACKGAMMON
                         </div>
-                        <h1 class="font-extrabold leading-tight mt-[1.8cqw]" style="font-size: clamp(2rem, 6cqw, 4.6rem);">
+                        <h1 class="font-extrabold leading-tight mt-[1.8cqw]" style="font-size: 6cqw;">
                             <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-300 via-slate-50 to-lime-300">バックギャモンのススメ</span>
                         </h1>
                         <div id="cover-line" class="mx-auto mt-[2cqw] h-[0.35cqw] w-[18cqw] rounded-full bg-gradient-to-r from-sky-400 to-lime-400"></div>
-                        <p class="text-slate-50 font-bold mt-[2cqw] drop-shadow-[0_2px_6px_rgba(2,6,23,0.9)]" style="font-size: clamp(1.1rem, 3cqw, 2.3rem);">
+                        <p class="text-slate-50 font-bold mt-[2cqw] drop-shadow-[0_2px_6px_rgba(2,6,23,0.9)]" style="font-size: 3cqw;">
                             <span class="text-lime-300">5000 年</span>遊ばれてきた、世界のボードゲーム
                         </p>
-                        <p class="text-slate-200 font-medium mt-[2.4cqw]" style="font-size: clamp(0.9rem, 2cqw, 1.5rem);">
+                        <p class="text-slate-200 font-medium mt-[2.4cqw]" style="font-size: 2cqw;">
                             <!-- 公式サイトへのリンク。クリックを再生・一時停止に伝えない（TODO-041） -->
                             <a href="https://kannaibg.wixsite.com/kannai-backgammon" target="_blank" rel="noopener" onclick="event.stopPropagation()" class="no-underline">関内バックギャモンの会</a>
                         </p>
-                        <p class="text-slate-400 mt-[0.3cqw]" style="font-size: clamp(0.65rem, 1.3cqw, 1rem);">
+                        <p class="text-slate-400 mt-[0.3cqw]" style="font-size: 1.3cqw;">
                             横浜市中区 なか区民活動センター登録団体
                         </p>
                     </div>
@@ -466,23 +467,23 @@ const slideData = [
                         ${rulesArrow('brown', '#fb923c')}
                         <g id="rules-sparks"></g>
                     </svg>
-                    <div class="absolute right-[0.4cqw] top-[0.6cqw] rounded-md bg-orange-400 px-[0.7cqw] py-[0.2cqw] font-bold text-slate-950" style="font-size: clamp(0.7rem, 1.5cqw, 1.1rem);">ゴール</div>
-                    <div class="absolute right-[0.4cqw] bottom-[0.6cqw] rounded-md bg-lime-400 px-[0.7cqw] py-[0.2cqw] font-bold text-slate-950" style="font-size: clamp(0.7rem, 1.5cqw, 1.1rem);">ゴール</div>
-                    <figcaption class="text-slate-300 mt-[0.5cqw] text-center" style="font-size: clamp(0.65rem, 1.3cqw, 1rem);">駒が進む向き（<span class="text-lime-300">白</span>と<span class="text-orange-300">茶色</span>は逆向き）</figcaption>
+                    <div class="absolute right-[0.4cqw] top-[0.6cqw] rounded-md bg-orange-400 px-[0.7cqw] py-[0.2cqw] font-bold text-slate-950" style="font-size: 1.5cqw;">ゴール</div>
+                    <div class="absolute right-[0.4cqw] bottom-[0.6cqw] rounded-md bg-lime-400 px-[0.7cqw] py-[0.2cqw] font-bold text-slate-950" style="font-size: 1.5cqw;">ゴール</div>
+                    <figcaption class="text-slate-300 mt-[0.5cqw] text-center" style="font-size: 1.3cqw;">駒が進む向き（<span class="text-lime-300">白</span>と<span class="text-orange-300">茶色</span>は逆向き）</figcaption>
                 </figure>
                 <div id="rules-say" class="flex-1 flex flex-col gap-[1cqw]">
                     <!-- 知らない人にまず「すごろく」と伝える（TODO-053） -->
-                    <p class="m-0 font-black text-amber-300 leading-none drop-shadow-[0_2px_6px_rgba(2,6,23,0.9)]" style="font-size: clamp(1.6rem, 4.4cqw, 3.4rem);">対戦型のすごろく！</p>
+                    <p class="m-0 font-black text-amber-300 leading-none drop-shadow-[0_2px_6px_rgba(2,6,23,0.9)]" style="font-size: 4.4cqw;">対戦型のすごろく！</p>
                     ${rule('fa-dice', 'ダイスを <span class="text-lime-300">2 個</span>振る', 2.6)}
                     ${rule('fa-flag-checkered', '<span class="text-lime-300">15 個</span>のコマを全部ゴールさせたら勝ち', 4)}
                     <!-- 特徴的なルールなので、ほかの行と分けて目立たせる（TODO-053） -->
                     <div data-say="8" class="flex items-center gap-[1cqw] rounded-xl bg-amber-400/15 border-2 border-amber-400 px-[1.2cqw] py-[0.8cqw] shadow-lg shadow-slate-950/60">
-                        <span class="shrink-0 grid place-items-center w-[3.4cqw] h-[3.4cqw] rounded-lg bg-amber-400/15 text-amber-300 border border-amber-400/60" style="font-size: clamp(0.75rem, 1.8cqw, 1.35rem);"><i class="fa-solid fa-rotate-left"></i></span>
-                        <p class="m-0 text-amber-200 font-bold leading-snug" style="font-size: clamp(0.75rem, 2cqw, 1.5rem);">振り出しに戻したり、壁で妨害したりして、<br>駆け引きしながらゴールを目指す</p>
+                        <span class="shrink-0 grid place-items-center w-[3.4cqw] h-[3.4cqw] rounded-lg bg-amber-400/15 text-amber-300 border border-amber-400/60" style="font-size: 1.8cqw;"><i class="fa-solid fa-rotate-left"></i></span>
+                        <p class="m-0 text-amber-200 font-bold leading-snug" style="font-size: 2cqw;">振り出しに戻したり、壁で妨害したりして、<br>駆け引きしながらゴールを目指す</p>
                     </div>
                 </div>
             </div>
-        `, { opacity: 35, brightness: 2, credit: '盤: TaurusEmerald (CC BY-SA 4.0)、背景: Clint Budd (CC BY 2.0)／Wikimedia Commons' }); },
+        `, { opacity: 45, brightness: 2.7, credit: '盤: TaurusEmerald (CC BY-SA 4.0)、背景: Clint Budd (CC BY 2.0)／Wikimedia Commons' }); },
     },
 
     // ── 歴史 ──
@@ -541,14 +542,14 @@ const slideData = [
                 </div>
                 <div id="world-say" class="col-span-2 space-y-[1.4cqw] text-center">
                     <div data-say="4" class="rounded-2xl bg-slate-900/80 border border-lime-500/40 p-[1.4cqw] shadow-lg shadow-lime-900/20 ring-1 ring-lime-400/20">
-                        <div class="text-slate-200 font-medium" style="font-size: clamp(0.9rem, 1.95cqw, 1.4rem);">世界の遊戯人口</div>
-                        <div class="font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-b from-lime-300 to-lime-500" style="font-size: clamp(2rem, 5cqw, 3.8rem);"><span class="text-slate-400 font-bold" style="font-size: clamp(0.9rem, 1.9cqw, 1.4rem);">約 </span><span id="world-count">3億</span><span class="text-slate-400 font-bold" style="font-size: clamp(0.9rem, 1.9cqw, 1.4rem);"> 人</span></div>
-                        <div class="text-slate-400 font-medium mt-[0.6cqw]" style="font-size: clamp(0.7rem, 1.4cqw, 1.05rem);">日本バックギャモン協会による</div>
+                        <div class="text-slate-200 font-medium" style="font-size: 1.95cqw;">世界の遊戯人口</div>
+                        <div class="font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-b from-lime-300 to-lime-500" style="font-size: 5cqw;"><span class="text-slate-400 font-bold" style="font-size: 1.9cqw;">約 </span><span id="world-count">3億</span><span class="text-slate-400 font-bold" style="font-size: 1.9cqw;"> 人</span></div>
+                        <div class="text-slate-400 font-medium mt-[0.6cqw]" style="font-size: 1.4cqw;">日本バックギャモン協会による</div>
                     </div>
                     <div data-say="10.1" class="rounded-2xl bg-slate-900/80 border border-sky-500/40 p-[1.4cqw] shadow-lg shadow-slate-950/40">
-                        <div class="text-slate-200 font-medium" style="font-size: clamp(0.9rem, 1.95cqw, 1.4rem);">国際大会</div>
-                        <div class="text-slate-400 font-medium mb-[0.6cqw]" style="font-size: clamp(0.7rem, 1.4cqw, 1.05rem);">モナコをはじめ</div>
-                        <div class="font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-b from-sky-300 to-sky-500" style="font-size: clamp(2rem, 5cqw, 3.8rem);">世界各地で</div>
+                        <div class="text-slate-200 font-medium" style="font-size: 1.95cqw;">国際大会</div>
+                        <div class="text-slate-400 font-medium mb-[0.6cqw]" style="font-size: 1.4cqw;">モナコをはじめ</div>
+                        <div class="font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-b from-sky-300 to-sky-500" style="font-size: 5cqw;">世界各地で</div>
                     </div>
                 </div>
             </div>
@@ -571,7 +572,7 @@ const slideData = [
                     '矢澤 亜希子', ['2014', '2018'], '女性で世界初の 2 回優勝<br><span class="text-lime-300">テレビ番組にも出演</span>', 10.8)}
             </div>
             <!-- 2 人のほかにも、今活躍している日本人がいる（Giants of Backgammon 2024 と World Backgammon Championship の一覧。TODO-033） -->
-            <div data-say="17" class="mt-[1.6cqw] flex items-center justify-center gap-[1cqw] rounded-xl bg-slate-900/80 border border-amber-400/40 px-[1.6cqw] py-[1cqw] text-slate-100 font-medium" style="font-size: clamp(0.85rem, 1.9cqw, 1.45rem);">
+            <div data-say="17" class="mt-[1.6cqw] flex items-center justify-center gap-[1cqw] rounded-xl bg-slate-900/80 border border-amber-400/40 px-[1.6cqw] py-[1cqw] text-slate-100 font-medium" style="font-size: 1.9cqw;">
                 <i class="fa-solid fa-medal text-amber-300"></i>
                 <span class="leading-snug">ほかにも 世界ランキング上位に <b class="text-lime-300">景山 充人</b>・<b class="text-lime-300">上田 英明</b>・<b class="text-lime-300">横田 一稀</b><br>2024 年 女子の世界王者 <b class="text-lime-300">岡 美穂</b>（Miho Oka Macleod）</span>
             </div>
@@ -583,31 +584,31 @@ const slideData = [
     {
         title: '魅力① 簡単で手軽',
         icon: 'fa-feather-pointed',
-        duration: 13,
-        narration: 'バックギャモンの魅力、まずは簡単で手軽なことです。基本のルールはシンプルで、すぐに覚えられます。1ゲームは15分ほど。ボードは畳んで持ち運べるので、どこでも遊べます。',
-        render: function() { setTimeout(() => cueSay(document.getElementById('easy-say'), 13.4));
+        duration: 16,
+        narration: 'バックギャモンの魅力、まずは簡単で手軽なことです。基本のルールはシンプルで、すぐに覚えられます。1ゲームは15分ほどと短いので、何局も続けて楽しめます。ボードは畳んで持ち運べるので、どこでも遊べます。',
+        render: function() { setTimeout(() => cueSay(document.getElementById('easy-say'), 16.4));
             return bgSlide(this, 'bg-friends.jpg', '部屋のテーブルで、3 人が笑いながらバックギャモンを遊ぶ絵', `
             <!-- 大きな数字で「どう簡単か」を見せる（TODO-028） -->
             <div id="easy-say" class="grid grid-cols-3 gap-[1.8cqw] text-center">
                 ${easy('sky', 'rules', 'fa-list-check', 'ルール', '<span style="font-size: 0.6em;">シンプル</span>', 'すぐに覚えられる', 4.1)}
                 ${easy('lime', 'time', 'fa-stopwatch', '1 ゲーム', '<span style="font-size: 0.45em;">約 </span>15<span style="font-size: 0.45em;"> 分</span>', 'すき間の時間で遊べる', 7.7)}
-                ${easy('amber', 'board', 'fa-suitcase', 'ボード', '<span style="font-size: 0.6em;">持ち運べる</span>', '畳んでどこでも', 9.6)}
+                ${easy('amber', 'board', 'fa-suitcase', 'ボード', '<span style="font-size: 0.6em;">持ち運べる</span>', '畳んでどこでも', 12.6)}
             </div>
-        `, { credit: '背景: AI 生成（Gemini）' }); },
+        `, { brightness: 1.4, credit: '背景: AI 生成（Gemini）' }); },
     },
     {
         title: '魅力② ゲームとしての面白さ',
         icon: 'fa-dice',
-        duration: 22,
-        narration: 'ゲームとしての面白さもあります。ダイスを使うので、運が良ければ、初心者でも上級者に勝つ可能性があります。相手の駒を振り出しに戻して、一気に逆転することもあります。戦略的な思考が必要で、奥が深いゲームです。そして、途中で「点数を2倍にしよう」と持ちかける、ダブルという駆け引きもあります。',
-        render: function() { setTimeout(() => cueSay(document.getElementById('fun-say'), 22.7));
+        duration: 24,
+        narration: 'ゲームとしての主な魅力は次のとおりです。ダイスを使うので、運が良ければ、初心者でも上級者に勝つ可能性があります。相手の駒を振り出しに戻して、一気に逆転することもあります。戦略的な思考が必要で、奥が深いゲームです。そして、途中で「点数を2倍にしよう」と持ちかける、ダブルという駆け引きもあります。',
+        render: function() { setTimeout(() => cueSay(document.getElementById('fun-say'), 23.7));
             return bgSlide(this, 'bg-feltdice.jpg', '緑のフェルトのボードに載った赤と白のダイスとダブリングキューブ', `
             <div id="fun-say" class="grid grid-cols-3 gap-[1.6cqw] text-center">
-                ${step('amber', 'card-luck.jpg', 'ゾロ目に両手を上げて喜ぶ若い女性と、頭をかく年配の男性', 'ダイスの運で<br>初心者でも<br>上級者に勝てる', 2.2)}
-                ${step('sky', 'card-strategy.jpg', 'あごに手を当てて盤を見つめる男性と、次の手を示す光る矢印', '戦略的な<br>思考が必要で<br>奥が深い', 12.5)}
-                ${step('rose', 'card-double.jpg', '「2」のキューブを掲げて笑う男性と、腕を組んで考え込む相手', '点数を 2 倍にする<br>「ダブル」の<br>駆け引き', 16.5)}
+                ${step('amber', 'card-luck.jpg', 'ゾロ目に両手を上げて喜ぶ若い女性と、頭をかく年配の男性', 'ダイスの運で<br>初心者でも<br>上級者に勝てる', 3.2)}
+                ${step('sky', 'card-strategy.jpg', 'パブで、あごに手を当てて盤を見つめる年配の男性と、次の手を示す光る矢印', '戦略的な<br>思考が必要で<br>奥が深い', 13.5)}
+                ${step('rose', 'card-double.jpg', '「2」のキューブを掲げて笑う男性と、腕を組んで考え込む相手', '点数を 2 倍にする<br>「ダブル」の<br>駆け引き', 17.5)}
             </div>
-        `, { credit: '背景: Donald Olszewski (CC BY 4.0)／Wikimedia Commons、絵: AI 生成（Gemini）' }); },
+        `, { brightness: 1.2, credit: '背景: Donald Olszewski (CC BY 4.0)／Wikimedia Commons、絵: AI 生成（Gemini）' }); },
     },
     {
         title: '魅力③ おしゃれ',
@@ -615,20 +616,30 @@ const slideData = [
         duration: 9,
         narration: '3つ目は、おしゃれなことです。カラフルでおしゃれなボードがたくさんあり、部屋に飾れる、インテリアのようなボードもあります。',
         render: function() { setTimeout(() => { cueDrop(document.getElementById('style-photos')); cueSay(document.getElementById('style-say'), 8.3); });
-            return bgSlide(this, 'bg-cafe.jpg', 'パリのカフェでバックギャモンを打つ客の絵（Jean Béraud, 1908 年頃）', `
+            // 背景は盤の三角（ポイント）をカラフルに並べた図案。盤の写真は手前に 3 枚あるので、背景では雰囲気だけを出す（TODO-087）
+            return bgSlide(this, 'bg-points.svg', '', `
             <!-- 写真は右に傾けて重ね、文字はその手前に置く（重なってよい） -->
-            <figure id="style-photos" class="relative m-0 h-[34cqw]">
-                ${snap('bg-board1.jpg', '青と白の競技用のボード', 'right-[0.5cqw] top-0 w-[38cqw]', 4, 2.2)}
-                ${snap('bg-board2.jpg', 'オレンジの台に置いた白木のボード', 'right-[23cqw] bottom-[4.5cqw] w-[24cqw]', -6, 2.9)}
-                ${snap('bg-board3.jpg', 'ターコイズ色の古い木箱のボード', 'right-0 bottom-[5cqw] w-[25cqw]', 5, 6.2)}
-                <ul id="style-say" class="relative w-fit h-full flex flex-col justify-center gap-[1.4cqw]">
+            <!-- 箇条書きを左、写真を右に置く。写真の箱は、空いている幅と高さの両方に収まる大きさにする。
+                 全画面では高さが増え、箇条書きの文字は clamp の上限で止まるので、写真が大きくなる（TODO-091）。
+                 写真の位置と幅は、その箱に対する割合で書く -->
+            <figure id="style-photos" class="relative m-0 flex-1 min-h-0 flex flex-row-reverse items-stretch gap-[1cqw]">
+                <div class="flex-1 min-w-0 flex items-center justify-end [container-type:size]">
+                    <div class="relative w-[min(100cqw,141.2cqh)] aspect-[48/34]">
+                        <!-- 4 枚を 2 段に、ばらけた角度で重ねる。角度は固定（TODO-089） -->
+                        ${snap('bg-board1.jpg', '青と白の競技用のボード', 'right-[45.8%] top-[5.9%] w-[50%]', -8, 2.2)}
+                        ${snap('bg-board4.jpg', '白い大理石のテーブルに置いた、寄木細工のボードとティーセット', 'right-[2.1%] top-0 w-[47.9%]', 6, 2.9)}
+                        ${snap('bg-board2.jpg', 'オレンジの台に置いた白木のボード', 'right-[52.1%] bottom-[11.8%] w-[45.8%]', 4, 4.7)}
+                        ${snap('bg-board3.jpg', 'ターコイズ色の古い木箱のボード', 'right-0 bottom-[16.2%] w-[50%]', -3, 5.4)}
+                    </div>
+                </div>
+                <ul id="style-say" class="relative shrink-0 w-fit flex flex-col justify-center gap-[1.4cqw]">
                     ${li('fa-palette', '<span class="text-lime-300">カラフル</span>でおしゃれなボード', 2.2)}
                     ${li('fa-couch', '部屋に飾れる、<br><span class="text-lime-300">インテリア</span>のようなボードも', 4.7)}
                 </ul>
             </figure>
-            <!-- 写真のクレジットは右下、背景のクレジットは左下に置く。狭い幅でも背景のクレジットと並ぶよう 2 行にし、下の写真 2 枚はその分だけ上げる（TODO-074） -->
-            <p class="absolute right-[1.2cqw] bottom-[0.8cqw] whitespace-nowrap text-right text-slate-500 leading-snug" style="font-size: clamp(0.6rem, 1.1cqw, 0.8rem);">写真（一部切り出し）: RG72 (CC BY 4.0)、Alper Çuğun (CC BY 2.0)、<br>Diligent (PD)／Wikimedia Commons</p>
-        `, { opacity: 55, credit: '背景: Jean Béraud「Backgammon at the Café」(PD)／Wikimedia Commons', creditLeft: true }); },
+            <!-- 写真のクレジットは右下に 2 行で置き、下の写真 2 枚はその分だけ上げる（TODO-074）。背景の図案の上でも読めるよう、地を敷く（TODO-087） -->
+            <p class="absolute right-[1.2cqw] bottom-[0.8cqw] whitespace-nowrap text-right text-slate-300 bg-slate-950/70 px-[0.6cqw] rounded leading-snug" style="font-size: 1.1cqw;">写真（一部切り出し）: RG72 (CC BY 4.0)、Alper Çuğun (CC BY 2.0)、<br>Diligent (PD)／Wikimedia Commons、Denys Gromov／Pexels</p>
+        `, { opacity: 70 }); },
     },
 
     // ── 会への誘い（中身は会の公式サイトから。日付は古くなるので載せない。TODO-021） ──
@@ -643,7 +654,7 @@ const slideData = [
             return bgSlide(this, 'bg-karena.jpg', '夜景が見える K アリーナのバーで、窓際のテーブルでバックギャモンを遊ぶ人たち', `
             <!-- 背景の夜景を見せるため、中身を下に寄せる。左下のボードが見えるよう、箇条書きは少し上げる（TODO-068） -->
             <div id="karena-say" class="mt-auto flex items-end gap-[2.4cqw]">
-                <div class="flex-1 flex flex-col gap-[1.2cqw] mb-[3cqw]">
+                <div class="flex-1 flex flex-col gap-[1.2cqw] mb-[6cqw]">
                     <ul class="flex flex-col gap-[0.6cqw]">
                         ${li('fa-seedling', '<span class="text-lime-300">初心者歓迎</span>。遊び方を丁寧に教えます', 7.6)}
                         ${li('fa-calendar-days', '<span class="text-lime-300">月 2 回</span>ほど、主に <span class="whitespace-nowrap text-lime-300">なか区民活動センター</span>や <span class="whitespace-nowrap"><span class="text-lime-300">Kアリーナ Bar 7</span> で</span>', 11.4)}
