@@ -452,7 +452,7 @@ const slideData = [
     {
         title: 'バックギャモンとは',
         icon: 'fa-circle-question',
-        duration: 14,
+        duration: 13,
         narration: '対戦型のすごろくのようなものです。ダイスを2個振って、15個の駒を進め、全部ゴールさせたら勝ちです。振り出しに戻したり、壁で妨害したりして、駆け引きしながら競います。',
         render: function() { setTimeout(() => { rulesBattle(); cueSay(document.getElementById('rules-say'), 13.2); }); return bgSlide(this, 'bg-cover.jpg', '黒と木目のボードに載ったダイスとダブリングキューブ', `
             <div class="flex items-center gap-[2.4cqw]">
@@ -613,7 +613,7 @@ const slideData = [
     {
         title: '魅力③ おしゃれ',
         icon: 'fa-wand-magic-sparkles',
-        duration: 9,
+        duration: 8,
         narration: '3つ目は、おしゃれなことです。カラフルでおしゃれなボードがたくさんあり、部屋に飾れる、インテリアのようなボードもあります。',
         render: function() { setTimeout(() => { cueDrop(document.getElementById('style-photos')); cueSay(document.getElementById('style-say'), 8.3); });
             // 背景は盤の三角（ポイント）をカラフルに並べた図案。盤の写真は手前に 3 枚あるので、背景では雰囲気だけを出す（TODO-087）
