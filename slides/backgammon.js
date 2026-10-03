@@ -242,6 +242,7 @@ const cueDrop = (box) => {
 const SAY_CLASSES = ['ring-4', 'ring-amber-300/80'];  // 拡大すると歴史の写真が下の説明に被るので、枠だけ（TODO-083）
 // data-say-strong の札は、太い枠と光のにじみで強く強調する。歴史の写真と、白い地の QR の札で目立たなかった（TODO-083）
 const SAY_STRONG = ['ring-[0.7cqw]', 'ring-amber-300', '!shadow-[0_0_3cqw_0.6cqw_rgba(252,211,77,0.8)]'];
+const POP = 0.6;  // data-say-pop を膨らませて戻す秒数
 const cueSay = (box, end) => {
     if (!box) return;
     const els = [...box.querySelectorAll('[data-say]')];
@@ -250,8 +251,13 @@ const cueSay = (box, end) => {
     narrationClock(box, (t) => els.forEach((el, i) => {
         const on = t !== null && t >= at[i] && t < (at[i + 1] ?? end);
         (el.hasAttribute('data-say-strong') ? SAY_STRONG : SAY_CLASSES).forEach((c) => el.classList.toggle(c, on));
-        // data-say-show の要素は、その札を強調し始めるまで隠す
-        el.querySelectorAll('[data-say-show]').forEach((s) => { s.style.opacity = t !== null && t < at[i] ? 0 : ''; });
+        // data-say-pop の要素は、その札を強調し始めたら POP 秒で 1.3 倍まで膨らませて戻し、強調している間は金色に光らせる（TODO-093）
+        const k = on ? Math.min(1, (t - at[i]) / POP) : 1;
+        el.querySelectorAll('[data-say-pop]').forEach((s) => {
+            s.style.transform = `scale(${1 + 0.3 * Math.sin(Math.PI * k)})`;
+            s.style.color = on ? '#fcd34d' : '';
+            s.style.textShadow = on ? '0 0 1.5cqw rgba(252,211,77,0.9)' : '';
+        });
     }));
 };
 
@@ -385,7 +391,7 @@ const pro = (photo, name, years, note, say) => `
         <div class="min-w-0">
             <div class="font-bold text-slate-50 whitespace-nowrap" style="font-size: 3.1cqw;">${name}<span class="text-slate-400 font-medium" style="font-size: 1.7cqw;"> プロ</span></div>
             <div class="text-slate-200 font-medium mt-[1cqw] flex items-center gap-[0.6cqw]" style="font-size: 2cqw;"><i class="fa-solid fa-trophy text-amber-300"></i>世界選手権 優勝</div>
-            <div data-say-show class="font-extrabold text-lime-300 leading-tight whitespace-nowrap" style="font-size: 3.6cqw;">${years.join('<span class="text-slate-500 font-bold">・</span>')}</div>
+            <div data-say-pop class="origin-left transition-[color,text-shadow] duration-300 font-extrabold text-lime-300 leading-tight whitespace-nowrap" style="font-size: 3.6cqw;">${years.join('<span class="text-slate-500 font-bold">・</span>')}</div>
             <div class="text-amber-300 font-bold mt-[1cqw] leading-snug" style="font-size: 1.8cqw;">${note}</div>
         </div>
     </div>`;
