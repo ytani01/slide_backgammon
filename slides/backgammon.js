@@ -482,7 +482,7 @@ const slideData = [
                     <div class="absolute inset-0 bg-slate-950/40"></div>
                     <div class="absolute right-[1.2cqw] bottom-[0.8cqw] text-slate-500" style="font-size: 1.1cqw;">背景: Clint Budd (CC BY 2.0)／Wikimedia Commons</div>
                     <!-- 版はタグに合わせて手で書き換える（TODO-040） -->
-                    <div class="absolute left-[1.2cqw] bottom-[0.8cqw] text-slate-500" style="font-size: 1.1cqw;">v0.4.1</div>
+                    <div class="absolute left-[1.2cqw] bottom-[0.8cqw] text-slate-500" style="font-size: 1.1cqw;">v1.0.0</div>
                     <div class="absolute -top-[18cqw] -left-[10cqw] w-[45cqw] h-[45cqw] rounded-full bg-sky-500/20 blur-[6cqw]"></div>
                     <div class="absolute -bottom-[20cqw] -right-[8cqw] w-[40cqw] h-[40cqw] rounded-full bg-lime-500/20 blur-[6cqw]"></div>
                     <div class="relative">
