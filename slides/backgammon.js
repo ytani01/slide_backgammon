@@ -547,7 +547,7 @@ const slideData = [
                     ${world('bg-crowd2.jpg', '大会の会場で、何組もが打つ写真', 'left-[26cqw] top-[16cqw] w-[20cqw]', -4, 3.1)}
                 </div>
                 <div id="world-say" class="col-span-2 space-y-[1.4cqw] text-center">
-                    <div data-say="4" class="rounded-2xl bg-slate-900/80 border border-lime-500/40 p-[1.4cqw] shadow-lg shadow-lime-900/20 ring-1 ring-lime-400/20">
+                    <div data-say="4" class="rounded-2xl bg-slate-900/80 border border-lime-500/40 p-[1.4cqw] shadow-lg shadow-lime-900/20">
                         <div class="text-slate-200 font-medium" style="font-size: 1.95cqw;">世界の遊戯人口</div>
                         <div class="font-extrabold leading-none text-transparent bg-clip-text bg-gradient-to-b from-lime-300 to-lime-500" style="font-size: 5cqw;"><span class="text-slate-400 font-bold" style="font-size: 1.9cqw;">約 </span><span id="world-count">3億</span><span class="text-slate-400 font-bold" style="font-size: 1.9cqw;"> 人</span></div>
                         <div class="text-slate-400 font-medium mt-[0.6cqw]" style="font-size: 1.4cqw;">日本バックギャモン協会による</div>
