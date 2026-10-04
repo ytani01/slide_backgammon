@@ -72,13 +72,27 @@ const snap = (src, alt, pos, deg, cue) => `
     <img src="images/${src}" alt="${alt}" data-cue="${cue}" class="absolute ${pos} h-auto bg-slate-50 p-[0.5cqw] rounded-sm shadow-2xl shadow-slate-950/80" style="transform: rotate(${deg}deg);">`;
 
 // 「バックギャモンとは」の盤の矢印（TODO-072）。白（緑）は右上から、茶色（オレンジ）は右下から、同じ U 字を
-// 向かい合って進む。矢じりが出会ったら火花を散らして戦い、勝ち負けはランダム。負けたほうはすぐスタートから
-// 出直し、勝ったほうはそのまま進む。ゴールに着いたほうも、少し止まってからスタートから出直す。
+// 向かい合って進む。駒が出会ったら火花を散らして戦うか、間に壁を立てて 1〜2 秒にらみ合って止まる（半々。TODO-096）。
+// 勝ち負けはランダム。負けたほうはすぐスタートから出直し、勝ったほうはそのまま進む。ゴールに着いたほうも、少し止まってからスタートから出直す。
+// 線の先は矢じりでなく駒の絵。U 字は入れ子に 3 本あり、それぞれで別々に戦う。速さと、スタートから出るまでの待ちは、出るたびにランダム。
+// 待っている間は駒も隠し、戦いの相手にもならない（TODO-096）。
 // 位置 s は U 字の上の割合（0 が右上、1 が右下）。線は pathLength="1" なので dash も同じ割合で書ける
-const RULES_TRACK = 'M 1000 210 L 330 210 Q 180 210 180 375 Q 180 540 330 540 L 1000 540';  // 曲がり角は左の駒の列のあたり（TODO-091）
-const rulesArrow = (id, color) => `
-    <path id="rules-line-${id}" d="${RULES_TRACK}" pathLength="1" stroke-dasharray="0 3" visibility="hidden" fill="none" stroke="${color}" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
-    <path id="rules-head-${id}" d="M -30 -44 L 44 0 L -30 44 Z" visibility="hidden" fill="${color}" opacity="0.95"/>`;
+const RULES_GAP = 60;  // U 字どうしの間隔
+// k 本目の U 字（負は外側）。k = 0 の曲がり角は左の駒の列のあたり（TODO-091）
+const rulesTrack = (k) => {
+    const d = k * RULES_GAP, top = 210 + d, bottom = 540 - d, left = 180 + d;
+    return `M 1000 ${top} L 330 ${top} Q ${left} ${top} ${left} 375 Q ${left} ${bottom} 330 ${bottom} L 1000 ${bottom}`;
+};
+const RULES_TRACKS = [-1, 0, 1];  // 0 の外側に 1 本、内側に 1 本
+// 線の先には矢じりの代わりに駒を描く。縁は線の色で、中に溝の輪を 1 本
+const RULES_CHECKER = { white: '#f5f0e1', brown: '#5b3219' };
+const RULES_CHECKER_RING = { white: '#a8a29e', brown: '#2b1608' };
+const rulesArrow = (id, k, color) => `
+    <path id="rules-line-${id}-${k}" d="${rulesTrack(k)}" pathLength="1" stroke-dasharray="0 3" visibility="hidden" fill="none" stroke="${color}" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"/>
+    <g id="rules-head-${id}-${k}" visibility="hidden">
+        <circle r="24" fill="${RULES_CHECKER[id]}" stroke="${color}" stroke-width="5"/>
+        <circle r="14" fill="none" stroke="${RULES_CHECKER_RING[id]}" stroke-width="2"/>
+    </g>`;
 
 // player.html にはスライドを出したときに JS を走らせる口が無いので、render() から setTimeout で呼ぶ。
 // render() は画像の確認でも呼ばれるため、画面に無ければ何もせず、二重にも動かさない。画面から消えたら止まる
@@ -87,76 +101,117 @@ const rulesBattle = () => {
     if (!svg || svg.dataset.running) return;
     svg.dataset.running = '1';
     const $ = (id) => svg.querySelector(`#rules-${id}`);
-    const track = $('track');
-    const L = track.getTotalLength();
-    const SPEED = 0.33;     // 1 秒に進む割合（端から端まで約 3 秒）
-    const TOUCH = 88 / L;   // 矢じりの先どうしが触れる距離（矢じりは中心から前へ 44）
-    const FIGHT = 0.3;      // 戦う秒数
+    const FIGHT = 0.3;      // 戦う秒数（にらみ合いの秒数も t.fight で数える）
+    const GLARE = 1;        // にらみ合って止まる秒数の下限（1〜2 秒）
     const HOLD = 0.6;       // ゴールで止まる秒数
-    const sparks = $('sparks');
-    const arrows = [
-        { id: 'white', start: 0, goal: 1, dir: 1 },
-        { id: 'brown', start: 1, goal: 0, dir: -1 },
-    ].map((a) => ({ ...a, s: a.start, hold: 0, line: $(`line-${a.id}`), head: $(`head-${a.id}`) }));
-    const [w, b] = arrows;
-    let fight = 0, loser = null, last = null;
+    const WAIT = 1.5;       // スタートで待つ秒数の上限
+    // 出直すたびに、速さ（1 秒に進む割合。端から端まで約 3〜7 秒）と、出るまでの待ちを決め直す
+    const launch = (a) => {
+        a.s = a.start;
+        a.speed = 0.14 + Math.random() * 0.21;
+        a.wait = Math.random() * WAIT;
+    };
+    const tracks = RULES_TRACKS.map((k) => {
+        const path = $(`track-${k}`);
+        const L = path.getTotalLength();
+        const arrows = [
+            { id: 'white', start: 0, goal: 1, dir: 1 },
+            { id: 'brown', start: 1, goal: 0, dir: -1 },
+        ].map((a) => ({ ...a, hold: 0, line: $(`line-${a.id}-${k}`), head: $(`head-${a.id}-${k}`) }));
+        arrows.forEach(launch);
+        return {
+            path, L, arrows,
+            touch: 53 / L,  // 駒どうしが触れる距離（駒は半径 24 に縁の半分）
+            sparks: $(`sparks-${k}`),
+            fight: 0, spark: false, loser: null, gap: 1,
+        };
+    });
+    let last = null;
 
-    const clamp = (x) => Math.min(1, Math.max(0, x));
-    const at = (s) => track.getPointAtLength(clamp(s) * L);
-    const draw = () => {
-        for (const a of arrows) {
-            // 線はスタートから矢じりまで。白は 0 → s、茶色は s → 1。長さ 0 では丸い端が点に見えるので隠す
+    const draw = (t) => {
+        const at = (s) => t.path.getPointAtLength(Math.min(1, Math.max(0, s)) * t.L);
+        for (const a of t.arrows) {
+            // 線はスタートから駒まで。白は 0 → s、茶色は s → 1。長さ 0 では丸い端が点に見えるので隠す
             const len = Math.abs(a.s - a.start);
             a.line.setAttribute('visibility', len < 0.005 ? 'hidden' : 'visible');
             a.line.setAttribute('stroke-dasharray', `${len} 3`);
             a.line.setAttribute('stroke-dashoffset', a.dir > 0 ? 0 : -a.s);
-            const p = at(a.s), p0 = at(a.s - 0.002), p1 = at(a.s + 0.002);
-            const deg = Math.atan2(p1.y - p0.y, p1.x - p0.x) * 180 / Math.PI + (a.dir < 0 ? 180 : 0);
-            const jx = fight > 0 ? (Math.random() - 0.5) * 16 : 0, jy = fight > 0 ? (Math.random() - 0.5) * 16 : 0;
-            a.head.setAttribute('transform', `translate(${p.x + jx} ${p.y + jy}) rotate(${deg})`);
-            a.head.setAttribute('visibility', 'visible');
+            const p = at(a.s);
+            const shake = t.fight > 0 && t.spark;
+            const jx = shake ? (Math.random() - 0.5) * 12 : 0, jy = shake ? (Math.random() - 0.5) * 12 : 0;
+            a.head.setAttribute('transform', `translate(${p.x + jx} ${p.y + jy})`);
+            a.head.setAttribute('visibility', a.wait > 0 ? 'hidden' : 'visible');  // スタートで待っている間は盤に出さない
         }
-        if (fight <= 0) { sparks.innerHTML = ''; return; }
-        // 火花: 2 つの矢じりの間から、ランダムな向きに線を飛ばし、光の輪を明滅させる
-        const p = at((w.s + b.s) / 2);
-        let html = `<circle cx="${p.x}" cy="${p.y}" r="${30 + Math.random() * 40}" fill="#fff" opacity="${0.2 + Math.random() * 0.3}"/>`;
+        if (t.fight <= 0) { t.sparks.innerHTML = ''; return; }
+        const [w, b] = t.arrows;
+        const m = (w.s + b.s) / 2, p = at(m);
+        if (!t.spark) {
+            // にらみ合い: 2 つの駒の間に、線を横切るレンガの壁を立てる。幅 36・高さ 48 で、3 段を互い違いに積む。
+            // 縁取りまで入れて中心から 26。隣の U 字の駒の縁（間隔 60 − 半径 26.5 = 33.5）まで、火花で揺れる 6 より広く空ける
+            const p0 = at(m - 0.002), p1 = at(m + 0.002);
+            const deg = Math.atan2(p1.y - p0.y, p1.x - p0.x) * 180 / Math.PI;
+            const bricks = [[-18, -24, 18], [0, -24, 18], [-18, -8, 9], [-9, -8, 18], [9, -8, 9], [-18, 8, 18], [0, 8, 18]]
+                .map(([x, y, w]) => `<rect x="${x}" y="${y}" width="${w}" height="16" fill="#dc2626" stroke="#f8fafc" stroke-width="3"/>`).join('');
+            t.sparks.innerHTML = `<g transform="translate(${p.x} ${p.y}) rotate(${deg})">${bricks}
+                <rect x="-18" y="-24" width="36" height="48" fill="none" stroke="#020617" stroke-width="4"/></g>`;
+            return;
+        }
+        // 火花: 2 つの駒の間から、ランダムな向きに線を飛ばし、光の輪を明滅させる
+        let html = `<circle cx="${p.x}" cy="${p.y}" r="${20 + Math.random() * 30}" fill="#fff" opacity="${0.2 + Math.random() * 0.3}"/>`;
         for (let i = 0; i < 10; i++) {
-            const r = Math.random() * 2 * Math.PI, r1 = 20 + Math.random() * 20, r2 = 60 + Math.random() * 70;
-            html += `<line x1="${p.x + Math.cos(r) * r1}" y1="${p.y + Math.sin(r) * r1}" x2="${p.x + Math.cos(r) * r2}" y2="${p.y + Math.sin(r) * r2}" stroke="${i % 2 ? '#fde047' : '#fff'}" stroke-width="${6 + Math.random() * 4}" stroke-linecap="round"/>`;
+            const r = Math.random() * 2 * Math.PI, r1 = 15 + Math.random() * 15, r2 = 45 + Math.random() * 50;
+            html += `<line x1="${p.x + Math.cos(r) * r1}" y1="${p.y + Math.sin(r) * r1}" x2="${p.x + Math.cos(r) * r2}" y2="${p.y + Math.sin(r) * r2}" stroke="${i % 2 ? '#fde047' : '#fff'}" stroke-width="${4 + Math.random() * 3}" stroke-linecap="round"/>`;
         }
-        sparks.innerHTML = html;
+        t.sparks.innerHTML = html;
     };
 
     // 動きを減らす設定なら、向かい合った途中の形で止めて見せる
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        w.s = 0.45; b.s = 0.55; draw(); return;
+        for (const t of tracks) { t.arrows[0].s = 0.45; t.arrows[1].s = 0.55; t.arrows.forEach((a) => { a.wait = 0; }); draw(t); }
+        return;
     }
 
-    const frame = (t) => {
-        if (!svg.isConnected) return;
-        const dt = last === null ? 0 : Math.min((t - last) / 1000, 0.05);  // 1 フレームで進めるのは 0.05 秒まで。タブを離れていた間は飛ばし、遅い端末ではゆっくり動く
-        last = t;
-        if (fight > 0) {
-            fight -= dt;
-            if (fight <= 0) loser.s = loser.start;
-        } else {
-            for (const a of arrows) {
-                if (a.hold > 0) {
-                    a.hold -= dt;
-                    if (a.hold <= 0) a.s = a.start;
-                    continue;
-                }
-                a.s += a.dir * SPEED * dt;
-                if ((a.goal - a.s) * a.dir <= 0) { a.s = a.goal; a.hold = HOLD; }
-            }
-            // 向かい合って近づいたときだけぶつかる（すれ違ったあとや、ゴールで止まっている間は戦わない）
-            const gap = b.s - w.s;
-            if (w.hold <= 0 && b.hold <= 0 && gap >= 0 && gap <= TOUCH) {
-                fight = FIGHT;
-                loser = Math.random() < 0.5 ? w : b;
-            }
+    const step = (t, dt) => {
+        if (t.fight > 0) {
+            t.fight -= dt;
+            if (t.fight <= 0) launch(t.loser);
+            return;
         }
-        draw();
+        for (const a of t.arrows) {
+            if (a.hold > 0) {
+                a.hold -= dt;
+                if (a.hold <= 0) launch(a);
+                continue;
+            }
+            // 相手が自分のスタート（相手のゴール）で止まっている間は、待ちを進めない（重なって出ないように）
+            if (a.wait > 0) { if (t.arrows.every((o) => o.hold <= 0)) a.wait -= dt; continue; }
+            a.s += a.dir * a.speed * dt;
+            if ((a.goal - a.s) * a.dir <= 0) { a.s = a.goal; a.hold = HOLD; }
+        }
+        // 向かい合って近づいたときだけぶつかる（すれ違ったあと、ゴールで止まっている間、スタートで待っている間は戦わない）。
+        // 遅い端末では 1 フレームで touch より多く縮むので、前のフレームで向かい合っていれば、追い越していても戦わせる
+        const [w, b] = t.arrows;
+        const gap = b.s - w.s, prev = t.gap;
+        t.gap = gap;
+        if (w.hold <= 0 && b.hold <= 0 && w.wait <= 0 && b.wait <= 0 && prev >= 0 && gap <= t.touch) {
+            // 半々で、火花を散らして戦うか、壁を立てて 1〜2 秒にらみ合って止まる。どちらも負けたほうが出直す
+            t.spark = Math.random() < 0.5;
+            t.fight = t.spark ? FIGHT : GLARE + Math.random();
+            // にらみ合いは止まって見えるので、駒の縁が壁に付く位置まで引き離す（重なったまま見えないように）
+            if (!t.spark) {
+                const m = (w.s + b.s) / 2, half = 49 / t.L;  // 駒の半径 26.5（縁まで）+ 壁の幅の半分 20（縁取りまで）+ すき間 2.5
+                w.s = Math.max(0, m - half);
+                b.s = Math.min(1, m + half);
+            }
+            t.loser = Math.random() < 0.5 ? w : b;
+        }
+    };
+
+    const frame = (time) => {
+        if (!svg.isConnected) return;
+        const dt = last === null ? 0 : Math.min((time - last) / 1000, 0.05);  // 1 フレームで進めるのは 0.05 秒まで。タブを離れていた間は飛ばし、遅い端末ではゆっくり動く
+        last = time;
+        for (const t of tracks) { step(t, dt); draw(t); }
         requestAnimationFrame(frame);
     };
     requestAnimationFrame(frame);
@@ -463,15 +518,16 @@ const slideData = [
         render: function() { setTimeout(() => { rulesBattle(); cueSay(document.getElementById('rules-say'), 13.2); }); return bgSlide(this, 'bg-cover.jpg', '黒と木目のボードに載ったダイスとダブリングキューブ', `
             <div class="flex items-center gap-[2.4cqw]">
                 <!-- 盤の写真に、駒の進む向きを重ねる。白は右上 → 左 → 右下のゴール（緑）、
-                     茶色は右下 → 左 → 右上のゴール（オレンジ）。参考の動画のように矢じりごと伸ばし（TODO-071）、
-                     同じ U 字の上でぶつかって戦わせる（TODO-072。動きは rulesBattle） -->
+                     茶色は右下 → 左 → 右上のゴール（オレンジ）。参考の動画のように線の先ごと伸ばし（TODO-071。先は駒の絵。TODO-096）、
+                     U 字の上でぶつかって戦わせる（TODO-072。動きは rulesBattle）。U 字は入れ子に 3 本（TODO-096） -->
                 <figure class="relative m-0 shrink-0 w-[44cqw]">
                     <img src="images/bg-rules-board.jpg" alt="真上から見た、初期配置のバックギャモンの盤" class="w-full aspect-[3/2] object-cover rounded-xl border border-slate-600 shadow-2xl shadow-slate-950/70">
                     <svg id="rules-svg" viewBox="0 0 1130 750" class="absolute inset-0 w-full h-full" aria-hidden="true">
-                        <path id="rules-track" d="${RULES_TRACK}" fill="none"/>
-                        ${rulesArrow('white', '#a3e635')}
-                        ${rulesArrow('brown', '#fb923c')}
-                        <g id="rules-sparks"></g>
+                        ${RULES_TRACKS.map((k) => `
+                        <path id="rules-track-${k}" d="${rulesTrack(k)}" fill="none"/>
+                        ${rulesArrow('white', k, '#a3e635')}
+                        ${rulesArrow('brown', k, '#fb923c')}
+                        <g id="rules-sparks-${k}"></g>`).join('')}
                     </svg>
                     <div class="absolute right-[0.4cqw] top-[0.6cqw] rounded-md bg-orange-400 px-[0.7cqw] py-[0.2cqw] font-bold text-slate-950" style="font-size: 1.5cqw;">ゴール</div>
                     <div class="absolute right-[0.4cqw] bottom-[0.6cqw] rounded-md bg-lime-400 px-[0.7cqw] py-[0.2cqw] font-bold text-slate-950" style="font-size: 1.5cqw;">ゴール</div>
